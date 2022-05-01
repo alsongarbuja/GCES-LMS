@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { InputField, SubmitButton } from '../../components/form/Fields'
 import UserLayout from '../../layouts/UserLayout'
 import '../../styles/form/authform.css'
@@ -13,7 +14,7 @@ const ResetPassword = () => {
             <InputField name="confirm-password" text="Confirm Password" type="password" onChange={()=>{}}/>
             <SubmitButton text="Set new password" />
           </form>
-          <p>Cancel</p>
+          <p><Link to={'/auth/login'}>Cancel</Link></p>
         </div>
       </main>
     </UserLayout>

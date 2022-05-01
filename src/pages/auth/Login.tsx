@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import {InputField, SubmitButton} from "../../components/form/Fields"
 import UserLayout from "../../layouts/UserLayout"
 import '../../styles/form/authform.css'
@@ -13,8 +14,8 @@ const Login = () => {
             <InputField name="password" text="Password" type="password" onChange={()=>{}}/>
             <SubmitButton text="Log in" />
           </form>
-          <p>Don't have account? Register</p>
-          <p>Forgot Password?</p>
+          <p><Link to={'/auth/register'}>Don't have account? Register</Link></p>
+          <p><Link to={'/auth/forgot-password'}>Forgot Password?</Link></p>
         </div>
       </main>
     </UserLayout>

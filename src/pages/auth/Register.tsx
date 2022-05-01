@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { InputField, SubmitButton } from '../../components/form/Fields'
 import UserLayout from '../../layouts/UserLayout'
 import '../../styles/form/authform.css'
@@ -14,8 +15,8 @@ const Register = () => {
             <InputField name="confirm-password" text="Confirm Password" type="password" onChange={()=>{}}/>
             <SubmitButton text="Register" />
           </form>
-          <p>Already have account? Login</p>
-          <p>Forgot Password?</p>
+          <p><Link to={'/auth/login'}>Already have account? Login</Link></p>
+          <p><Link to={'/auth/forgot-password'}>Forgot Password?</Link></p>
         </div>
       </main>
     </UserLayout>

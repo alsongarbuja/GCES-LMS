@@ -1,6 +1,7 @@
 import UserLayout from '../../layouts/UserLayout'
 import { InputField, SubmitButton } from '../../components/form/Fields'
 import '../../styles/form/authform.css'
+import { Link } from 'react-router-dom'
 
 const ForgotPassword = () => {
   return (
@@ -12,7 +13,7 @@ const ForgotPassword = () => {
             <InputField name="email" text="Your Email" type="email" placeholder="Enter your email address" onChange={()=>{}}/>
             <SubmitButton text="Send Reset Link" />
           </form>
-          <p>Got Password? Login</p>
+          <p><Link to={'/auth/login'}>Got password? Login</Link></p>
         </div>
       </main>
     </UserLayout>
