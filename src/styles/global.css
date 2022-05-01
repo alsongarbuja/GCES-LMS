@@ -108,6 +108,9 @@ body {
 	align-items: center;
   gap: 1em;
 }
+.justify-space-between{
+  justify-content: space-between;
+}
 .row {
 	display: grid;
 	grid-template-columns: repeat(12, 1fr);
@@ -122,4 +125,7 @@ body {
 }
 .hover-effect {
 	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.accent-light{
+  color: var(--clr-accent-light);
 }
