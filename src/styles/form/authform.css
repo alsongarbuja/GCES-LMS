@@ -1,0 +1,14 @@
+.auth-form{
+    background-color: var(--clr-light);
+    padding: 2em;
+    margin: auto;
+    width: 30%;
+}
+.auth-form h2{
+    text-align: center;
+}
+.auth-form p{
+    text-align: center;
+    font-weight: 500;
+    margin: 2em 0;
+}
