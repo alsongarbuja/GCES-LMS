@@ -123,8 +123,8 @@ body {
 	margin: 1em;
 	padding: 2em;
 }
-.hover-effect {
-	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+.box-shadow {
+	box-shadow: rgba(44, 46, 47, 0.801) 0px 7px 20px;
 }
 .accent-light{
   color: var(--clr-accent-light);
@@ -134,6 +134,7 @@ body {
   border: none;
   outline: none;
   color: var(--clr-light);
+  cursor: pointer;
 }
 .btn-accent{
   background-color: var(--clr-accent);
@@ -143,4 +144,7 @@ body {
 }
 .btn-danger{
   background-color: var(--clr-danger);
+}
+.text-success{
+  color: var(--clr-success);
 }
