@@ -1,10 +1,10 @@
-
+import '../styles/layout/header.css'
 const UserHeader = () => {
   return (
-    <header className="flex">
-        <div className="some">
+    <header className="flex justify-space-between">
+        <div className="brand">
             <span className="logo">LOGO</span>
-            <div className="company-name">GCES Library Management System</div>
+            <span className="company-name">GCES Library Management System</span>
         </div>
         <span className="mode">Mode</span>
     </header>
