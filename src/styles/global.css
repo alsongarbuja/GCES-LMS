@@ -81,20 +81,24 @@ select {
 /* custom properties */
 :root {
 	--clr-primary: hsl(180, 41, 97);
-	--clr-secondary: hsl(172, 51%, 42%);
+	/* --clr-secondary: hsl(172, 51%, 42%); */
 	--clr-accent: hsl(209, 55, 45);
-    --clr-accent-light: hsl(202, 83, 55);
-	--clr-light: rgb(1, 0, 0);
+  --clr-accent-light: hsl(202, 83, 55);
+	--clr-light: rgb(250, 250, 250);
 	--clr-dark: rgba(24,24,24,1);
 	--clr-neutral: hsl(0, 0%, 91%);
-    --clr-success: hsl(140, 55, 45);
-    --clr-danger: hsl(349, 81, 53);
-    --clr-danger-light: hsl(356, 97, 63);
+  --clr-success: hsl(140, 55, 45);
+  --clr-danger: hsl(349, 81, 53);
+  --clr-danger-light: hsl(356, 97, 63);
 	
-	--fnt-family: 'Poppins', sans-serif;
+	/* --fnt-family: 'Poppins', sans-serif; */
 	--fnt-heading: 2rem;
 	--fnt-body: 1rem;
 	--fnt-subtitle: .75rem;	
+}
+
+body {
+  background-color: var(--clr-primary);
 }
 
 /* utility classes */
@@ -102,6 +106,7 @@ select {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+  gap: 1em;
 }
 .row {
 	display: grid;
