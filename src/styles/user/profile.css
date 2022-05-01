@@ -1,0 +1,19 @@
+.box-section{
+    background-color: var(--clr-light);
+    margin-bottom: 2em !important;
+}
+.book-list .single-book{
+    margin-bottom: 0em;
+}
+.general-section{
+    text-align: center;
+}
+.general-section img{
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    margin: 1em auto;
+}
+.back-wrapper{
+    text-align: start;
+}
