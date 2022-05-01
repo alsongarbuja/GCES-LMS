@@ -1,7 +1,7 @@
 import '../styles/layout/footer.css'
 const Footer = () => {
   return (
-    <footer>Made By - <span className='accent-light'>2018 Batch</span></footer>
+    <footer>Made By - <b className='accent-light'>2018 Batch</b></footer>
   )
 }
 
