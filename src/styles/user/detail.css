@@ -1,0 +1,22 @@
+.detail-section{
+    background-color: var(--clr-light);
+    padding: 2em;
+}
+.back-wrapper{
+    padding-block: 1em;
+}
+.back-wrapper span{
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+.book-detail h3{
+    text-decoration: underline;
+    margin-bottom: 1em;
+}
+.book-detail p{
+    margin-bottom: 1em;
+}
+.request-btn{
+    margin-top: 2em;
+    width: 100%;
+}
