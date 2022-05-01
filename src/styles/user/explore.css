@@ -1,0 +1,18 @@
+.book-list{
+    padding-block: 1em;
+}
+ul{
+    list-style: none;
+    padding: 0;
+}
+ul .single-book{
+    margin-block-end: 2em;
+    background-color: var(--clr-light);
+    padding: .75em;
+}
+.single-book span{
+    font-size: 1.5rem;
+}
+.load-wrapper{
+    text-align: center;
+}
