@@ -1,10 +1,11 @@
-import Login from "./pages/auth/Login";
+import { BrowserRouter } from "react-router-dom";
+import AppRoute from "./AppRoute";
 
 function App() {
   return (
-    <div className="App">
-      <Login />
-    </div>
+    <BrowserRouter>
+      <AppRoute/>
+    </BrowserRouter>
   );
 }
 
