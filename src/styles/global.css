@@ -129,3 +129,18 @@ body {
 .accent-light{
   color: var(--clr-accent-light);
 }
+.btn{
+  padding: .75em;
+  border: none;
+  outline: none;
+  color: var(--clr-light);
+}
+.btn-accent{
+  background-color: var(--clr-accent);
+}
+.btn-success{
+  background-color: var(--clr-success);
+}
+.btn-danger{
+  background-color: var(--clr-danger);
+}
