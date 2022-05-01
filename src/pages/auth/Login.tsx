@@ -13,7 +13,8 @@ const Login = () => {
             <InputField name="password" text="Password" type="password" onChange={()=>{}}/>
             <SubmitButton text="Log in" />
           </form>
-          <p>Forgot Password ?</p>
+          <p>Don't have account? Register</p>
+          <p>Forgot Password?</p>
         </div>
       </main>
     </UserLayout>
