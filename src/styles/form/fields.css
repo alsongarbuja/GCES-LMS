@@ -1,0 +1,18 @@
+.form-group{
+    margin-block: 1em;
+}
+.form-group label{
+    font-weight: 500;
+    display: block;
+    margin-bottom: .5em;
+}
+.form-group input{
+    width: 100%;
+    background-color: rgba(165, 167, 168, 0.23);
+    border: 1px solid var(--clr-neutral);
+    padding: .75em;
+}
+.submit-btn{
+    width: 100%;
+    margin-top: 3em;
+}
