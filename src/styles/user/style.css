@@ -1,0 +1,16 @@
+.box-section{
+    width: 85%;
+    margin: auto;
+    padding: 1em;
+}
+.profile-fab{
+    position: fixed;
+    bottom: 10%;
+    right: 50px;
+    border-radius: 50%;
+    background-color: var(--clr-accent);
+    color: var(--clr-light);
+    font-size: 1.5rem;
+    padding: .5em .85em;
+    cursor: pointer;
+}
