@@ -80,16 +80,16 @@ select {
 
 /* custom properties */
 :root {
-	--clr-primary: hsl(180, 41, 97);
+	--clr-primary: rgb(243, 250, 250);
 	/* --clr-secondary: hsl(172, 51%, 42%); */
-	--clr-accent: hsl(209, 55, 45);
-  --clr-accent-light: hsl(202, 83, 55);
+	--clr-accent: rgb(52, 117, 178);
+  --clr-accent-light: rgb(45, 166, 235);
 	--clr-light: rgb(250, 250, 250);
 	--clr-dark: rgba(24,24,24,1);
-	--clr-neutral: hsl(0, 0%, 91%);
-  --clr-success: hsl(140, 55, 45);
-  --clr-danger: hsl(349, 81, 53);
-  --clr-danger-light: hsl(356, 97, 63);
+	--clr-neutral: rgb(232, 232, 232);
+  --clr-success: rgb(52, 178, 94);
+  --clr-danger: rgb(232, 38, 74);
+  --clr-danger-light: rgb(252, 69, 81);
 	
 	/* --fnt-family: 'Poppins', sans-serif; */
 	--fnt-heading: 2rem;
