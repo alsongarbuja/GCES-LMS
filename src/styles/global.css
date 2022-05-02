@@ -84,7 +84,7 @@ select {
 	/* --clr-secondary: hsl(172, 51%, 42%); */
 	--clr-accent: rgb(52, 117, 178);
   --clr-accent-light: rgb(45, 166, 235);
-	--clr-light: rgb(250, 250, 250);
+	--clr-light: rgb(255, 255, 255);
 	--clr-dark: rgba(24,24,24,1);
 	--clr-neutral: rgb(232, 232, 232);
   --clr-success: rgb(52, 178, 94);
@@ -145,6 +145,7 @@ body {
 .btn-danger{
   background-color: var(--clr-danger);
 }
+.btn-full { width: 100%; margin-block-start: 2em; }
 .text-success{
   color: var(--clr-success);
 }
