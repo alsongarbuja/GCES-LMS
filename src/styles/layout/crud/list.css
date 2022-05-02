@@ -1,0 +1,15 @@
+.table {
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+}
+.table th, .table td {
+    padding: 1em;
+}
+.table thead {
+    border-bottom: 2px solid var(--clr-neutral);
+}
+.action-col button {
+    margin-inline-end: 1em;
+    padding: .5em 2em;
+}
