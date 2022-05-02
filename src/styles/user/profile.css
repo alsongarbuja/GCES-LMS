@@ -1,9 +1,9 @@
-.box-section{
+.profile-box-section{
     background-color: var(--clr-light);
     margin-bottom: 2em !important;
 }
-.book-list .single-book{
-    margin-bottom: 0em;
+.book-list .single-books{
+    margin-bottom: 1em;
 }
 .general-section{
     text-align: center;
