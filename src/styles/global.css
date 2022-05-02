@@ -100,6 +100,9 @@ select {
 body {
   background-color: var(--clr-primary);
 }
+::-webkit-scrollbar {
+  width: 3px;
+}
 
 /* utility classes */
 .flex {
@@ -111,6 +114,7 @@ body {
 .justify-space-between{
   justify-content: space-between;
 }
+.flex-start { justify-content: start; align-items: start; }
 .row {
 	display: grid;
 	grid-template-columns: repeat(12, 1fr);
@@ -148,4 +152,14 @@ body {
 .btn-full { width: 100%; margin-block-start: 2em; }
 .text-success{
   color: var(--clr-success);
+}
+.icons {
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+.content-section {
+  width: 80vw;
+  background-color: var(--clr-light);
+  padding: 2em;
+  margin-block: 1em;
 }
