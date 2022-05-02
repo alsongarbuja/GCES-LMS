@@ -1,0 +1,15 @@
+.sidebar {
+    background-color: var(--clr-light);
+    flex-direction: column;
+    padding: .5em 2em;
+    height: 91vh;
+    position: sticky;
+    top: 62px;
+    overflow-y: scroll;
+}
+.sidenav li {
+    margin-block-end: 1.5em;
+}
+.settings li {
+    margin-block: 1.5em;
+}
