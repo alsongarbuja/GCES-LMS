@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
+import UserLayout from './layouts/UserLayout'
 import ForgotPassword from './pages/auth/ForgotPassword'
 import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
@@ -30,11 +31,13 @@ const AuthRoutes = () => {
 
 const UserRoutes = () => {
   return(
-    <Routes>
-        <Route path="/explore" element={<Explore/>}/>
-        <Route path="/detail/:bookId" element={<BookDetail/>} />
-        <Route path="/profile" element={<Profile/>} />
-    </Routes>
+    <UserLayout>
+      <Routes>
+          <Route path="/explore" element={<Explore/>}/>
+          <Route path="/detail/:bookId" element={<BookDetail/>} />
+          <Route path="/profile" element={<Profile/>} />
+      </Routes>
+    </UserLayout>
   )
 }
 export default AppRoute
