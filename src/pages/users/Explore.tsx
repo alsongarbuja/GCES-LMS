@@ -1,13 +1,11 @@
-import UserLayout from '../../layouts/UserLayout'
-import '../../styles/user/style.css'
-import '../../styles/user/explore.css'
 import { Link } from 'react-router-dom'
 import ProfileFAB from '../../components/user/ProfileFAB'
+import '../../styles/user/style.css'
+import '../../styles/user/explore.css'
 
 const Explore = () => {
   return (
-    <UserLayout>
-      <main>
+    <main>
         <ProfileFAB/>
         <section className="box-section search-section">Search</section>
         <section className="box-section textbook-section">
@@ -70,8 +68,7 @@ const Explore = () => {
                 <div className='load-wrapper'><button className='btn btn-accent'>Load More</button></div>
             </div>
         </section>
-      </main>
-    </UserLayout>
+    </main>
   )
 }
 
