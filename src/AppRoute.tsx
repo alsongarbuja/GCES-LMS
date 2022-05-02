@@ -1,5 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
+import AdminLayout from './layouts/AdminLayout'
 import UserLayout from './layouts/UserLayout'
+import Dashboard from './pages/admin/Dashboard'
 import ForgotPassword from './pages/auth/ForgotPassword'
 import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
@@ -14,10 +16,10 @@ const AppRoute = () => {
         <Route path="/" element={<div>Welcome</div>}/>
         <Route path="/auth/*" element={<AuthRoutes/>} />
         <Route path="/user/*" element={<UserRoutes/>} />
+        <Route path="/admin/*" element={<AdminRoutes />} />
     </Routes>
   )
 }
-
 const AuthRoutes = () => {
   return(
     <Routes>
@@ -28,7 +30,6 @@ const AuthRoutes = () => {
     </Routes>
   )
 }
-
 const UserRoutes = () => {
   return(
     <UserLayout>
@@ -38,6 +39,15 @@ const UserRoutes = () => {
           <Route path="/profile" element={<Profile/>} />
       </Routes>
     </UserLayout>
+  )
+}
+const AdminRoutes = () => {
+  return (
+    <AdminLayout>
+      <Routes>
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </AdminLayout>
   )
 }
 export default AppRoute
