@@ -1,14 +1,16 @@
+import { FiBell } from 'react-icons/fi'
+import '../styles/layout/header.css'
 
 const AdminHeader = () => {
   return (
-    <header className="flex">
-        <div className="some">
+    <header className="flex justify-space-between admin-header">
+        <div className="brand">
             <span className="logo">LOGO</span>
-            <div className="company-name">GCES Library Management System</div>
+            <span className="company-name">GCES Library Management System</span>
         </div>
-        <div className="utils">
-            <span>Bell</span>
-            <span>Profile</span>
+        <div className="utils flex">
+            <FiBell className='icons' />
+            <div className="profile"></div>
         </div>
     </header>
   )
