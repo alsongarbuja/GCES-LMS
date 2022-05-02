@@ -1,0 +1,10 @@
+.dashboard-card {
+    background-color: var(--clr-light);
+    padding: 2em;
+    margin-block: 2em;
+    margin-inline-end: 2em;
+    width: 300px;
+}
+.card-detail p {
+    margin-bottom: .75em;
+}
