@@ -12,6 +12,9 @@ import BookDetail from './pages/users/BookDetail'
 import Explore from './pages/users/Explore'
 import Profile from './pages/users/Profile'
 import Borrows from './pages/admin/Borrows'
+import CategoryList from './pages/admin/category/CategoryList'
+import CategoryCreate from './pages/admin/category/CategoryCreate'
+import CategoryEdit from './pages/admin/category/CategoryEdit'
 
 const AppRoute = () => {
   return (
@@ -52,8 +55,19 @@ const AdminRoutes = () => {
         <Route path="/settings" element={<Settings />} />
         <Route path="/profile" element={<AdminProfile />} />
         <Route path="/borrows" element={<Borrows />} />
+        <Route path="/categories/*" element={<CategoryRoutes />} />
       </Routes>
     </AdminLayout>
   )
 }
+const CategoryRoutes = () => {
+  return(
+    <Routes>
+      <Route path='/' element={<CategoryList />}/>
+      <Route path='/add' element={<CategoryCreate />}/>
+      <Route path='/edit/:categoryId' element={<CategoryEdit />}/>
+    </Routes>
+  )
+}
+
 export default AppRoute
