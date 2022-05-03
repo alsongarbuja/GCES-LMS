@@ -26,11 +26,12 @@ import UserList from './pages/admin/user/UserList'
 import UserCreate from './pages/admin/user/UserCreate'
 import UserEdit from './pages/admin/user/UserEdit'
 import UserShow from './pages/admin/user/UserShow'
+import Landing from './pages/Landing'
 
 const AppRoute = () => {
   return (
     <Routes>
-        <Route path="/" element={<div>Welcome</div>}/>
+        <Route path="/" element={<Landing />}/>
         <Route path="/auth/*" element={<AuthRoutes/>} />
         <Route path="/user/*" element={<UserRoutes/>} />
         <Route path="/admin/*" element={<AdminRoutes />} />
