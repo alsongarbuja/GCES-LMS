@@ -18,6 +18,10 @@ import CategoryEdit from './pages/admin/category/CategoryEdit'
 import LimitCreate from './pages/admin/limit/LimitCreate'
 import LimitList from './pages/admin/limit/LimitList'
 import LimitEdit from './pages/admin/limit/LimitEdit'
+import BookList from './pages/admin/book/BookList'
+import BookCreate from './pages/admin/book/BookCreate'
+import BookEdit from './pages/admin/book/BookEdit'
+import BookShow from './pages/admin/book/BookShow'
 
 const AppRoute = () => {
   return (
@@ -60,6 +64,7 @@ const AdminRoutes = () => {
         <Route path="/borrows" element={<Borrows />} />
         <Route path="/categories/*" element={<CategoryRoutes />} />
         <Route path="/limit/*" element={<LimitRoutes />} />
+        <Route path="/books/*" element={<BookRoutes />} />
       </Routes>
     </AdminLayout>
   )
@@ -82,5 +87,14 @@ const LimitRoutes = () => {
     </Routes>
   )
 }
-
+const BookRoutes = () => {
+  return (
+    <Routes>
+      <Route path='/' element={<BookList />} />
+      <Route path='/add' element={<BookCreate />}/>
+      <Route path='/edit/:bookId' element={<BookEdit />}/>
+      <Route path='/show/:bookId' element={<BookShow />}/>
+    </Routes>
+  )
+}
 export default AppRoute
