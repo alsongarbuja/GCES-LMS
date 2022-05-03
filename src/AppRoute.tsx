@@ -22,6 +22,10 @@ import BookList from './pages/admin/book/BookList'
 import BookCreate from './pages/admin/book/BookCreate'
 import BookEdit from './pages/admin/book/BookEdit'
 import BookShow from './pages/admin/book/BookShow'
+import UserList from './pages/admin/user/UserList'
+import UserCreate from './pages/admin/user/UserCreate'
+import UserEdit from './pages/admin/user/UserEdit'
+import UserShow from './pages/admin/user/UserShow'
 
 const AppRoute = () => {
   return (
@@ -65,6 +69,7 @@ const AdminRoutes = () => {
         <Route path="/categories/*" element={<CategoryRoutes />} />
         <Route path="/limit/*" element={<LimitRoutes />} />
         <Route path="/books/*" element={<BookRoutes />} />
+        <Route path="/users/*" element={<UsersRoutes />} />
       </Routes>
     </AdminLayout>
   )
@@ -94,6 +99,16 @@ const BookRoutes = () => {
       <Route path='/add' element={<BookCreate />}/>
       <Route path='/edit/:bookId' element={<BookEdit />}/>
       <Route path='/show/:bookId' element={<BookShow />}/>
+    </Routes>
+  )
+}
+const UsersRoutes = () => {
+  return (
+    <Routes>
+      <Route path='/' element={<UserList />} />
+      <Route path='/add' element={<UserCreate/>}/>
+      <Route path='/edit/:userId' element={<UserEdit />}/>
+      <Route path='/show/:userId' element={<UserShow />}/>
     </Routes>
   )
 }
