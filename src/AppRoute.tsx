@@ -27,11 +27,13 @@ import UserCreate from './pages/admin/user/UserCreate'
 import UserEdit from './pages/admin/user/UserEdit'
 import UserShow from './pages/admin/user/UserShow'
 import Landing from './pages/Landing'
+import Credit from './pages/Credit'
 
 const AppRoute = () => {
   return (
     <Routes>
         <Route path="/" element={<Landing />}/>
+        <Route path="/credit" element={<Credit />}/>
         <Route path="/auth/*" element={<AuthRoutes/>} />
         <Route path="/user/*" element={<UserRoutes/>} />
         <Route path="/admin/*" element={<AdminRoutes />} />
