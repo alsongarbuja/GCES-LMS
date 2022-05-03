@@ -153,6 +153,10 @@ a {
 .btn-danger{
   background-color: var(--clr-danger);
 }
+.btn-dark{
+  background-color: var(--clr-dark);
+  color: var(--clr-light);
+}
 .btn-full { width: 100%; margin-block-start: 2em; }
 .text-success{
   color: var(--clr-success);
