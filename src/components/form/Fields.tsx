@@ -22,3 +22,26 @@ export const SubmitButton = ({text}: {text: string}) => {
         <button type="submit" className="btn submit-btn btn-accent">{text}</button>
     )
 }
+
+export const Select = ({text, name, options}: {
+    text: string,
+    name: string,
+    options: {
+        value: string,
+        option: string,
+        selected: boolean,
+    }[]
+}) => {
+    return(
+        <div className="form-group">
+            <label>{text}</label>
+            <select name={name}>
+                {
+                    options.map((op, i) => (
+                        <option key={i} value={op.value} selected={op.selected}>{op.option}</option>
+                    ))
+                }
+            </select>
+        </div>
+    )
+}
