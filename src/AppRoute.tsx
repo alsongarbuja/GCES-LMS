@@ -2,6 +2,8 @@ import { Route, Routes } from 'react-router-dom'
 import AdminLayout from './layouts/AdminLayout'
 import UserLayout from './layouts/UserLayout'
 import Dashboard from './pages/admin/Dashboard'
+import Settings from './pages/admin/Settings'
+import AdminProfile from './pages/admin/Profile'
 import ForgotPassword from './pages/auth/ForgotPassword'
 import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
@@ -46,6 +48,8 @@ const AdminRoutes = () => {
     <AdminLayout>
       <Routes>
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/profile" element={<AdminProfile />} />
       </Routes>
     </AdminLayout>
   )
