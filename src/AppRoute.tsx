@@ -15,6 +15,9 @@ import Borrows from './pages/admin/Borrows'
 import CategoryList from './pages/admin/category/CategoryList'
 import CategoryCreate from './pages/admin/category/CategoryCreate'
 import CategoryEdit from './pages/admin/category/CategoryEdit'
+import LimitCreate from './pages/admin/limit/LimitCreate'
+import LimitList from './pages/admin/limit/LimitList'
+import LimitEdit from './pages/admin/limit/LimitEdit'
 
 const AppRoute = () => {
   return (
@@ -56,6 +59,7 @@ const AdminRoutes = () => {
         <Route path="/profile" element={<AdminProfile />} />
         <Route path="/borrows" element={<Borrows />} />
         <Route path="/categories/*" element={<CategoryRoutes />} />
+        <Route path="/limit/*" element={<LimitRoutes />} />
       </Routes>
     </AdminLayout>
   )
@@ -66,6 +70,15 @@ const CategoryRoutes = () => {
       <Route path='/' element={<CategoryList />}/>
       <Route path='/add' element={<CategoryCreate />}/>
       <Route path='/edit/:categoryId' element={<CategoryEdit />}/>
+    </Routes>
+  )
+}
+const LimitRoutes = () => {
+  return(
+    <Routes>
+      <Route path='/' element={<LimitList />}/>
+      <Route path='/add' element={<LimitCreate />}/>
+      <Route path='/edit/:limitId' element={<LimitEdit />}/>
     </Routes>
   )
 }
