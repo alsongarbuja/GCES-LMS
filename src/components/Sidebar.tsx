@@ -1,37 +1,34 @@
-import { FiLayout, FiBook, FiLayers, FiAlertCircle, FiUsers, FiSliders, FiLogOut, FiBookmark } from 'react-icons/fi'
+import { Link, useLocation } from 'react-router-dom'
+import { sidemenus, utilmenus } from '../utils/sidebar'
 import '../styles/layout/sidebar.css'
 
 const Sidebar = () => {
+
+  const { pathname } = useLocation()
+  
   return (
     <nav className="flex justify-space-between sidebar">
         <ul className="sidenav">
-            <li>
-              <FiLayout className="icons" />
-            </li>
-            <li>
-              <FiBookmark className="icons" />
-            </li>
-            <li>
-              <FiBook className="icons" />
-            </li>
-            <li>
-              <FiLayers className="icons" />
-            </li>
-            <li>
-              <FiAlertCircle className="icons" />
-            </li>
-            <li>
-              <FiUsers className="icons" />
-            </li>
+          {
+            sidemenus.map(menu => (
+              <li key={menu.id}>
+                <Link to={menu.route} className={`${pathname===menu.route?'active-sidemenu':''}`}>
+                  {menu.icon}
+                </Link>
+              </li>
+            ))
+          }
         </ul>
         <ul className="settings">
-            <li>
-              <FiSliders className="icons" />
-            </li>
-            <li>
-              <FiLogOut className="icons" />
-              <h5>V 1.0</h5>
-            </li>
+          {
+            utilmenus.map(utilmenu => (
+              <li key={utilmenu.id}>
+                <Link to={utilmenu.route} className={`${pathname===utilmenu.route?'active-sidemenu':''}`}>
+                  {utilmenu.icon}
+                </Link>
+              </li>
+            ))
+          }
         </ul>
     </nav>
   )
