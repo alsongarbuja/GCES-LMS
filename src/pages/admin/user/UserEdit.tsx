@@ -13,6 +13,18 @@ const sem = [
         selected: true,
     }
 ];
+const faculty = [
+    {
+        value: 'software',
+        option: 'Software',
+        selected: true,
+    },
+    {
+        value: 'computer',
+        option: 'Computer',
+        selected: false,
+    }
+];
 
 const UserEdit = () => {
   return (
@@ -22,6 +34,7 @@ const UserEdit = () => {
                 <InputField name="name" text="Name" onChange={()=>{}} value="Alson Garbuja" />
                 <Select name="semester" text="Semester" options={sem} />
                 <InputField name="year" text="Batch" onChange={()=>{}} value="2018" />
+                <Select name="faculty" text="Faculty" options={faculty} />
             </div>
             <div className="col-6">
                 <InputField name="email" text="Email" type="email" onChange={()=>{}} value="be2018se607@gces.edu.np" />

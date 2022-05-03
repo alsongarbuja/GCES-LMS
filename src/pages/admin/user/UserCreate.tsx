@@ -13,6 +13,18 @@ const sem = [
         selected: false,
     }
 ];
+const faculty = [
+    {
+        value: 'software',
+        option: 'Software',
+        selected: false,
+    },
+    {
+        value: 'computer',
+        option: 'Computer',
+        selected: false,
+    }
+];
 
 const UserCreate = () => {
   return (
@@ -22,6 +34,7 @@ const UserCreate = () => {
                 <InputField name="name" text="Name" onChange={()=>{}} />
                 <Select name="semester" text="Semester" options={sem} />
                 <InputField name="year" text="Batch" onChange={()=>{}} />
+                <Select name="faculty" text="Faculty" options={faculty} />
             </div>
             <div className="col-6">
                 <InputField name="email" text="Email" type="email" onChange={()=>{}} />

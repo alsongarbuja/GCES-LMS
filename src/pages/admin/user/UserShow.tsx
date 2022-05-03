@@ -23,6 +23,9 @@ const UserShow = () => {
             </div>
             <div className="col-6">
                 <p>
+                    <b>Faculty : </b> Software
+                </p>
+                <p>
                     <b>Phone number : </b> 9825140801
                 </p>
                 <p>
