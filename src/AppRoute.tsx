@@ -11,6 +11,7 @@ import ResetPassword from './pages/auth/ResetPassword'
 import BookDetail from './pages/users/BookDetail'
 import Explore from './pages/users/Explore'
 import Profile from './pages/users/Profile'
+import Borrows from './pages/admin/Borrows'
 
 const AppRoute = () => {
   return (
@@ -50,6 +51,7 @@ const AdminRoutes = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/profile" element={<AdminProfile />} />
+        <Route path="/borrows" element={<Borrows />} />
       </Routes>
     </AdminLayout>
   )
