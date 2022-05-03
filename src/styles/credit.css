@@ -1,0 +1,20 @@
+.credit-main {
+    width: 80%;
+    margin: 1em auto;
+}
+.credit-card {
+    background-color: var(--clr-light);
+    padding: 1em;
+    justify-content: space-evenly !important;
+}
+.credit-details p {
+    margin-block: .5em;
+}
+.credit-details .icons {
+    margin-inline-end: 1em;
+}
+.credit-profile {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
