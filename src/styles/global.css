@@ -127,6 +127,9 @@ a {
 .col {
 	grid-column: span 2;
 }
+.col-6 {
+  grid-column: span 6;
+}
 .box {
 	margin: 1em;
 	padding: 2em;
