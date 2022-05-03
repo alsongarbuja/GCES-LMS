@@ -2,9 +2,9 @@
     background-color: var(--clr-light);
     flex-direction: column;
     padding: .5em 2em;
-    height: 91vh;
+    height: 90vh;
     position: sticky;
-    top: 62px;
+    top: 70px;
     overflow-y: scroll;
 }
 .sidenav li {
