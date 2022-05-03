@@ -13,3 +13,6 @@
 .settings li {
     margin-block: 1.5em;
 }
+.active-sidemenu {
+    color: var(--clr-accent);
+}
