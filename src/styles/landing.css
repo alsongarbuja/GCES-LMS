@@ -1,0 +1,29 @@
+.main-landing {
+    width: 60%;
+    height: 60vh;
+    margin: 4em auto 0 auto;
+}
+.main-landing h1 {
+    margin-block-end: .2em;
+}
+.main-landing p {
+    margin-block-end: 2em;
+}
+.main-landing h1 {
+    font-size: 3rem;
+}
+.accent-two {
+    color: var(--clr-accent-two);
+}
+.auth-btn--holder {
+    text-align: start;
+}
+.btn-auth {
+    width: 200px;
+    margin-inline-end: 1em;
+}
+.btn-border {
+    border: 1px solid var(--clr-accent) !important;
+    color: var(--clr-accent) !important;
+    background-color: var(--clr-light);
+}
