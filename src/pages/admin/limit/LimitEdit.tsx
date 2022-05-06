@@ -6,7 +6,7 @@ const LimitEdit = () => {
     <FormLayout title="Edit Limit" submitHandler={()=>{}} isEdit>
         <div className="form-row">
             <InputField name="limit" type="number" text="Limit" onChange={()=>{}} value="6"/>
-            <Select name="level" text="Level" options={[{value: 'bachelors', option: 'Bachelors', selected:false}, {value: 'masters', option: 'Masters', selected:true}]} />
+            <Select value="masters" name="level" text="Level" onChange={()=>{}} options={[{value: 'bachelors', option: 'Bachelors'}, {value: 'masters', option: 'Masters'}]} />
         </div>
     </FormLayout>
   )

@@ -5,24 +5,20 @@ const bookType = [
     {
         value: 'text-book',
         option: 'Text Book',
-        selected: true,
     },
     {
         value: 'reference',
         option: 'Reference',
-        selected: false,
     }
 ];
 const categories = [
     {
         value: '1-sem',
         option: '1st Semester',
-        selected: false,
     },
     {
         value: '5-sem',
         option: '5th Semester',
-        selected: false,
     }
 ];
 
@@ -42,8 +38,8 @@ const BookCreate = () => {
                 <InputField name="ISBN_number" text="ISBN Number" required={false} onChange={()=>{}} />
                 <InputField name="Barcode_number" text="Barcode Number" required={false} onChange={()=>{}} />
                 <InputField name="year" text="Year" type="number" onChange={()=>{}} />
-                <Select name="type" text="Type" options={bookType} />
-                <Select name="category" text="Semester" options={categories} />
+                <Select value="text-book" name="type" text="Type" options={bookType} onChange={()=>{}} />
+                <Select value="5-sem" name="category" text="Semester" options={categories} onChange={()=>{}} />
                 <div className="row"></div>
             </div>
         </div>

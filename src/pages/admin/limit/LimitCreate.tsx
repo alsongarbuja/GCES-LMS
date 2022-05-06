@@ -6,7 +6,7 @@ const LimitCreate = () => {
     <FormLayout title="Create Limit" submitHandler={()=>{}}>
         <div className="form-row">
             <InputField name="limit" type="number" text="Limit" onChange={()=>{}} />
-            <Select name="level" text="Level" options={[{value: 'bachelors', option: 'Bachelors', selected:false}, {value: 'masters', option: 'Masters', selected:false}]} />
+            <Select name="level" value="bachelors" text="Level" onChange={()=>{}} options={[{value: 'bachelors', option: 'Bachelors'}, {value: 'masters', option: 'Masters'}]} />
         </div>
     </FormLayout>
   )

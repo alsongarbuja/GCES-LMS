@@ -5,24 +5,20 @@ const sem = [
     {
         value: '1-sem',
         option: '1st Semester',
-        selected: false,
     },
     {
         value: '6-sem',
         option: '6th Semester',
-        selected: false,
     }
 ];
 const faculty = [
     {
         value: 'software',
         option: 'Software',
-        selected: false,
     },
     {
         value: 'computer',
         option: 'Computer',
-        selected: false,
     }
 ];
 
@@ -32,9 +28,9 @@ const UserCreate = () => {
         <div className="form-row row">
             <div className="col-6">
                 <InputField name="name" text="Name" onChange={()=>{}} />
-                <Select name="semester" text="Semester" options={sem} />
+                <Select name="semester" value="6-sem" text="Semester" options={sem} onChange={()=>{}} />
                 <InputField name="year" text="Batch" onChange={()=>{}} />
-                <Select name="faculty" text="Faculty" options={faculty} />
+                <Select name="faculty" value="software" text="Faculty" options={faculty} onChange={()=>{}} />
             </div>
             <div className="col-6">
                 <InputField name="email" text="Email" type="email" onChange={()=>{}} />
