@@ -6,6 +6,11 @@ const register = {
     email: Joi.string().required().email(),
     password: Joi.string().required().custom(password),
     name: Joi.string().required(),
+    batch: Joi.string().required(),
+    semester: Joi.string().required(),
+    regNo: Joi.string().required(),
+    faculty: Joi.valid('software', 'computer').required(),
+    phone: Joi.string().required(),
   }),
 };
 
