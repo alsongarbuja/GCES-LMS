@@ -9,7 +9,8 @@ export const InputField = ({
     onChange, 
     value = undefined, 
     required=true,
-    opt='', 
+    opt='',
+    error={ hasError: false, message: '' }
 }: {
     name: string,
     type?: string,
@@ -19,11 +20,16 @@ export const InputField = ({
     value?: string|number,
     required?: boolean,
     opt?: string,
+    error?: {
+        hasError: boolean,
+        message: string
+    }
 }) => {
     return(
         <div className={`form-group ${opt}`}>
             <label>{text}</label>
-            <input type={type} name={name} placeholder={placeholder} onChange={onChange} value={value} required={required}/>
+            <input className={`${error.hasError&&'input-error'}`} type={type} name={name} placeholder={placeholder} onChange={onChange} value={value} required={required}/>
+            {error.hasError&&<p className="text-danger">{error.message}</p>}
         </div>
     )
 }
@@ -34,7 +40,7 @@ export const SubmitButton = ({text}: {text: string}) => {
     )
 }
 
-export const Select = ({text, name, options, required=true, value, onChange}: {
+export const Select = ({text, name, options, required=true, value, onChange, opt=""}: {
     text: string,
     name: string,
     options: {
@@ -43,10 +49,11 @@ export const Select = ({text, name, options, required=true, value, onChange}: {
     }[],
     required?: boolean,
     value: string,
+    opt?: string,
     onChange: ChangeEventHandler,
 }) => {
     return(
-        <div className="form-group">
+        <div className={`form-group ${opt}`}>
             <label>{text}</label>
             <select name={name} required={required} value={value} onChange={onChange}>
                 {
