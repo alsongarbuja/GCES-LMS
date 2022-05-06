@@ -13,3 +13,9 @@
     font-weight: 500;
     margin: 2em 0;
 }
+.auth-form .row {
+    margin-block: 0;
+}
+.register-form {
+    width: 50%;
+}
