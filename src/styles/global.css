@@ -165,6 +165,9 @@ a {
 .text-success{
   color: var(--clr-success);
 }
+.text-danger{
+  color: var(--clr-danger);
+}
 .icons {
   font-size: 1.4rem;
   cursor: pointer;
@@ -177,4 +180,7 @@ a {
 }
 .mt-2{
   margin-top: 2em;
+}
+.p-0 {
+  padding: 0;
 }
