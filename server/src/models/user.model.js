@@ -39,6 +39,15 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    batch: {
+      type: String,
+      required: true,
+    },
+    faculty: {
+      type: String,
+      enum: ['software', 'computer'],
+      required: true,
+    },
     regNo: {
       type: String,
       required: true,
