@@ -1,5 +1,13 @@
 import axios from "axios"
 
+/**
+ * 
+ * @param method 
+ * @param endpoint 
+ * @param payload 
+ * @returns 
+ */
+// calls API to the provided end point
 export const universalAPI = async (method: string, endpoint: string,  payload: any = {}) => {
     let status: string = 'success'
     let data: any = {}
@@ -16,15 +24,15 @@ export const universalAPI = async (method: string, endpoint: string,  payload: a
     }).then(res => {
         data = res?.data.data
 
+        // add message if response contains any message
         if(res?.data.message)
             message = res?.data.message
     }).catch(err => {
+        status = 'error'
         if(err.response){
             data = err.response.data
             message = err.response.data.message
-            status = 'error'
         }else{
-            status = 'error'
             message = 'Connection error'
         }
     })

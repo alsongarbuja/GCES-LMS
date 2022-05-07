@@ -8,6 +8,8 @@ import '../../styles/form/authform.css'
 const Register = () => {
   
   const navigate = useNavigate()
+
+  // * state to hold the data for input fields in the form
   const [user, setUser] = useState({
     name: '',
     email: '',
@@ -19,17 +21,32 @@ const Register = () => {
     batch: '',
     faculty: 'software',
   })
+  // * state to hold the error if any
+  // ** @errorType - type of error (ex: password, email, etc)
+  // ** @message - hold the error message
   const [error, setError] = useState({
     errorType: '',
     message: '',
   })
 
+  /** 
+   * 
+   * @param e 
+  */
+  // handle input and select changes  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setUser(prev => ({...prev, [e.target.name]: e.target.value}))
 
+  /**
+   * 
+   * @param e 
+   */
+  // handle registering and catching errors
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    // check if the passwords match
     if(user.password===user.confirmPassword){
-      // register user
+      // check if the email is provided by GCES or not
       if(user.email.match(/^be20[0-9]{2}(s|c)e[0-9]{1,3}@gces.edu.np$/g)){
         const toSendUser = {
           name: user.name,
@@ -42,6 +59,7 @@ const Register = () => {
           faculty: user.faculty
         }
 
+        // call API for registering user
         const { status, message } = await universalAPI('POST', '/auth/register', toSendUser)
         
         if(status==='success'){
@@ -57,7 +75,7 @@ const Register = () => {
         setError(prev => ({
           ...prev,
           errorType: 'email',
-          message: 'Use the Bese email!!!'
+          message: 'Use the GCES email!!!'
         }))
         setUser(prev => ({ ...prev, email: '', password: '', confirmPassword: '' }))
       }
@@ -71,10 +89,12 @@ const Register = () => {
     }    
   }
 
+  // select options for fauclty
   const facultyOptions = [
     { value: 'software', option: 'Software' },
     { value: 'computer', option: 'Computer' },
   ]
+  // select options for semester
   const semOptions = [
     { value: '1', option: '1st Semester' },
     { value: '2', option: '2nd Semester' },
@@ -96,7 +116,7 @@ const Register = () => {
               <InputField opt="col-6" name="name" text="Full Name" onChange={handleChange} value={user.name} 
                 error={{ hasError: error.errorType==='name', message: error.message }}
               />
-              <InputField opt="col-6" name="email" text="Email" type="email" onChange={handleChange} value={user.email} placeholder="Use the Bese email"
+              <InputField opt="col-6" name="email" text="Email" type="email" onChange={handleChange} value={user.email} placeholder="Use the GCES email"
                 error={{ hasError: error.errorType==='email', message: error.message }}
               />
             </div>
