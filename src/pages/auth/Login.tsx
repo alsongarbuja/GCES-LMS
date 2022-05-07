@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { universalAPI } from "../../api/api"
 import {InputField, SubmitButton} from "../../components/form/Fields"
+import { setUserData } from "../../helper/cookies"
 import UserLayout from "../../layouts/UserLayout"
 import '../../styles/form/authform.css'
 
@@ -40,10 +41,29 @@ const Login = () => {
       const { data, status, message } = await universalAPI('POST', '/auth/login', user)
 
       if(status === 'success'){
-        // TODO: add cookies and redirect as role
-        console.log(data);
+        const {user, tokens} = data;
+        const userData = {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          batch: user.batch,
+          regNo: user.regNo,
+          phone: user.phone,
+          semester: user.semester,
+          faculty: user.faculty,
+          accessToken: tokens.access.token,
+        }
+        // add userData to cookies
+        setUserData(userData);
         
-        navigate('/admin/dashboard')
+        // navigate user based on their role
+        if(user.role === 'SYSTEM_ADMIN'){
+          navigate('/admin/dashboard')
+        }
+        else{
+          navigate('/user/explore')
+        }
+        
       }else{
         setError(prev => ({
           ...prev,
