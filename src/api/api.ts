@@ -22,8 +22,8 @@ export const universalAPI = async (method: string, endpoint: string,  payload: a
             'Content-Type': 'application/json',
         }
     }).then(res => {
-        data = res?.data.data
-
+        data = res?.data
+        
         // add message if response contains any message
         if(res?.data.message)
             message = res?.data.message
