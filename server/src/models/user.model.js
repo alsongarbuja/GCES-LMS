@@ -95,6 +95,11 @@ const userSchema = mongoose.Schema(
       type: Number,
       default: 0,
     },
+    role: {
+      type: String,
+      enum: ['SYSTEM_ADMIN', 'USER'],
+      default: 'USER',
+    },
     // isEmailVerified: {
     //   type: Boolean,
     //   default: false,
