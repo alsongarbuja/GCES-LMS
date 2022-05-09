@@ -1,9 +1,34 @@
 import { Link, useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+
 import '../../styles/user/style.css'
 import '../../styles/user/profile.css'
+import { getUserData } from '../../helper/cookies'
+// import { universalAPI } from '../../api/api'
 
 const Profile = () => {
     const navigate = useNavigate()
+    const [user] = useState(getUserData())
+    // const [bookList, setBookList] = useState({})
+    // const [isLoading, setIsLoading] = useState(true)
+    // const [hasError, setHasError] = useState(false)
+
+    // const getUserBooks = async () => {
+    //     const { data, status, message } = await universalAPI('GET', '/user/list')
+
+    //     if(status==='success'){
+
+    //     }else{
+    //         setHasError(true)
+    //     }
+
+    //     setIsLoading(false)
+    // }
+
+    useEffect(() => {
+        
+    }, [])
+
   return (
     <main>
         <section className="box-section profile-box-section general-section">
@@ -11,11 +36,11 @@ const Profile = () => {
                 <span onClick={()=>navigate(-1)}>&larr;</span>
             </div>
             <div className='book-detail'>
-                <img src="https://avatars.dicebear.com/api/big-ears-neutral/salipa-gurung.svg" alt="Salipa Gurung" />
-                <h4>Salipa Gurung</h4>
-                <p><i>be2018se624@gces.edu.np</i></p>
-                <p><i>9824545617</i></p>
-                <p><i>6th Semester (2018)</i></p>
+                <img src={`https://avatars.dicebear.com/api/big-ears-neutral/${user.name}.svg`} alt={`${user.name}`} />
+                <h4>{user.name}</h4>
+                <p><i>{user.email}</i></p>
+                <p><i>{user.phone}</i></p>
+                <p><i>{user.semester} Semester ({user.batch})</i></p>
             </div>
         </section>
         <section className="box-section profile-box-section yourbook-section">
