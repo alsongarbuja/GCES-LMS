@@ -36,8 +36,6 @@ const Login = () => {
   const submitHandle = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    // check if email is provided by GCES
-    if(user.email.match(/^be20[0-9]{2}(s|c)e[0-9]{1,3}@gces.edu.np$/g)){
       const { data, status, message } = await universalAPI('POST', '/auth/login', user)
 
       if(status === 'success'){
@@ -71,14 +69,6 @@ const Login = () => {
           message: message,
         }))
       }
-    }else{
-      setError(prev => ({
-        ...prev,
-        hasError: true,
-        message: 'Use the GCES email!!!',
-      }))
-      setUser(prev => ({...prev, email: ''}))
-    }
   }
 
   return (
@@ -89,7 +79,6 @@ const Login = () => {
           <form onSubmit={submitHandle}>
             <InputField name="email" text="Email" type="email" onChange={handleChange}
               error={{ ...error, message: '' }}
-              placeholder="Use the GCES email"
             />
             <InputField name="password" text="Password" type="password" onChange={handleChange}
               error={error}
