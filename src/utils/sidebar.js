@@ -1,4 +1,4 @@
-import { FiAlertCircle, FiBook, FiBookmark, FiLayers, FiLayout, FiLogOut, FiSliders, FiUsers } from 'react-icons/fi'
+import { FiAlertCircle, FiBook, FiBookmark, FiLayers, FiLayout, FiSliders, FiUsers } from 'react-icons/fi'
 
 export const sidemenus = [
     {
@@ -38,10 +38,5 @@ export const utilmenus = [
         id: '0',
         route: '/admin/settings',
         icon: <FiSliders className="icons" />
-    },
-    {
-        id: '1',
-        route: '#',
-        icon: <FiLogOut className="icons" />
     }
 ];

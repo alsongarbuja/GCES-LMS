@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react'
 
 import '../../styles/user/style.css'
 import '../../styles/user/profile.css'
-import { getUserData } from '../../helper/cookies'
+import { getUserData, removeUserData } from '../../helper/cookies'
+import { FiLogOut } from 'react-icons/fi'
 // import { universalAPI } from '../../api/api'
 
 const Profile = () => {
@@ -25,6 +26,11 @@ const Profile = () => {
     //     setIsLoading(false)
     // }
 
+    const logout = () => {
+        removeUserData()
+        navigate('/')
+    }
+
     useEffect(() => {
         
     }, [])
@@ -32,8 +38,9 @@ const Profile = () => {
   return (
     <main>
         <section className="box-section profile-box-section general-section">
-        <div className='back-wrapper'>
+            <div className='back-wrapper flex justify-space-between'>
                 <span onClick={()=>navigate(-1)}>&larr;</span>
+                <FiLogOut className="icons" onClick={logout} />
             </div>
             <div className='book-detail'>
                 <img src={`https://avatars.dicebear.com/api/big-ears-neutral/${user.name}.svg`} alt={`${user.name}`} />
