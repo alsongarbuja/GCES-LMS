@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { universalAPI } from "../../../api/api"
+import { deleteObj } from "../../../helper/delete"
 import TableLayout from "../../../layouts/crud/TableLayout"
 import { LimitModel } from "../../../types/models"
 
@@ -37,9 +38,9 @@ const LimitList = () => {
                             <td>{limit.quantity}</td>
                             <td>{limit.level}</td>
                             <td className="action-col">
-                                <button className="btn btn-danger">Delete</button>
+                                <button className="btn btn-danger" onClick={()=> deleteObj('limit', `/limit/${limit._id}`)}>Delete</button>
                                 <Link to={`show/${limit._id}`}><button className="btn btn-dark">Show</button></Link>
-                                <Link to={`edit/12345`}><button className="btn btn-accent">Edit</button></Link>
+                                <Link to={`edit/${limit._id}`}><button className="btn btn-accent">Edit</button></Link>
                             </td>
                         </tr>
                     ))
