@@ -17,7 +17,7 @@ const limitSchema = new mongoose.Schema({
         },
         type:{
             type:String,
-            enum:['reference', 'text-book'],
+            enum:['reference', 'text-book', 'others'],
             required:true,
         }
     }]

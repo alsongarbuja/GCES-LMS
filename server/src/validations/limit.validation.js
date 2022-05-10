@@ -3,7 +3,7 @@ const { objectId } = require('./custom.validation');
 
 const limitObject = {
   quantity: Joi.number().required(),
-  categories: Joi.array().required(),
+  level: Joi.string().valid('Bachelors', 'Masters').required(),
   sub_quantity: Joi.array(),
 }
 
@@ -24,7 +24,7 @@ const updateLimit = {
   body: Joi.object()
     .keys({
       quantity: Joi.number().optional(),
-      categories: Joi.array().optional(),
+      level: Joi.string().valid('Bachelors', 'Masters').optional(),
       sub_quantity: Joi.array().optional(),
     })
     .min(1),
