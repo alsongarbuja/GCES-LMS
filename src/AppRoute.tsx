@@ -28,6 +28,7 @@ import UserEdit from './pages/admin/user/UserEdit'
 import UserShow from './pages/admin/user/UserShow'
 import Landing from './pages/Landing'
 import Credit from './pages/Credit'
+import LimitShow from './pages/admin/limit/LimitShow'
 
 const AppRoute = () => {
   return (
@@ -92,6 +93,7 @@ const LimitRoutes = () => {
       <Route path='/' element={<LimitList />}/>
       <Route path='/add' element={<LimitCreate />}/>
       <Route path='/edit/:limitId' element={<LimitEdit />}/>
+      <Route path='/show/:limitId' element={<LimitShow />}/>
     </Routes>
   )
 }
