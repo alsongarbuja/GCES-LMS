@@ -34,3 +34,8 @@ export interface LimitModel {
         type: 'reference' | 'text-book' | 'others',
     }[]
 }
+
+export interface CategoryModel {
+    _id: string,
+    name: string,
+}
