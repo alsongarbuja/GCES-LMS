@@ -1,12 +1,14 @@
 const mongoose = require('mongoose');
- 
+
 const limitSchema = new mongoose.Schema({
     quantity:{
         type:Number,
         required:true,
     },
-    categories:{
-        type:[mongoose.SchemaTypes.ObjectId]
+    level:{
+        type: String,
+        enum: ['Bachelors', 'Masters'],
+        required: true,
     },
     sub_quantity:[{
         quantity:{
