@@ -1,7 +1,27 @@
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import { universalAPI } from "../../../api/api"
 import TableLayout from "../../../layouts/crud/TableLayout"
+import { LimitModel } from "../../../types/models"
 
 const LimitList = () => {
+
+    const [limits, setLimits] = useState<LimitModel[]>([])
+
+    const fetchLimits = async () => {
+        const { data, status, message } = await universalAPI('GET', '/limit')
+
+        if(status === 'success'){
+            setLimits(data)
+        }else{
+            console.error(message);
+        }
+    }
+
+    useEffect(() => {
+        fetchLimits()
+    }, [])
+
   return (
     <main>
         <div className="flex justify-space-between">
@@ -10,15 +30,20 @@ const LimitList = () => {
         </div>
         <TableLayout theads={['SN', 'Limit', 'Level']} >
             <tbody>
-                <tr>
-                    <th>1</th>
-                    <td>6</td>
-                    <td>Bachelors</td>
-                    <td className="action-col">
-                        <button className="btn btn-danger">Delete</button>
-                        <Link to={`edit/12345`}><button className="btn btn-accent">Edit</button></Link>
-                    </td>
-                </tr>
+                {
+                    limits.map((limit, i) => (
+                        <tr key={i}>
+                            <th>{i+1}</th>
+                            <td>{limit.quantity}</td>
+                            <td>{limit.level}</td>
+                            <td className="action-col">
+                                <button className="btn btn-danger">Delete</button>
+                                <Link to={`show/${limit._id}`}><button className="btn btn-dark">Show</button></Link>
+                                <Link to={`edit/12345`}><button className="btn btn-accent">Edit</button></Link>
+                            </td>
+                        </tr>
+                    ))
+                }
             </tbody>
         </TableLayout>
     </main>
