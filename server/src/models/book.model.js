@@ -52,8 +52,7 @@ const bookSchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        enum: ['reference','text-book'],
-        default: 'text-book',
+        enum: ['reference','text-book', 'others'],
     },
     author: {
         type: String,
