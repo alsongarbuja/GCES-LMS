@@ -151,6 +151,9 @@ a {
 .btn-accent{
   background-color: var(--clr-accent);
 }
+.btn-accent-two{
+  background-color: var(--clr-accent-two);
+}
 .btn-success{
   background-color: var(--clr-success);
 }
