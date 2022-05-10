@@ -29,6 +29,7 @@ import UserShow from './pages/admin/user/UserShow'
 import Landing from './pages/Landing'
 import Credit from './pages/Credit'
 import LimitShow from './pages/admin/limit/LimitShow'
+import NotFound from './pages/NotFound'
 
 const AppRoute = () => {
   return (
@@ -37,7 +38,9 @@ const AppRoute = () => {
         <Route path="/credit" element={<Credit />}/>
         <Route path="/auth/*" element={<AuthRoutes/>} />
         <Route path="/user/*" element={<UserRoutes/>} />
-        <Route path="/admin/*" element={<AdminRoutes />} />
+        <Route path="/admin/*" element={<AdminRoutes />} /> 
+
+        <Route path="*" element={<NotFound/>} />
     </Routes>
   )
 }
@@ -48,6 +51,8 @@ const AuthRoutes = () => {
         <Route path="/register" element={<Register/>} />
         <Route path="/forgot-password" element={<ForgotPassword/>} />
         <Route path="/reset-password" element={<ResetPassword/>} />
+
+        <Route path="*" element={<NotFound/>} />
     </Routes>
   )
 }
@@ -58,6 +63,8 @@ const UserRoutes = () => {
           <Route path="/explore" element={<Explore/>}/>
           <Route path="/detail/:bookId" element={<BookDetail/>} />
           <Route path="/profile" element={<Profile/>} />
+
+        <Route path="*" element={<NotFound/>} />
       </Routes>
     </UserLayout>
   )
@@ -74,6 +81,8 @@ const AdminRoutes = () => {
         <Route path="/limit/*" element={<LimitRoutes />} />
         <Route path="/books/*" element={<BookRoutes />} />
         <Route path="/users/*" element={<UsersRoutes />} />
+
+        <Route path="*" element={<NotFound/>} />
       </Routes>
     </AdminLayout>
   )
@@ -84,6 +93,8 @@ const CategoryRoutes = () => {
       <Route path='/' element={<CategoryList />}/>
       <Route path='/add' element={<CategoryCreate />}/>
       <Route path='/edit/:categoryId' element={<CategoryEdit />}/>
+
+      <Route path="*" element={<NotFound/>} />
     </Routes>
   )
 }
@@ -94,6 +105,8 @@ const LimitRoutes = () => {
       <Route path='/add' element={<LimitCreate />}/>
       <Route path='/edit/:limitId' element={<LimitEdit />}/>
       <Route path='/show/:limitId' element={<LimitShow />}/>
+
+      <Route path="*" element={<NotFound/>} />
     </Routes>
   )
 }
@@ -104,6 +117,8 @@ const BookRoutes = () => {
       <Route path='/add' element={<BookCreate />}/>
       <Route path='/edit/:bookId' element={<BookEdit />}/>
       <Route path='/show/:bookId' element={<BookShow />}/>
+
+        <Route path="*" element={<NotFound/>} />
     </Routes>
   )
 }
@@ -114,6 +129,8 @@ const UsersRoutes = () => {
       <Route path='/add' element={<UserCreate/>}/>
       <Route path='/edit/:userId' element={<UserEdit />}/>
       <Route path='/show/:userId' element={<UserShow />}/>
+
+        <Route path="*" element={<NotFound/>} />
     </Routes>
   )
 }
