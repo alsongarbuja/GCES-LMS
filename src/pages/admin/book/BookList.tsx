@@ -1,7 +1,27 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { universalAPI } from '../../../api/api'
 import TableLayout from '../../../layouts/crud/TableLayout'
+import { BookModel } from '../../../types/models'
 
 const BookList = () => {
+
+    const [books, setBooks] = useState<BookModel[]>([])
+
+    const fetchBooks = async () => {
+        const { data, status, message } = await universalAPI('GET', '/books')
+
+        if(status === 'success'){
+            setBooks(data)
+        }else{
+            console.error(message);
+        }
+    }
+
+    useEffect(() => {
+        fetchBooks()
+    }, [])
+
   return (
     <main>
         <div className="flex justify-space-between">
@@ -10,18 +30,22 @@ const BookList = () => {
         </div>
         <TableLayout theads={['SN', 'Name', 'Total Copies', 'Author', 'Available Copies']} >
             <tbody>
-                <tr>
-                    <th>1</th>
-                    <td>OOD</td>
-                    <td>4</td>
-                    <td>Bidur Devkota</td>
-                    <td>2</td>
-                    <td className="action-col">
-                        <button className="btn btn-danger">Delete</button>
-                        <Link to={`show/12345`}><button className="btn btn-dark">Show</button></Link>
-                        <Link to={`edit/12345`}><button className="btn btn-accent">Edit</button></Link>
-                    </td>
-                </tr>
+                {
+                    books.map((book, i) => (
+                        <tr key={book._id}>
+                            <th>{i+1}</th>
+                            <td>{book.title}</td>
+                            <td>{book.quantity}</td>
+                            <td>{book.author}</td>
+                            <td>{book.quantity-book.borrowed_quantity}</td>
+                            <td className="action-col">
+                                <button className="btn btn-danger">Delete</button>
+                                <Link to={`show/${book._id}`}><button className="btn btn-dark">Show</button></Link>
+                                <Link to={`edit/${book._id}`}><button className="btn btn-accent">Edit</button></Link>
+                            </td>
+                        </tr>
+                    ))
+                }
             </tbody>
         </TableLayout>
     </main>
