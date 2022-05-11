@@ -62,7 +62,7 @@ const Profile = () => {
                 {
                         bookList.borrowed.filter(b => b.bookType==='text-book').map(book => (
                             <li className='single-books' key={Math.random()}>
-                                <p><b>{book.name}</b> - {book.authorName}</p>
+                                <p><b>{book.bookName}</b> - {book.authorName}</p>
                                 <i className='accent-light'>
                                     (  
                                     <b>
@@ -78,7 +78,7 @@ const Profile = () => {
                 {
                         bookList.borrowed.filter(b => b.bookType==='reference').map(book => (
                             <li className='single-books' key={Math.random()}>
-                                <p><b>{book.name}</b> - {book.authorName}</p>
+                                <p><b>{book.bookName}</b> - {book.authorName}</p>
                                 <i className='accent-light'>
                                     (  
                                     <b>
@@ -94,7 +94,7 @@ const Profile = () => {
                 {
                         bookList.borrowed.filter(b => b.bookType==='others').map(book => (
                             <li className='single-books' key={Math.random()}>
-                                <p><b>{book.name}</b> - {book.authorName}</p>
+                                <p><b>{book.bookName}</b> - {book.authorName}</p>
                                 <i className='accent-light'>
                                     (  
                                     <b>
