@@ -55,3 +55,16 @@ export interface RequestModel {
     cancelled_reason?: string,
     createdAt?: string,
 }
+
+export interface BorrowModel {
+    _id: string,
+    bookId: string,
+    bookName: string,
+    bookType: string,
+    authorName: string,
+    uniqueId: string,
+    issuedDate: string,
+    dueDate: string,
+    userName: string,
+    level: string,
+}
