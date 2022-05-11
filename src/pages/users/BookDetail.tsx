@@ -6,6 +6,7 @@ import '../../styles/user/detail.css'
 import { useEffect, useState } from 'react'
 import { BookModel } from '../../types/models'
 import { universalAPI } from '../../api/api'
+import { getUserId, getUserLevel, getUserName } from '../../helper/cookies'
 
 const BookDetail = () => {
 
@@ -27,6 +28,30 @@ const BookDetail = () => {
       fetchBook()
     }, [])
 
+    const sendRequest = async () => {
+      const request = {
+        book: {
+          bookId: book?._id,
+          name: book?.title,
+          authorName: book?.author,
+          bookType: book?.type,
+        },
+        user: {
+          userId: getUserId(),
+          name: getUserName(),
+          level: getUserLevel(),
+        },
+        request_type: 'new request'
+      }
+      const { status, message } = await universalAPI('POST', '/request', request)
+
+      if(status==='success'){
+        navigate('/user/profile')
+      }else{
+        console.error(message);
+      }
+    }
+
   return (
     <main>
       <ProfileFAB/>
@@ -45,7 +70,7 @@ const BookDetail = () => {
                 (book?.borrowed_quantity||0)===(book?.quantity||0)?(
                   <button className="btn btn-accent-two request-btn">Stay in Queue</button>
                 ):(
-                  <button className="btn btn-accent request-btn">Send Request</button>
+                  <button className="btn btn-accent request-btn" onClick={sendRequest}>Send Request</button>
                 )
               }
           </div>
