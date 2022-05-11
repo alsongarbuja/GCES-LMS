@@ -14,7 +14,7 @@ router
     .delete(validate(borrowValidation.singleBorrow), borrowController.deleteBorrow)
 
 router
-    .route('/:userId')
+    .route('/:requestId')
     .post(validate(borrowValidation.createBorrow), borrowController.createBorrow)
 
 module.exports = router;

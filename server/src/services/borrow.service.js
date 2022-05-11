@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const { User } = require('../models');
+const { User, Request } = require('../models');
 const ApiError = require('../utils/ApiError');
 
 const getBorrowbyId = async (params) => {
@@ -18,10 +18,16 @@ const getBorrowbyId = async (params) => {
 }
 const createBorrow = async (borrowRequest) => {
     const { params, body } = borrowRequest;
-    const user = await User.findById(params.userId)
-    if(!user)
+    const request = await Request.findById(params.requestId)
+    if(!request)
     {
-        throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'Request not found');
+    }
+
+    const user = await User.findById(request.user.userId)
+
+    if(!user){
+      throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
     }
     // TO DO : Check for Limits
     if(user.borrowed_books.length >= 6)
@@ -31,11 +37,16 @@ const createBorrow = async (borrowRequest) => {
     const borrow = {
         bookId: body.bookId,
         bookName: body.bookName,
+        bookType: body.bookType,
+        authorName: body.authorName,
+        uniqueId: body.uniqueId,
         issuedDate: new Date(),
         dueDate: new Date().setDate(new Date().getDate() + 30),
     }
     user.borrowed_books = [...user.borrowed_books, borrow];
     user.save();
+
+    await request.remove()
     return user;
 };
 
@@ -43,8 +54,21 @@ const getBorrows = async () => {
     const users = await User.find({})
     const borrows = [];
     users.forEach(user => {
-        borrows.push(...user.borrowed_books)
+      user.borrowed_books.forEach(bb => {
+        borrows.push({
+          _id: bb._id,
+          bookName: bb.bookName,
+          issueDate: bb.issueDate,
+          dueDate: bb.dueDate,
+          uniqueId: bb.uniqueId,
+          authorName: bb.authorName,
+          bookType: bb.bookType,
+          userName: user.name,
+          level: user.semester
+        })
+      })
     })
+    // {userName: user.name, level: user.semester}
     borrows.reverse();
     return borrows;
 };
