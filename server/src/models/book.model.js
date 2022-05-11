@@ -10,11 +10,9 @@ const bookSchema = new mongoose.Schema({
     },
     ISBN_number: {
         type: String,
-        required: true,
     },
     Barcode_number: {
         type: String,
-        required: true,
     },
     quantity: {
         type: Number,
@@ -45,10 +43,7 @@ const bookSchema = new mongoose.Schema({
         ]
     },
     category: {
-        type: {
-            categoryId: mongoose.SchemaTypes.ObjectId,
-            name: String,
-        }
+        type: String,
     },
     type: {
         type: String,
@@ -60,7 +55,6 @@ const bookSchema = new mongoose.Schema({
     },
     publisher: {
         type: String,
-        required: true,
     },
     year: {
         type: Number,
@@ -68,7 +62,6 @@ const bookSchema = new mongoose.Schema({
     },
     edition: {
         type: String,
-        required: true,
     },
 },
 {

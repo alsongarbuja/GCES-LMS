@@ -3,17 +3,17 @@ const { objectId } = require('./custom.validation');
 
 const bookObject = {
     title: Joi.string().required(),
-    ISBN_number: Joi.string().required(),
-    Barcode_number: Joi.string().required(),
+    ISBN_number: Joi.string().optional(),
+    Barcode_number: Joi.string().optional(),
     quantity: Joi.number().required(),
     author: Joi.string().required(),
-    publisher: Joi.string().required(),
-    edition: Joi.string().required(),
+    publisher: Joi.string().optional(),
+    edition: Joi.string().optional(),
     year: Joi.number().required(),
     secondary_title: Joi.string().optional(),
     book_copies: Joi.array().required(),
-    category: Joi.object().optional(),
-    type: Joi.string().optional().valid('reference','text-book'),
+    category: Joi.string().optional(),
+    type: Joi.string().optional().valid('reference','text-book','others'),
 }
 
 const createBook = {
@@ -42,7 +42,7 @@ const updateBook = {
       year: Joi.number().optional(),
       secondary_title: Joi.string().optional(),
       book_copies: Joi.array().optional(),
-      category: Joi.object().optional(),
+      category: Joi.string().optional(),
       type: Joi.string().optional().valid('reference','text-book'),
     })
     .min(1),
