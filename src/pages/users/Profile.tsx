@@ -3,28 +3,29 @@ import { useState, useEffect } from 'react'
 
 import '../../styles/user/style.css'
 import '../../styles/user/profile.css'
-import { getUserData, removeUserData } from '../../helper/cookies'
+import { getUserData, getUserId, removeUserData } from '../../helper/cookies'
 import { FiLogOut } from 'react-icons/fi'
-// import { universalAPI } from '../../api/api'
+import { universalAPI } from '../../api/api'
+import moment from 'moment'
+import { deleteObj } from '../../helper/delete'
 
 const Profile = () => {
     const navigate = useNavigate()
     const [user] = useState(getUserData())
-    // const [bookList, setBookList] = useState({})
-    // const [isLoading, setIsLoading] = useState(true)
-    // const [hasError, setHasError] = useState(false)
+    const [bookList, setBookList] = useState<{ borrowed: any[], requested: any[]}>({
+        borrowed: [],
+        requested: [],
+    })
 
-    // const getUserBooks = async () => {
-    //     const { data, status, message } = await universalAPI('GET', '/user/list')
+    const getUserBooks = async () => {
+        const { data, status, message } = await universalAPI('GET', `/users/mybooks/${getUserId()}`)
 
-    //     if(status==='success'){
-
-    //     }else{
-    //         setHasError(true)
-    //     }
-
-    //     setIsLoading(false)
-    // }
+        if(status==='success'){
+            setBookList(data)
+        }else{
+            console.error(message);
+        }
+    }
 
     const logout = () => {
         removeUserData()
@@ -32,7 +33,7 @@ const Profile = () => {
     }
 
     useEffect(() => {
-        
+        getUserBooks()
     }, [])
 
   return (
@@ -56,23 +57,53 @@ const Profile = () => {
                 <hr className='hr' />
             </div>
             <div className='book-list'>
-                <p><u>Textbooks (2)</u></p>
+                <p><u>Text books ({bookList.borrowed.filter(b => b.bookType==='text-book').length})</u></p>
                 <ul>
-                    <li className='single-books'>
-                        <p><b>Computer Networks</b> (6th sem) - CMP 331</p>
-                        <i>Luther Author - <b className='accent-light'>(due in 4 days)</b></i>
-                    </li>
-                    <li className='single-books'>
-                        <p><b>Computer Networks</b> (6th sem) - CMP 331</p>
-                        <i>Luther Author - <b className='accent-light'>(due in 4 days)</b></i>
-                    </li>
+                {
+                        bookList.borrowed.filter(b => b.bookType==='text-book').map(book => (
+                            <li className='single-books' key={Math.random()}>
+                                <p><b>{book.name}</b> - {book.authorName}</p>
+                                <i className='accent-light'>
+                                    (  
+                                    <b>
+                                        due in {moment(book.dueDate).format('d')} days</b>
+                                    )
+                                </i>
+                            </li>
+                        ))
+                    }
                 </ul>
-                <p><u>Reference books (1)</u></p>
+                <p><u>Reference books ({bookList.borrowed.filter(b => b.bookType==='reference').length})</u></p>
                 <ul>
-                    <li className='single-books'>
-                        <p><b>Computer Networks</b> (6th sem) - CMP 331</p>
-                        <i>Luther Author - <b className='accent-light'>(due in 4 days)</b></i>
-                    </li>
+                {
+                        bookList.borrowed.filter(b => b.bookType==='reference').map(book => (
+                            <li className='single-books' key={Math.random()}>
+                                <p><b>{book.name}</b> - {book.authorName}</p>
+                                <i className='accent-light'>
+                                    (  
+                                    <b>
+                                        due in {moment(book.dueDate).format('d')} days</b>
+                                    )
+                                </i>
+                            </li>
+                        ))
+                    }
+                </ul>
+                <p><u>Others books ({bookList.borrowed.filter(b => b.bookType==='others').length})</u></p>
+                <ul>
+                {
+                        bookList.borrowed.filter(b => b.bookType==='others').map(book => (
+                            <li className='single-books' key={Math.random()}>
+                                <p><b>{book.name}</b> - {book.authorName}</p>
+                                <i className='accent-light'>
+                                    (  
+                                    <b>
+                                        due in {moment(book.dueDate).format('d')} days</b>
+                                    )
+                                </i>
+                            </li>
+                        ))
+                    }
                 </ul>
                 <Link to={'/user/explore'}><button className='btn btn-accent btn-full'>Explore Books</button></Link>
             </div>
@@ -83,23 +114,80 @@ const Profile = () => {
                 <hr className="hr" />
             </div>
             <div className='book-list'>
-                <p><u>Textbooks (2)</u></p>
+                <p><u>Textbooks ({bookList.requested.filter(b => b.book.bookType==='text-book').length})</u></p>
                 <ul>
-                    <li className='single-books'>
-                        <p><b>Computer Networks</b> (6th sem) - CMP 331</p>
-                        <i>Luther Author - <b>5hrs ago</b><b className='text-success'> (can visit)</b></i>
-                    </li>
-                    <li className='single-books'>
-                        <p><b>Computer Networks</b> (6th sem) - CMP 331</p>
-                        <i>Luther Author - <b>1 day ago</b><b className='text-success'> (to be accepted)</b></i>
-                    </li>
+                    {
+                        bookList.requested.filter(b => b.book.bookType==='text-book').map(book => (
+                            <li className='single-books' key={Math.random()}>
+                                <p><b>{book.book.name}</b> - {book.book.authorName}</p>
+                                <i>  
+                                    <b>{moment(book.createdAt).fromNow()}</b> - 
+                                    <b className={`${book.status==='cancelled'?'text-danger':'text-success'}`}>(
+                                        {
+                                            book.status==='open'?'to be accepted':
+                                                book.status==='verified'?'can visit':'cancelled'
+                                        }
+                                    )</b>
+                                </i>
+                                <br />
+                                {
+                                    book.status==='cancelled'&&(
+                                        <button className='btn btn-danger' onClick={()=>deleteObj('request', `/request/${book._id}`)}>Remove</button>
+                                    )
+                                }
+                            </li>
+                        ))
+                    }
                 </ul>
-                <p><u>Reference books (1)</u></p>
+                <p><u>Reference books ({bookList.requested.filter(b => b.book.bookType==='reference').length})</u></p>
                 <ul>
-                    <li className='single-books'>
-                        <p><b>Computer Networks</b> (6th sem) - CMP 331</p>
-                        <i>Luther Author - <b>2hrs ago</b><b className='text-success'> (in queue 2)</b></i>
-                    </li>
+                    {
+                        bookList.requested.filter(b => b.book.bookType==='reference').map(book => (
+                            <li className='single-books' key={Math.random()}>
+                                <p><b>{book.book.name}</b> - {book.book.authorName}</p>
+                                <i>  
+                                    <b>{moment(book.createdAt).fromNow()}</b> - 
+                                    <b className={`${book.status==='cancelled'?'text-danger':'text-success'}`}>(
+                                        {
+                                            book.status==='open'?'to be accepted':
+                                                book.status==='verified'?'can visit':'cancelled'
+                                        }
+                                    )</b>
+                                </i>
+                                <br />
+                                {
+                                    book.status==='cancelled'&&(
+                                        <button className='btn btn-danger' onClick={()=>deleteObj('request', `/request/${book._id}`)}>Remove</button>
+                                    )
+                                }
+                            </li>
+                        ))
+                    }
+                </ul>
+                <p><u>Other books ({bookList.requested.filter(b => b.book.bookType==='others').length})</u></p>
+                <ul>
+                    {
+                        bookList.requested.filter(b => b.book.bookType==='others').map(book => (
+                            <li className='single-books' key={Math.random()}>
+                                <p><b>{book.book.name}</b> - {book.book.authorName}</p>
+                                <i>  
+                                    <b>{moment(book.createdAt).fromNow()}</b> - 
+                                    <b className={`${book.status==='cancelled'?'text-danger':'text-success'}`}>(
+                                        {
+                                            book.status==='open'?'to be accepted':
+                                                book.status==='verified'?'can visit':'cancelled'
+                                        }
+                                    )</b>
+                                </i>
+                                <br />
+                                {
+                                    book.status==='cancelled'&&(
+                                        <button className='btn btn-danger' onClick={()=>deleteObj('request', `/request/${book._id}`)}>Remove</button>
+                                    )
+                                }
+                            </li>
+                        ))
+                    }
                 </ul>
             </div>
         </section>
