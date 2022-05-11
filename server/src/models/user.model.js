@@ -45,16 +45,14 @@ const userSchema = mongoose.Schema(
     },
     faculty: {
       type: String,
-      enum: ['software', 'computer'],
+      enum: ['Software', 'Computer'],
       required: true,
     },
     regNo: {
       type: String,
-      required: true,
     },
     phone: {
       type: String,
-      required: true,
     },
     borrowed_books: {
       type:[{

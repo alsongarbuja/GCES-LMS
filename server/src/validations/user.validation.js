@@ -7,9 +7,10 @@ const createUser = {
     password: Joi.string().required().custom(password),
     name: Joi.string().required(),
     semester: Joi.string().required(),
-    regNo: Joi.string().required(),
-    phone: Joi.string().required(),
-    // role: Joi.string().required().valid('user', 'admin'),
+    regNo: Joi.string().optional(),
+    phone: Joi.string().optional(),
+    batch: Joi.string().optional(),
+    faculty: Joi.string().optional(),
   }),
 };
 
