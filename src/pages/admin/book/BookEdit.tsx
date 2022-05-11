@@ -27,7 +27,7 @@ interface BookObject {
     Barcode_number?: string,
     year: string,
     type: 'text-book' | 'reference' | 'others',
-    category: string,
+    category?: string,
     book_copies: any[],
 }
 
@@ -108,7 +108,6 @@ const BookEdit = () => {
             quantity: book.quantity,
             year: book.year,
             type: book.type,
-            category: book.category,
             book_copies: book.book_copies.map(bc => ({ bookId: bc })),
         }
 
@@ -140,6 +139,12 @@ const BookEdit = () => {
             toSendBook = {
                 ...toSendBook,
                 edition: book.edition,
+            }
+        }
+        if(book.category!==''){
+            toSendBook ={
+                ...toSendBook,
+                category: book.category,
             }
         }
 
@@ -174,7 +179,7 @@ const BookEdit = () => {
                 <InputField value={book.Barcode_number} name="Barcode_number" text="Barcode Number" required={false} onChange={handleChange} />
                 <InputField value={book.year} name="year" text="Year" type="number" onChange={handleChange} />
                 <Select value={book.type} name="type" text="Type" options={bookType} onChange={handleChange} />
-                <Select value={book.category} name="category" text="Semester" options={categories} onChange={handleChange} required={!(book.type==='others')} />
+                <Select value={book.category||'1st semester'} name="category" text="Semester" options={categories} onChange={handleChange} required={!(book.type==='others')} />
                 <div className="row m-0">
                     {
                         Array(parseInt(book.quantity)||0).fill(0).map((_, i) => (
