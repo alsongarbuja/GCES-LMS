@@ -1,10 +1,32 @@
-import { useNavigate } from 'react-router-dom'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useNavigate, useParams } from 'react-router-dom'
 import ProfileFAB from '../../components/user/ProfileFAB'
 import '../../styles/user/style.css'
 import '../../styles/user/detail.css'
+import { useEffect, useState } from 'react'
+import { BookModel } from '../../types/models'
+import { universalAPI } from '../../api/api'
 
 const BookDetail = () => {
+
+    const { bookId } = useParams()
     const navigate = useNavigate()
+
+    const [book, setBook] = useState<BookModel>()
+
+    const fetchBook = async () => {
+      const { data, status, message } = await universalAPI('GET', `/books/${bookId}`)
+      if(status==='success'){
+        setBook(data)
+      }else{
+        console.error(message);
+      }
+    }
+
+    useEffect(() => {
+      fetchBook()
+    }, [])
+
   return (
     <main>
       <ProfileFAB/>
@@ -13,14 +35,19 @@ const BookDetail = () => {
               <span onClick={()=>navigate(-1)}>&larr;</span>
           </div>
           <div className='book-detail'>
-              <h3>Computer Networks</h3>
-              <p><b>Author - </b>Luther Author</p>
-              <p><b>Available copies - 2</b></p>
-              <p><b>Semester - </b> <i>6th</i> </p>
-              <p><b>Edition - </b><i>2nd</i></p>
-              <p><b>Publisher - </b>Sukunda Publication</p>
-              <p><b>Popularity - </b> <span className='accent-light'>Teacher's choice</span> </p>
-              <button className="btn btn-accent request-btn">Send Request</button>
+              <h3>{book?.title}</h3>
+              <p><b>Author - </b>{book?.author}</p>
+              <p><b>Available copies - {(book?.quantity||0)-(book?.borrowed_quantity||0)}</b></p>
+              <p><b>Semester - </b> <i>{book?.category}</i> </p>
+              <p><b>Edition - </b><i>{book?.edition}</i></p>
+              <p><b>Publisher - </b>{book?.publisher}</p>
+              {
+                (book?.borrowed_quantity||0)===(book?.quantity||0)?(
+                  <button className="btn btn-accent-two request-btn">Stay in Queue</button>
+                ):(
+                  <button className="btn btn-accent request-btn">Send Request</button>
+                )
+              }
           </div>
       </section>
     </main>
