@@ -46,3 +46,15 @@ export const getUserId = () => {
     const {id} = JSON.parse(decodeURIComponent(cookies.get('gces-lms-user', { doNotParse: true })));
     return id;
 }
+
+// get the name from cookie
+export const getUserName = () => {
+    const { name } = JSON.parse(decodeURIComponent(cookies.get('gces-lms-user', { doNotParse: true })));
+    return name;
+}
+
+// get the semester/level from the cookie
+export const getUserLevel = () => {
+    const { semester } = JSON.parse(decodeURIComponent(cookies.get('gces-lms-user', { doNotParse: true })));
+    return semester;
+}
