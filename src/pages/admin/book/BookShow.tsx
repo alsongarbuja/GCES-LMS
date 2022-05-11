@@ -65,7 +65,7 @@ const BookShow = () => {
                     <b>Type : </b> {book?.type}
                 </p>
                 <>
-                    <b>Semeseter : </b> {book?.category?.name || '-'} Semester
+                    <b>Semeseter : </b> {book?.category || '-'}
                 </>
             </div>
         </div>

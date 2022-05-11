@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { universalAPI } from '../../../api/api'
+import { deleteObj } from '../../../helper/delete'
 import TableLayout from '../../../layouts/crud/TableLayout'
 import { BookModel } from '../../../types/models'
 
@@ -39,7 +40,7 @@ const BookList = () => {
                             <td>{book.author}</td>
                             <td>{book.quantity-book.borrowed_quantity}</td>
                             <td className="action-col">
-                                <button className="btn btn-danger">Delete</button>
+                                <button className="btn btn-danger" onClick={()=>deleteObj('book', `/books/${book._id}`)}>Delete</button>
                                 <Link to={`show/${book._id}`}><button className="btn btn-dark">Show</button></Link>
                                 <Link to={`edit/${book._id}`}><button className="btn btn-accent">Edit</button></Link>
                             </td>
