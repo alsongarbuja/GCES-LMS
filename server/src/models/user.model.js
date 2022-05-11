@@ -66,6 +66,14 @@ const userSchema = mongoose.Schema(
           type: String,
           required: true,
         },
+        authorName: {
+          type: String,
+          required: true,
+        },
+        bookType: {
+          type: String,
+          enum: ['text-book', 'reference', 'others'],
+        },
         issuedDate: Date,
         dueDate: Date,
         fineAmount: {
