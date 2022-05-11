@@ -1,41 +1,59 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
+import { universalAPI } from "../../../api/api"
 import ShowLayout from "../../../layouts/crud/ShowLayout"
+import { UserModel } from "../../../types/models"
 
 const UserShow = () => {
+    const { userId } = useParams()
+    const [user, setUser] = useState<UserModel>()
+
+    const fetchUser = async () => {
+        const { data, status, message } = await universalAPI('GET', `/users/${userId}`)
+        if(status==='success'){
+            setUser(data)
+        }else{
+            console.error(message);
+        }
+    }
+
+    useEffect(() => {
+        fetchUser()
+    }, [])
+
   return (
     <ShowLayout title='User'>
         <div className='row'>
             <div className='col-6'>
                 <p>
-                    <b>Name : </b> Alson Garbuja
+                    <b>Name : </b> {user?.name}
                 </p>
                 <p>
-                    <b>Semester : </b> 6
+                    <b>Semester : </b> {user?.semester}
                 </p>
                 <p>
-                    <b>Batch : </b> 2018
+                    <b>Batch : </b> {user?.batch}
                 </p>
                 <p>
-                    <b>Registration number : </b> GCS 06
+                    <b>Registration number : </b> {user?.regNo}
                 </p>
                 <p>
-                    <b>Email : </b> be2018se607@gces.edu.np
+                    <b>Email : </b> {user?.email}
                 </p>
             </div>
             <div className="col-6">
                 <p>
-                    <b>Faculty : </b> Software
+                    <b>Faculty : </b> {user?.faculty}
                 </p>
                 <p>
-                    <b>Phone number : </b> 9825140801
+                    <b>Phone number : </b> {user?.phone}
                 </p>
                 <p>
-                    <b>Current Borrow : </b> 4
+                    <b>Current Borrow : </b> {user?.borrowed_books?.length}
                 </p>
                 <p>
-                    <b>Fine : </b> Rs. 120
-                </p>
-                <p>
-                    <b>Current Requests : </b> 2
+                    <b>Fine : </b> Rs. {user?.totalFine}
                 </p>
             </div>
         </div>
