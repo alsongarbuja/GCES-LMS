@@ -25,20 +25,29 @@ const Dashboard = () => {
 
   const verifyRequest = async (id: string) => {
     if(window.confirm('Accept the request ?')){
-      const { data, status, message } = await universalAPI('PATCH', `/request/${id}`, { status: 'verified' })
+      const { status, message } = await universalAPI('PATCH', `/request/${id}`, { status: 'verified' })
       if(status==='success'){
-        console.log(data);
+        window.location.reload()
       }else{
         console.error(message);
       }
     }
   }
 
-  const checkOutRequest = async (id: string) => {
-    if(window.confirm('Accept the request ?')){
-      const { data, status, message } = await universalAPI('PATCH', `/request/${id}`, { status: 'verified' })
+  const checkOutRequest = async (request: RequestModel) => {
+    const bookUniqueId = window.prompt('Unique Id of the book')
+    if(bookUniqueId!==null){
+      const borrowData = {
+        bookId: request.book.bookId,
+        bookName: request.book.name,
+        bookType: request.book.bookType,
+        authorName: request.book.authorName,
+        uniqueId: bookUniqueId,
+      }
+
+      const { status, message } = await universalAPI('POST', `/borrow/${request._id}`, borrowData)
       if(status==='success'){
-        console.log(data);
+        window.location.reload()
       }else{
         console.error(message);
       }
@@ -100,10 +109,10 @@ const Dashboard = () => {
                         request.status==='open'?(
                           <button className="btn btn-success" onClick={()=>verifyRequest(request._id)}>Accept</button>
                         ):(
-                          <button className="btn btn-success" onClick={()=>checkOutRequest(request._id)}>Check Out</button>
+                          <button className="btn btn-success" onClick={()=>checkOutRequest(request)}>Check Out</button>
                         )
                       }
-                      <button className="btn btn-danger" onClick={()=>cancelRequest(request._id)}>Reject</button>
+                      <button className="btn btn-danger" onClick={()=>cancelRequest(request._id)}>{request.status==='open'?'Reject':'Cancel'}</button>
                   </td>
                 </tr>
               ))
