@@ -68,3 +68,31 @@ export interface BorrowModel {
     userName: string,
     level: string,
 }
+
+export interface UserModel {
+    id?: string,
+    name: string,
+    email?: string,
+    semester: string,
+    batch?: string,
+    faculty?: string,
+    regNo?: string,
+    phone?: string,
+    password?: string,
+    borrowed_books?: {
+          bookId: string,
+          bookName: string,
+          authorName: string,
+          bookType: string,
+          uniqueId: string,
+          issuedDate: string,
+          dueDate: string,
+          fineAmount: number,
+        }[],
+    in_queue?: {
+          bookId: string,
+          bookName: string,
+          ticketNumber?: number,
+        }[],
+    totalFine?: number,
+}
