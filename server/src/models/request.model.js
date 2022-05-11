@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
- 
+
 const requestSchema = new mongoose.Schema({
     book:{
         type:{
             bookId: mongoose.SchemaTypes.ObjectId,
             name: String,
+            authorName: String,
+            bookType: String,
         },
         required:true,
     },
