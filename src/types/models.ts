@@ -1,5 +1,5 @@
 export interface BookModel {
-    _id: string,
+    _id?: string,
     title: string,
     secondary_title?: string,
     ISBN_number?: string,
@@ -14,11 +14,8 @@ export interface BookModel {
             queue_ticket_number: number,
         }[],
     }[],
-    category: {
-        categoryId: string,
-        name: string,
-    },
-    type: 'reference' | 'text-book',
+    category: string,
+    type: 'reference' | 'text-book' | 'others',
     author: string,
     publisher: string,
     year?: string,
@@ -26,7 +23,7 @@ export interface BookModel {
 }
 
 export interface LimitModel {
-    _id: string,
+    _id?: string,
     quantity: number,
     level: string,
     sub_quantity: {
@@ -36,6 +33,6 @@ export interface LimitModel {
 }
 
 export interface CategoryModel {
-    _id: string,
+    _id?: string,
     name: string,
 }
