@@ -74,6 +74,10 @@ const userSchema = mongoose.Schema(
           type: String,
           enum: ['text-book', 'reference', 'others'],
         },
+        uniqueId: {
+          type: String,
+          required: true,
+        },
         issuedDate: Date,
         dueDate: Date,
         fineAmount: {
