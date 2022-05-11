@@ -36,3 +36,22 @@ export interface CategoryModel {
     _id?: string,
     name: string,
 }
+
+export interface RequestModel {
+    _id: string,
+    book: {
+        bookId: string,
+        name: string,
+        authorName: string,
+        bookType: string,
+    },
+    user: {
+        userId: string,
+        name: string,
+        level: string,
+    },
+    request_type: 'new request' | 'renew request',
+    status?: 'open' | 'verified' | 'cancelled',
+    cancelled_reason?: string,
+    createdAt?: string,
+}
