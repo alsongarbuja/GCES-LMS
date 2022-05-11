@@ -10,7 +10,7 @@ const createRequest = async (requestBody) => {
 };
 
 const getRequests = async () => {
-    const requests = await Request.find({}).sort({ createdAt: -1 });
+    const requests = await Request.find({ status: { $ne: 'cancelled' } }).sort({ createdAt: -1 });
     return requests;
 };
 
