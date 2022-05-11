@@ -131,6 +131,12 @@ a {
 .col-6 {
   grid-column: span 6;
 }
+.col-11 {
+  grid-column: span 11;
+}
+.col-12 {
+  grid-column: span 12;
+}
 .box {
 	margin: 1em;
 	padding: 2em;
