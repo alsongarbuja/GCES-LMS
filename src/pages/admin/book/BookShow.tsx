@@ -64,9 +64,12 @@ const BookShow = () => {
                 <p>
                     <b>Type : </b> {book?.type}
                 </p>
-                <>
+                <p>
                     <b>Semeseter : </b> {book?.category || '-'}
-                </>
+                </p>
+                <p>
+                    <b>Queue : </b> <span className="text-success text-large">{book?.in_queue?.length || 'none'}</span>
+                </p>
             </div>
         </div>
     </ShowLayout>
