@@ -64,6 +64,7 @@ const getBorrows = async () => {
           authorName: bb.authorName,
           bookType: bb.bookType,
           userName: user.name,
+          userId: user._id,
           level: user.semester
         })
       })
