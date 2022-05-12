@@ -67,6 +67,7 @@ export interface BorrowModel {
     dueDate: string,
     userName: string,
     level: string,
+    userId: string,
 }
 
 export interface UserModel {
@@ -95,4 +96,10 @@ export interface UserModel {
           ticketNumber?: number,
         }[],
     totalFine?: number,
+}
+
+export interface DashBoardInfo {
+    totalBorrows: string,
+    totalBooks: string,
+    totalStudents: string,
 }
