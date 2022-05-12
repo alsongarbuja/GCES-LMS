@@ -19,7 +19,12 @@ export interface BookModel {
     author: string,
     publisher: string,
     year?: string,
-    edition?: string
+    edition?: string,
+    in_queue?: {
+        name: string,
+        level: string,
+        queue_ticket_number: number,
+    }[]
 }
 
 export interface LimitModel {

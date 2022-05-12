@@ -29,18 +29,18 @@ const bookSchema = new mongoose.Schema({
                     type: String,
                     required: true,
                 },
-                in_queue: {
-                    type: [
-                        {
-                            name: String,
-                            level: String,
-                            queue_ticket_number: Number,
-                        }
-                    ],
-                    default: [],
-                }
             }
         ]
+    },
+    in_queue: {
+      type: [
+          {
+              name: String,
+              level: String,
+              queue_ticket_number: Number,
+          }
+      ],
+      default: [],
     },
     category: {
         type: String,
