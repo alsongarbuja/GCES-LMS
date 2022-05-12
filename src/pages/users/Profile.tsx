@@ -12,9 +12,10 @@ import { deleteObj } from '../../helper/delete'
 const Profile = () => {
     const navigate = useNavigate()
     const [user] = useState(getUserData())
-    const [bookList, setBookList] = useState<{ borrowed: any[], requested: any[]}>({
+    const [bookList, setBookList] = useState<{ borrowed: any[], requested: any[], queues: any[]}>({
         borrowed: [],
         requested: [],
+        queues: []
     })
 
     const getUserBooks = async () => {
@@ -185,6 +186,21 @@ const Profile = () => {
                                         <button className='btn btn-danger' onClick={()=>deleteObj('request', `/request/${book._id}`)}>Remove</button>
                                     )
                                 }
+                            </li>
+                        ))
+                    }
+                </ul>
+                <p><u>In Queue books ({bookList.queues.length})</u></p>
+                <ul>
+                    {
+                        bookList.queues.map(book => (
+                            <li className='single-books' key={Math.random()}>
+                                <p>
+                                    <b>{book.bookName}</b>                                      
+                                    <i>  
+                                        <b className='text-success'>(queue number - {book.ticketNumber})</b>
+                                    </i>
+                                </p>
                             </li>
                         ))
                     }
