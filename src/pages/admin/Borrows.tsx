@@ -1,5 +1,6 @@
 import moment from "moment"
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import { universalAPI } from "../../api/api"
 import TableLayout from "../../layouts/crud/TableLayout"
 import { BorrowModel } from "../../types/models"
@@ -46,7 +47,11 @@ const Borrows = () => {
                             <td>{borrow.userName}</td>
                             <td>in {moment.duration(moment(borrow.dueDate).diff(moment().startOf('day'))).asDays().toFixed(0)} days</td>
                             <td>{borrow.uniqueId}</td>
-                            <td>None</td>
+                            <td>
+                                <span className="accent-light">
+                                    <Link to={`/admin/books/show/${borrow.bookId}`}>See queue</Link>
+                                </span>
+                            </td>
                             <td className="action-col">
                                 <button className="btn btn-success" onClick={()=>checkInBook(borrow.uniqueId, borrow.userId, borrow._id)}>Check In</button>
                                 <button className="btn btn-accent">Extend</button>
