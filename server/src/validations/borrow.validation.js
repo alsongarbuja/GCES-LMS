@@ -18,6 +18,7 @@ const singleBorrow = {
   params: Joi.object().keys({
     requestId: Joi.string().custom(objectId),
     borrowId: Joi.string().custom(objectId),
+    userId: Joi.string().custom(objectId).optional(),
   }),
 };
 
