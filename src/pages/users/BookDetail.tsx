@@ -52,6 +52,23 @@ const BookDetail = () => {
       }
     }
 
+    const stayQueue = async () => {
+      const queue = {
+        bookId: book?._id,
+        userId: getUserId(),
+        name: getUserName(),
+        level: getUserLevel(),
+        bookName: book?.title,
+      }
+      const { status, message } = await universalAPI('POST', '/queue', queue)
+
+      if(status==='success'){
+        navigate('/user/profile')
+      }else{
+        console.error(message);
+      }
+    }
+
   return (
     <main>
       <ProfileFAB/>
@@ -68,7 +85,7 @@ const BookDetail = () => {
               <p><b>Publisher - </b>{book?.publisher}</p>
               {
                 (book?.borrowed_quantity||0)===(book?.quantity||0)?(
-                  <button className="btn btn-accent-two request-btn">Stay in Queue</button>
+                  <button className="btn btn-accent-two request-btn" onClick={stayQueue}>Stay in Queue</button>
                 ):(
                   <button className="btn btn-accent request-btn" onClick={sendRequest}>Send Request</button>
                 )
