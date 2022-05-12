@@ -21,9 +21,6 @@ const UserList = () => {
         fetchUsers()
     }, [])
 
-    console.log(users);
-    
-    
   return (
     <main>
         <div className="flex justify-space-between">
