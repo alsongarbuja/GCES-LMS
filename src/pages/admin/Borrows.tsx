@@ -21,6 +21,18 @@ const Borrows = () => {
         fetchBorrows()
     }, [])
 
+    const checkInBook = async (uniqueId: string, userId: string, borrowId: string) => {
+        if(window.confirm('Sure book has unique id '+uniqueId)){
+            const { status, message } = await universalAPI('DELETE', `/borrow/${borrowId}/${userId}`)
+
+            if(status==='success'){
+                window.location.reload()
+            }else{
+                console.error(message);
+            }
+        }
+    }
+
   return (
     <main>
         <h2>Borrows</h2>
@@ -32,11 +44,11 @@ const Borrows = () => {
                             <th>{i+1}</th>
                             <td>{borrow.bookName}</td>
                             <td>{borrow.userName}</td>
-                            <td>{moment(borrow.dueDate).fromNow()}</td>
+                            <td>in {moment.duration(moment(borrow.dueDate).diff(moment().startOf('day'))).asDays().toFixed(0)} days</td>
                             <td>{borrow.uniqueId}</td>
                             <td>None</td>
                             <td className="action-col">
-                                <button className="btn btn-success">Check In</button>
+                                <button className="btn btn-success" onClick={()=>checkInBook(borrow.uniqueId, borrow.userId, borrow._id)}>Check In</button>
                                 <button className="btn btn-accent">Extend</button>
                             </td>
                         </tr>
