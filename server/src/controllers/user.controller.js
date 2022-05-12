@@ -45,6 +45,7 @@ const getMyBooks = catchAsync(async (req, res) => {
   const books = {
     borrowed: user.borrowed_books,
     requested: requestedBook,
+    queues: user.in_queue,
   }
 
   res.status(httpStatus.OK).send(books)
