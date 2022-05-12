@@ -45,7 +45,7 @@ const userSchema = mongoose.Schema(
     },
     faculty: {
       type: String,
-      enum: ['Software', 'Computer'],
+      enum: ['software', 'computer'],
       required: true,
     },
     regNo: {
