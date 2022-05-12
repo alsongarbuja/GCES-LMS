@@ -7,6 +7,7 @@ const limitRoute = require('./limit.route');
 const requestRoute = require('./request.route');
 const borrowRoute = require('./borrow.route');
 const adminRoute = require('./admin.route');
+const queueRoute = require('./queue.route');
 
 const docsRoute = require('./docs.route');
 const config = require('../../config/config');
@@ -45,6 +46,10 @@ const defaultRoutes = [
   {
     path: '/admin',
     route: adminRoute,
+  },
+  {
+    path: '/queue',
+    route: queueRoute,
   },
 ];
 
