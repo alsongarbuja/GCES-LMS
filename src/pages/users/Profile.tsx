@@ -66,7 +66,7 @@ const Profile = () => {
                                 <i className='accent-light'>
                                     (  
                                     <b>
-                                        due in {moment(book.dueDate).format('d')} days</b>
+                                        due in {moment.duration(moment(book.dueDate).diff(moment().startOf('day'))).asDays().toFixed(0)} days</b>
                                     )
                                 </i>
                             </li>
@@ -82,7 +82,7 @@ const Profile = () => {
                                 <i className='accent-light'>
                                     (  
                                     <b>
-                                        due in {moment(book.dueDate).format('d')} days</b>
+                                        due in {moment.duration(moment(book.dueDate).diff(moment().startOf('day'))).asDays().toFixed(0)} days</b>
                                     )
                                 </i>
                             </li>
@@ -98,7 +98,7 @@ const Profile = () => {
                                 <i className='accent-light'>
                                     (  
                                     <b>
-                                        due in {moment(book.dueDate).format('d')} days</b>
+                                        due in {moment.duration(moment(book.dueDate).diff(moment().startOf('day'))).asDays().toFixed(0)} days</b>
                                     )
                                 </i>
                             </li>
