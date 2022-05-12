@@ -6,6 +6,7 @@ const categoryRoute = require('./category.route');
 const limitRoute = require('./limit.route');
 const requestRoute = require('./request.route');
 const borrowRoute = require('./borrow.route');
+const adminRoute = require('./admin.route');
 
 const docsRoute = require('./docs.route');
 const config = require('../../config/config');
@@ -40,7 +41,11 @@ const defaultRoutes = [
   {
     path: '/borrow',
     route: borrowRoute,
-  }
+  },
+  {
+    path: '/admin',
+    route: adminRoute,
+  },
 ];
 
 const devRoutes = [
