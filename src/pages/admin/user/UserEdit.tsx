@@ -92,7 +92,7 @@ const UserEdit = () => {
                 <InputField name="name" value={user.name} text="Name" onChange={handleChange} />
                 <Select name="semester" value={user.semester} text="Semester" options={categories} onChange={handleChange} />
                 <InputField name="batch" value={user.batch} text="Batch" onChange={handleChange} />
-                <Select name="faculty" value={user.faculty||"Software"} text="Faculty" options={faculty} onChange={handleChange} />
+                <Select name="faculty" value={user.faculty||"software"} text="Faculty" options={faculty} onChange={handleChange} />
             </div>
             <div className="col-6">
                 <InputField name="email" value={user.email} text="Email" type="email" onChange={handleChange} />
