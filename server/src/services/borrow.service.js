@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const { User, Request } = require('../models');
+const { User, Request, Book } = require('../models');
 const ApiError = require('../utils/ApiError');
 
 const getBorrowbyId = async (params) => {
@@ -46,6 +46,15 @@ const createBorrow = async (borrowRequest) => {
     user.borrowed_books = [...user.borrowed_books, borrow];
     user.save();
 
+    const book = await Book.findById(body.bookId)
+
+    if(!book){
+      throw new ApiError(httpStatus.NOT_FOUND, 'Book not found');
+    }
+
+    book.borrowed_quantity += 1;
+    book.save();
+
     await request.remove()
     return user;
 };
@@ -65,11 +74,12 @@ const getBorrows = async () => {
           bookType: bb.bookType,
           userName: user.name,
           userId: user._id,
-          level: user.semester
+          level: user.semester,
+          bookId: bb.bookId,
         })
       })
     })
-    // {userName: user.name, level: user.semester}
+
     borrows.reverse();
     return borrows;
 };
@@ -82,8 +92,18 @@ const deleteBorrow = async (params) => {
        throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
    }
    await getBorrowbyId(params)
+   const bookId = await user.borrowed_books.filter(bb => bb._id==borrowId)[0].bookId
    user.borrowed_books = await user.borrowed_books.filter(borrowedBook => borrowedBook._id != borrowId)
    await user.save();
+
+   const book = await Book.findById(bookId)
+
+    if(!book){
+      throw new ApiError(httpStatus.NOT_FOUND, 'Book not found');
+    }
+
+    book.borrowed_quantity -= 1;
+    book.save();
 }
 
 module.exports = {
