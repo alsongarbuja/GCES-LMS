@@ -110,6 +110,10 @@ a {
 }
 
 /* utility classes */
+.text-large {
+  font-size: 1.5rem;
+  margin-inline: 1em;
+}
 .flex {
 	display: flex;
 	justify-content: center;
