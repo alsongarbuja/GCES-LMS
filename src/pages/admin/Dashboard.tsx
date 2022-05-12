@@ -4,11 +4,12 @@ import { FiBook, FiFile, FiUsers } from "react-icons/fi"
 import { universalAPI } from "../../api/api"
 import DashboardCard from "../../components/admin/DashboardCard"
 import TableLayout from "../../layouts/crud/TableLayout"
-import { RequestModel } from "../../types/models"
+import { DashBoardInfo, RequestModel } from "../../types/models"
 
 const Dashboard = () => {
 
   const [requests, setRequests] = useState<RequestModel[]>([])
+  const [dashInfo, setDashInfo] = useState<DashBoardInfo>()
 
   const fetchRequests = async () => {
     const { data, status, message } = await universalAPI('GET', '/request')
@@ -18,9 +19,18 @@ const Dashboard = () => {
       console.error(message);
     }
   }
+  const fetchDashBoardInfo = async () => {
+    const { data, status, message } = await universalAPI('GET', '/admin/dashboard')
+    if(status==='success'){
+      setDashInfo(data)
+    }else{
+      console.error(message);
+    }
+  }
 
   useEffect(() => {
     fetchRequests()
+    fetchDashBoardInfo()
   }, [])
 
   const verifyRequest = async (id: string) => {
@@ -79,17 +89,17 @@ const Dashboard = () => {
         <h2>Dashboard</h2>
         <div className="dashboard-card--holder flex flex-start">
           <DashboardCard
-            total="210"
+            total={dashInfo?.totalBooks||""}
             title="Total Books"
             icon={<FiBook className="icons" />}
           />
           <DashboardCard
-            total="102"
+            total={dashInfo?.totalBorrows||""}
             title="Total Borrows"
             icon={<FiFile className="icons" />}
           />
           <DashboardCard
-            total="400"
+            total={dashInfo?.totalStudents||""}
             title="Total Students"
             icon={<FiUsers className="icons" />}
           />
