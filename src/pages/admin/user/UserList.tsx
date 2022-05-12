@@ -9,7 +9,7 @@ const UserList = () => {
     const [users, setUsers] = useState<UserModel[]>([])
 
     const fetchUsers = async () => {
-        const { data, status, message } = await universalAPI('GET', '/users')
+        const { data, status, message } = await universalAPI('GET', '/users?role=USER')
         if(status==='success'){
             setUsers(data.results)
         }else{
