@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { universalAPI } from '../../api/api'
 import { InputField, Select, SubmitButton } from '../../components/form/Fields'
@@ -28,6 +28,8 @@ const Register = () => {
     errorType: '',
     message: '',
   })
+
+  const [semesters, setSemesters] = useState([])
 
   /** 
    * 
@@ -94,17 +96,19 @@ const Register = () => {
     { value: 'software', option: 'Software' },
     { value: 'computer', option: 'Computer' },
   ]
-  // select options for semester
-  const semOptions = [
-    { value: '1', option: '1st Semester' },
-    { value: '2', option: '2nd Semester' },
-    { value: '3', option: '3rd Semester' },
-    { value: '4', option: '4th Semester' },
-    { value: '5', option: '5th Semester' },
-    { value: '6', option: '6th Semester' },
-    { value: '7', option: '7th Semester' },
-    { value: '8', option: '8th Semester' },
-  ]
+
+  const fetchSemesters = async () => {
+    const { data, status, message } = await universalAPI('GET', '/category')
+    if(status==='success'){
+      setSemesters(data.map((s: { value: string, option: string }) => ({ value: s, option: s })))
+    }else{
+      console.error(message);
+    }
+  }
+
+  useEffect(() => {
+    fetchSemesters()
+  }, [])
 
   return (
     <UserLayout>
@@ -124,7 +128,7 @@ const Register = () => {
               <InputField opt="col-6" name="batch" text="Batch" onChange={handleChange} value={user.batch} 
                 error={{ hasError: error.errorType==='batch', message: error.message }}
               />
-              <Select opt="col-6" name="semester" text="Semester" onChange={handleChange} value={user.semester} options={semOptions} />
+              <Select opt="col-6" name="semester" text="Semester" onChange={handleChange} value={user.semester} options={semesters} />
             </div>
             <div className="row">
               <InputField opt="col-6" name="phone" text="Phone number" onChange={handleChange} value={user.phone} 
