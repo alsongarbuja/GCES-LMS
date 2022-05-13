@@ -100,7 +100,7 @@ const Register = () => {
   const fetchSemesters = async () => {
     const { data, status, message } = await universalAPI('GET', '/category')
     if(status==='success'){
-      setSemesters(data.map((s: { value: string, option: string }) => ({ value: s, option: s })))
+      setSemesters(data.map((s: { _id: string, name: string }) => ({ value: s.name, option: s.name })))
     }else{
       console.error(message);
     }
