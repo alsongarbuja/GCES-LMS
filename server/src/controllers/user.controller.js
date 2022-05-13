@@ -3,7 +3,7 @@ const pick = require('../utils/pick');
 const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
 const { userService } = require('../services');
-const { Request } = require('../models');
+const { Request, User } = require('../models');
 
 const createUser = catchAsync(async (req, res) => {
   const user = await userService.createUser(req.body);
@@ -37,10 +37,10 @@ const deleteUser = catchAsync(async (req, res) => {
 
 const getMyBooks = catchAsync(async (req, res) => {
   const userId = req.params.userId;
-  const user = await userService.getUserById(userId)
+  const user = await User.findById(userId)
 
   const requests = await Request.find({})
-  const requestedBook = requests.filter(r => r.user.userId===userId)
+  const requestedBook = await requests.filter(r => r.user.userId==user._id)
 
   const books = {
     borrowed: user.borrowed_books,
