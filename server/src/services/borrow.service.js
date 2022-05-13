@@ -1,6 +1,7 @@
 const httpStatus = require('http-status');
 const { User, Request, Book } = require('../models');
 const ApiError = require('../utils/ApiError');
+const { createRequest } = require('./request.service');
 
 const getBorrowbyId = async (params) => {
     const { userId, borrowId } = params;
@@ -102,8 +103,53 @@ const deleteBorrow = async (params) => {
       throw new ApiError(httpStatus.NOT_FOUND, 'Book not found');
     }
 
+    book.in_queue.forEach(async (iq) => {
+      const inQueueUser = await User.findById(iq.userId)
+
+      if(iq.queue_ticket_number===1){
+        inQueueUser.in_queue = await inQueueUser.in_queue.filter(iqq => iqq.bookId!=bookId)
+      }else{
+        inQueueUser.in_queue = await inQueueUser.in_queue.map(iqq => {
+          if(iqq.bookId==bookId){
+            iqq.ticketNumber -= 1;
+          }
+          return iqq;
+        })
+      }
+      await inQueueUser.save()
+    })
+
     book.borrowed_quantity -= 1;
-    book.save();
+
+    const queueBook = book.in_queue.filter(iq => iq.queue_ticket_number===1)
+
+    if(queueBook.length>0){
+      await createRequest({
+        book: {
+          bookId: book._id,
+          name: book.title,
+          authorName: book.author,
+          bookType: book.type,
+        },
+        user: {
+          userId: queueBook[0].userId.toString(),
+          name: queueBook[0].name,
+          level: queueBook[0].level,
+        },
+        request_type: 'new request',
+        status: 'verified',
+      })
+    }
+
+    book.in_queue = await book.in_queue.filter(iq => {
+      if(iq.queue_ticket_number!==1){
+        iq.queue_ticket_number -= 1;
+        return iq
+      }
+      return;
+    })
+
+    await book.save();
 }
 
 module.exports = {
