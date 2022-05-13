@@ -7,7 +7,7 @@ const NotFound = () => {
 
   return (
     <main className='flex justify-space-between'>
-        <img src="/book.png" alt="page not found image" />
+        <img src="/book.png" alt="page not found illustration" />
         <div>
             <h1>404</h1>
             <p>Page not found</p><br />
