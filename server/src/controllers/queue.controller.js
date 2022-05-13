@@ -35,6 +35,7 @@ const addQueue = catchAsync(async (req, res) => {
   await user.save()
 
   book.in_queue.push({
+    userId: user._id,
     name: body.name,
     level: body.level,
     queue_ticket_number: book.in_queue.length+1,

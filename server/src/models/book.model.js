@@ -35,6 +35,7 @@ const bookSchema = new mongoose.Schema({
     in_queue: {
       type: [
           {
+              userId: mongoose.SchemaTypes.ObjectId,
               name: String,
               level: String,
               queue_ticket_number: Number,
