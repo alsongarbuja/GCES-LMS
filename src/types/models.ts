@@ -20,7 +20,7 @@ export interface BookModel {
     publisher: string,
     year?: string,
     edition?: string,
-    in_queue?: {
+    in_queue: {
         name: string,
         level: string,
         queue_ticket_number: number,

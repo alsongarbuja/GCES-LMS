@@ -64,10 +64,18 @@ const Dashboard = () => {
     }
   }
 
-  const cancelRequest = async (id: string) => {
+  const cancelRequest = async (id: string, book: any) => {
     const reason = window.prompt('Reason for cancel if any')
     if(reason!==null){
-      let cancelObj: any = { status: 'cancelled' }
+      let cancelObj: any = { 
+        status: 'cancelled', 
+        book: {
+          bookId: book.bookId,
+          name: book.name,
+          authorName: book.authorName,
+          bookType: book.bookType,
+        }
+      }
       if(reason!==''){
         cancelObj = {
           ...cancelObj,
@@ -122,7 +130,7 @@ const Dashboard = () => {
                           <button className="btn btn-success" onClick={()=>checkOutRequest(request)}>Check Out</button>
                         )
                       }
-                      <button className="btn btn-danger" onClick={()=>cancelRequest(request._id)}>{request.status==='open'?'Reject':'Cancel'}</button>
+                      <button className="btn btn-danger" onClick={()=>cancelRequest(request._id, request.book)}>{request.status==='open'?'Reject':'Cancel'}</button>
                   </td>
                 </tr>
               ))

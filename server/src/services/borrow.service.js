@@ -53,7 +53,52 @@ const createBorrow = async (borrowRequest) => {
       throw new ApiError(httpStatus.NOT_FOUND, 'Book not found');
     }
 
+    book.in_queue.forEach(async (iq) => {
+      const inQueueUser = await User.findById(iq.userId)
+
+      if(iq.queue_ticket_number===1){
+        inQueueUser.in_queue = await inQueueUser.in_queue.filter(iqq => iqq.bookId!=body.bookId)
+      }else{
+        inQueueUser.in_queue = await inQueueUser.in_queue.map(iqq => {
+          if(iqq.bookId==body.bookId){
+            iqq.ticketNumber -= 1;
+          }
+          return iqq;
+        })
+      }
+      await inQueueUser.save()
+    })
+
     book.borrowed_quantity += 1;
+
+    const queueBook = book.in_queue.filter(iq => iq.queue_ticket_number===1)
+
+    if(queueBook.length>0){
+      await createRequest({
+        book: {
+          bookId: book._id,
+          name: book.title,
+          authorName: book.author,
+          bookType: book.type,
+        },
+        user: {
+          userId: queueBook[0].userId.toString(),
+          name: queueBook[0].name,
+          level: queueBook[0].level,
+        },
+        request_type: 'new request',
+        status: 'verified',
+      })
+    }
+
+    book.in_queue = await book.in_queue.filter(iq => {
+      if(iq.queue_ticket_number!==1){
+        iq.queue_ticket_number -= 1;
+        return iq
+      }
+      return;
+    })
+
     book.save();
 
     await request.remove()
@@ -141,12 +186,9 @@ const deleteBorrow = async (params) => {
       })
     }
 
-    book.in_queue = await book.in_queue.filter(iq => {
-      if(iq.queue_ticket_number!==1){
-        iq.queue_ticket_number -= 1;
-        return iq
-      }
-      return;
+    book.in_queue = await book.in_queue.map(iq => {
+      iq.queue_ticket_number -= 1;
+      return iq;
     })
 
     await book.save();

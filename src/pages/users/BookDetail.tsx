@@ -69,6 +69,15 @@ const BookDetail = () => {
       }
     }
 
+    const checkQueue = (book: BookModel|undefined) => {
+      if(((book?.borrowed_quantity||0)===(book?.quantity||0))||(book?.in_queue.length||0)){
+        return true
+      }
+      // if()
+
+      return false
+    }
+
   return (
     <main>
       <ProfileFAB/>
@@ -83,8 +92,9 @@ const BookDetail = () => {
               <p><b>Semester - </b> <i>{book?.category}</i> </p>
               <p><b>Edition - </b><i>{book?.edition}</i></p>
               <p><b>Publisher - </b>{book?.publisher}</p>
+              <p><b>Queue -</b> <span className="text-large accent-light">{book?.in_queue.length}</span></p>
               {
-                (book?.borrowed_quantity||0)===(book?.quantity||0)?(
+                (checkQueue(book))?(
                   <button className="btn btn-accent-two request-btn" onClick={stayQueue}>Stay in Queue</button>
                 ):(
                   <button className="btn btn-accent request-btn" onClick={sendRequest}>Send Request</button>
