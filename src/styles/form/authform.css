@@ -19,3 +19,8 @@
 .register-form {
     width: 50%;
 }
+@media screen and (max-width: 600px) {
+    .auth-form {
+        width: 90%;
+    }
+}
