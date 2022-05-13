@@ -36,15 +36,18 @@ const Explore = () => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setCategory(e.target.value)
     const searchResult = (books: BookModel[]) => {
         let remainingBooks = []
-        const pattern = "/" + searchTerm + "/i"
+        const pattern = new RegExp("/" + searchTerm + "/", 'i')
 
         for (let i = 0; i < books.length; i++) {
-            if(
-                books[i].title.match(pattern) || books[i].secondary_title?.match(pattern)
-                || books[i].author.match(pattern) || books[i].publisher.match(pattern)
-            ){
+            if(pattern.test(books[i].title)){
                 remainingBooks.push(books[i])
             }
+            // if(
+            //     books[i].title.match(pattern) || books[i].secondary_title?.match(pattern)
+            //     || books[i].author.match(pattern) || books[i].publisher.match(pattern)
+            // ){
+            //     remainingBooks.push(books[i])
+            // }
         }
 
         return remainingBooks;
