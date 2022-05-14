@@ -1,24 +1,51 @@
+/* eslint-disable array-callback-return */
 import moment from "moment"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { universalAPI } from "../../api/api"
+import { InputField, Select } from "../../components/form/Fields"
 import TableLayout from "../../layouts/crud/TableLayout"
-import { BorrowModel } from "../../types/models"
+import { BorrowModel, OptionCategoryModel } from "../../types/models"
+import '../../styles/admin/borrow.css'
 
 const Borrows = () => {
 
     const [borrows, setBorrows] = useState<BorrowModel[]>([])
+    const [filteredBorrows, setFilteredBorrows] = useState<BorrowModel[]>([])
+    const [name, setName] = useState<string>('')
+    const [categories, setCategories] = useState<OptionCategoryModel[]>([])
+    const [category, setCategory] = useState<string>('all')
+
+    const fetchCategories = async () => {
+        const { data, status, message } = await universalAPI('GET', '/category')
+        if(status === 'success'){
+            const levels = data.map((c: { _id: string, name: string }) => ({ value: c.name, option: c.name }))
+            console.log(levels);
+            
+            setCategories([
+                {
+                    value: 'all',
+                    option: 'All',
+                },
+                ...levels,
+            ])
+        }else{
+            console.error(message);
+        }
+    }
 
     const fetchBorrows = async () => {
         const { data, status, message } = await universalAPI('GET', '/borrow')
         if(status==='success'){
             setBorrows(data)
+            setFilteredBorrows(data)
         }else{
             console.error(message);
         }
     }
 
     useEffect(() => {
+        fetchCategories()
         fetchBorrows()
     }, [])
 
@@ -34,13 +61,56 @@ const Borrows = () => {
         }
     }
 
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => { 
+        let bb = borrows;
+
+        if(e.target.name==='name'){
+            setName(e.target.value)
+            const pattern = new RegExp(e.target.value, "i")
+
+            bb = bb.filter(b => {
+                if((pattern.test(b.bookName) || pattern.test(b.userName))&&b.level===category){
+                    return b;
+                }
+                return;
+            })
+        }else{
+            setCategory(e.target.value)
+            const pattern = new RegExp(name, "i")
+
+            if(e.target.value==='all'){
+                bb = borrows.filter(b => {
+                    if(pattern.test(b.bookName) || pattern.test(b.userName)){
+                        return b;
+                    }
+                    return;
+                })
+            }else{
+                bb = borrows.filter(bb => {
+                    if((pattern.test(bb.bookName) || pattern.test(bb.userName))&&bb.level===e.target.value){
+                        return bb;
+                    }
+                    return;
+                })
+            }
+        }
+
+        setFilteredBorrows(bb)
+    }
+
   return (
     <main>
-        <h2>Borrows</h2>
+        <div className="flex justify-space-between">
+            <h2>Borrows</h2>
+            <div className="filters row m-0">
+                <InputField name="name" onChange={handleChange} text="Book/Student" value={name} opt="col-6" />
+                <Select name="level" onChange={handleChange} text="Level" value={category} options={categories} opt="col-6" />
+            </div>
+        </div>
         <TableLayout theads={['SN', 'Book name', 'Name', 'Due date', 'Book Id', 'Queue']} >
             <tbody>
                 {
-                    borrows.map((borrow, i) => (
+                    filteredBorrows.map((borrow, i) => (
                         <tr key={borrow._id}>
                             <th>{i+1}</th>
                             <td>{borrow.bookName}</td>

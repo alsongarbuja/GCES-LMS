@@ -21,6 +21,7 @@ export interface BookModel {
     year?: string,
     edition?: string,
     in_queue: {
+        userId: string,
         name: string,
         level: string,
         queue_ticket_number: number,
@@ -41,6 +42,10 @@ export interface CategoryModel {
     _id?: string,
     name: string,
 }
+export interface OptionCategoryModel {
+    value: string,
+    option: string,
+}
 
 export interface RequestModel {
     _id: string,
@@ -59,6 +64,18 @@ export interface RequestModel {
     status?: 'open' | 'verified' | 'cancelled',
     cancelled_reason?: string,
     createdAt?: string,
+}
+
+export interface QueueModel {
+    book: BookModel,
+}
+
+export interface SingleQueueModel {
+    bookId: string,
+    bookName: string,
+    bookType: 'reference' | 'text-book' | 'others',
+    authorName: string,
+    userId: string,
 }
 
 export interface BorrowModel {
