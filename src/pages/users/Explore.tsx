@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 import { BookModel } from '../../types/models'
 import { universalAPI } from '../../api/api'
 import { InputField, Select } from '../../components/form/Fields'
+import { getUserLevel } from '../../helper/cookies'
 
 const Explore = () => {
 
@@ -13,7 +14,7 @@ const Explore = () => {
     const [categories, setCategories] = useState([])
     const [searchTerm, setSearchTerm] = useState('')
     const [hasSearch, setHasSearch] = useState(false)
-    const [category, setCategory] = useState('6th Semester')
+    const [category, setCategory] = useState(getUserLevel())
 
     const fetchBooks = async () => {
         const { data, status, message } = await universalAPI('GET', '/books')
@@ -36,18 +37,15 @@ const Explore = () => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setCategory(e.target.value)
     const searchResult = (books: BookModel[]) => {
         let remainingBooks = []
-        const pattern = new RegExp("/" + searchTerm + "/", 'i')
+        const pattern = new RegExp(searchTerm, 'i')
 
         for (let i = 0; i < books.length; i++) {
-            if(pattern.test(books[i].title)){
+            if(
+                pattern.test(books[i].title) || pattern.test(books[i]?.secondary_title||'')
+                || pattern.test(books[i].author) || pattern.test(books[i].publisher)
+            ){
                 remainingBooks.push(books[i])
             }
-            // if(
-            //     books[i].title.match(pattern) || books[i].secondary_title?.match(pattern)
-            //     || books[i].author.match(pattern) || books[i].publisher.match(pattern)
-            // ){
-            //     remainingBooks.push(books[i])
-            // }
         }
 
         return remainingBooks;
