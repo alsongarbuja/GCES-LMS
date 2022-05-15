@@ -1,0 +1,20 @@
+.tab-selector {
+    gap: 0;
+}
+.tab-selector h2{
+    cursor: pointer;
+    padding: 0 .5em;
+    color: var(--clr-dark-neutral);
+    border-block-end: 0px solid var(--clr-accent-two);
+    transition: all .5s ease-in-out;
+}
+.tab-selector .selected-tab {
+    color: var(--clr-dark);
+    border-block-end-width: 5px;
+}
+.queue-list li {
+    margin-block-end: .5em;
+}
+.queue-list button {
+    margin-inline: .5em;
+}

@@ -25,6 +25,7 @@ export interface BookModel {
         name: string,
         level: string,
         queue_ticket_number: number,
+        canVisit: boolean,
     }[]
 }
 

@@ -198,7 +198,11 @@ const Profile = () => {
                                 <p>
                                     <b>{book.bookName}</b>                                      
                                     <i>  
-                                        <b className='text-success'>(queue number - {book.ticketNumber})</b>
+                                        <b className='text-success'>
+                                            {
+                                                book.canVisit?'(Can Visit)':`(queue number - ${book.ticketNumber})`
+                                            }
+                                        </b>
                                     </i>
                                 </p>
                             </li>

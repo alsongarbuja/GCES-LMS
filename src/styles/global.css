@@ -85,8 +85,10 @@ select {
 	--clr-accent: rgb(52, 117, 178);
   --clr-accent-two: rgb(52, 155, 177);
   --clr-accent-light: rgb(45, 166, 235);
+  --clr-accent-two-light: rgba(52, 154, 177, 0.442);
 	--clr-light: rgb(255, 255, 255);
 	--clr-dark: rgba(24,24,24,1);
+	--clr-dark-neutral: rgba(24, 24, 24, 0.432);
 	--clr-neutral: rgb(232, 232, 232);
   --clr-success: rgb(52, 178, 94);
   --clr-danger: rgb(232, 38, 74);
