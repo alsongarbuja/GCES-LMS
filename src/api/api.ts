@@ -1,4 +1,5 @@
 import axios from "axios"
+import { getAccessToken } from "../helper/cookies"
 
 /**
  * 
@@ -20,6 +21,7 @@ export const universalAPI = async (method: string, endpoint: string,  payload: a
         baseURL: process.env.REACT_APP_BASE_API_URL,
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${getAccessToken()}`,
         }
     }).then(res => {
         data = res?.data
