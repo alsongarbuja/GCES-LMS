@@ -44,8 +44,6 @@ const Dashboard = () => {
     fetchDashBoardInfo()
     fetchQueues()
   }, [])
-  console.log(queues);
-  
 
   const verifyRequest = async (id: string) => {
     if(window.confirm('Accept the request ?')){
