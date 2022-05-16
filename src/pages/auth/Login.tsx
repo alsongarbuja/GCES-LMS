@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { universalAPI } from "../../api/api"
 import {InputField, SubmitButton} from "../../components/form/Fields"
 import { setUserData } from "../../helper/cookies"
@@ -9,6 +9,9 @@ import '../../styles/form/authform.css'
 const Login = () => {
 
   const navigate = useNavigate()
+  const location = useLocation()
+  const from = location.state as { from: any }
+
   // * state to hold user field infos
   const [user, setUser] = useState({
     email: '',
@@ -50,16 +53,25 @@ const Login = () => {
           semester: user.semester,
           faculty: user.faculty,
           accessToken: tokens.access.token,
+          role: user.role,
         }
         // add userData to cookies
         setUserData(userData);
         
         // navigate user based on their role
         if(user.role === 'SYSTEM_ADMIN'){
-          navigate('/admin/dashboard')
+          if(from){
+            navigate(from.from?.pathname, { replace: true })
+          }else{
+            navigate('/admin/dashboard')
+          }
         }
         else{
-          navigate('/user/explore')
+          if(from){
+            navigate(from.from?.pathname, { replace: true })
+          }else{
+            navigate('/user/explore')
+          }
         }
         
       }else{

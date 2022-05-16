@@ -30,17 +30,28 @@ import Landing from './pages/Landing'
 import Credit from './pages/Credit'
 import LimitShow from './pages/admin/limit/LimitShow'
 import NotFound from './pages/NotFound'
+import RouteAuth from './providers/RouteAuth'
+import Unauthorized from './pages/Unauthorized'
+import Auth from './providers/Auth'
 
 const AppRoute = () => {
   return (
     <Routes>
+      <Route path="/" element={<RouteAuth />}>
         <Route path="/" element={<Landing />}/>
-        <Route path="/credit" element={<Credit />}/>
-        <Route path="/auth/*" element={<AuthRoutes/>} />
-        <Route path="/user/*" element={<UserRoutes/>} />
-        <Route path="/admin/*" element={<AdminRoutes />} /> 
+        <Route path="credit" element={<Credit />}/>
+        <Route path="unauthorized" element={<Unauthorized />} />
+        <Route path="auth/*" element={<AuthRoutes/>} />
+
+        <Route element={<Auth accessingRole={["USER", "SYSTEM_ADMIN"]} />}>
+          <Route path="user/*" element={<UserRoutes/>} />
+        </Route>
+        <Route element={<Auth accessingRole={["SYSTEM_ADMIN"]} />}>
+          <Route path="admin/*" element={<AdminRoutes />} /> 
+        </Route>
 
         <Route path="*" element={<NotFound/>} />
+      </Route>
     </Routes>
   )
 }
