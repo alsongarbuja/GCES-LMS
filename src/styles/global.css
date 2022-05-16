@@ -193,12 +193,7 @@ a {
   padding: 2em;
   margin-block: 1em;
 }
-.mt-2{
-  margin-top: 2em;
-}
-.p-0 {
-  padding: 0;
-}
-.m-0{
-  margin: 0;
-}
+.mt-2{ margin-top: 2em; }
+.p-0 { padding: 0; }
+.m-0{ margin: 0; }
+.text-center { text-align: center; }
