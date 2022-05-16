@@ -15,6 +15,7 @@ interface Payload{
     semester?: string,
     faculty?: string,
     accessToken: string,
+    role: 'SYSTEM_ADMIN' | 'USER',
 }
 
 /**
@@ -37,24 +38,51 @@ export const getUserData = () => JSON.parse(decodeURIComponent(cookies.get('gces
 
 // get the access token from cookie 
 export const getAccessToken = () => {
-    const  {accessToken} = JSON.parse(decodeURIComponent(cookies.get('gces-lms-user', { doNotParse: true })));
-    return accessToken;
+    const cookie = cookies.get('gces-lms-user', { doNotParse: true })
+    if(cookie){
+        const { accessToken } = JSON.parse(decodeURIComponent(cookie));
+        return accessToken
+    }
+    
+    return null
 }
 
 // get the id from cookie
 export const getUserId = () => {
-    const {id} = JSON.parse(decodeURIComponent(cookies.get('gces-lms-user', { doNotParse: true })));
-    return id;
+    const cookie = cookies.get('gces-lms-user', { doNotParse: true })
+    if(cookie){
+        const { id } = JSON.parse(decodeURIComponent(cookie));
+        return id;
+    }
+    return null;
 }
 
 // get the name from cookie
 export const getUserName = () => {
-    const { name } = JSON.parse(decodeURIComponent(cookies.get('gces-lms-user', { doNotParse: true })));
-    return name;
+    const cookie = cookies.get('gces-lms-user', { doNotParse: true })
+    if(cookie){
+        const { name } = JSON.parse(decodeURIComponent(cookie));
+        return name;
+    }
+    return null;
 }
 
 // get the semester/level from the cookie
 export const getUserLevel = () => {
-    const { semester } = JSON.parse(decodeURIComponent(cookies.get('gces-lms-user', { doNotParse: true })));
-    return semester;
+    const cookie = cookies.get('gces-lms-user', { doNotParse: true })
+    if(cookie){
+        const { semester } = JSON.parse(decodeURIComponent(cookie));
+        return semester;
+    }
+    return null;
+}
+
+// get the role from the cookie
+export const getUserRole = () => {
+    const cookie = cookies.get('gces-lms-user', { doNotParse: true })
+    if(cookie){
+        const { role } = JSON.parse(decodeURIComponent(cookie));
+        return role;
+    }
+    return null;
 }
