@@ -14,11 +14,16 @@ const BookDetail = () => {
     const navigate = useNavigate()
 
     const [book, setBook] = useState<BookModel>()
+    const [check, setCheck] = useState({
+      check: true,
+      message: '',
+    })
 
     const fetchBook = async () => {
-      const { data, status, message } = await universalAPI('GET', `/books/${bookId}`)
+      const { data, status, message } = await universalAPI('GET', `/books/check/${bookId}/${getUserId()}`)
       if(status==='success'){
-        setBook(data)
+        setBook(data.book)
+        setCheck(data.canRequestOrQueue)
       }else{
         console.error(message);
       }
@@ -73,8 +78,6 @@ const BookDetail = () => {
       if(((book?.borrowed_quantity||0)===(book?.quantity||0))||(book?.in_queue.length||0)){
         return true
       }
-      // if()
-
       return false
     }
 
@@ -94,10 +97,18 @@ const BookDetail = () => {
               <p><b>Publisher - </b>{book?.publisher}</p>
               <p><b>Queue -</b> <span className="text-large accent-light">{book?.in_queue.length}</span></p>
               {
-                (checkQueue(book))?(
-                  <button className="btn btn-accent-two request-btn" onClick={stayQueue}>Stay in Queue</button>
+                check.check?(
+                  <>
+                    {
+                      (checkQueue(book))?(
+                        <button className="btn btn-accent-two request-btn" onClick={stayQueue}>Stay in Queue</button>
+                      ):(
+                        <button className="btn btn-accent request-btn" onClick={sendRequest}>Send Request</button>
+                      )
+                    }
+                  </>
                 ):(
-                  <button className="btn btn-accent request-btn" onClick={sendRequest}>Send Request</button>
+                  <p className="text-danger">{check.message}</p>
                 )
               }
           </div>
