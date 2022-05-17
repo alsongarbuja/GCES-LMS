@@ -1,4 +1,4 @@
-import { FiAlertCircle, FiBook, FiBookmark, FiLayers, FiLayout, FiSliders, FiUsers } from 'react-icons/fi'
+import { FiAlertCircle, FiBook, FiBookmark, FiDollarSign, FiLayers, FiLayout, FiSliders, FiUsers } from 'react-icons/fi'
 
 export const sidemenus = [
     {
@@ -28,6 +28,11 @@ export const sidemenus = [
     },
     {
         id: '6',
+        route: '/admin/fine',
+        icon: <FiDollarSign className="icons" />
+    },
+    {
+        id: '7',
         route: '/admin/users',
         icon: <FiUsers className="icons" />
     },

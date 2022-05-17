@@ -33,6 +33,10 @@ import NotFound from './pages/NotFound'
 import RouteAuth from './providers/RouteAuth'
 import Unauthorized from './pages/Unauthorized'
 import Auth from './providers/Auth'
+import FineList from './pages/admin/fine/FineList'
+import FineEdit from './pages/admin/fine/FineEdit'
+import FineShow from './pages/admin/fine/FineShow'
+import FineCreate from './pages/admin/fine/FineCreate'
 
 const AppRoute = () => {
   return (
@@ -92,6 +96,7 @@ const AdminRoutes = () => {
         <Route path="/limit/*" element={<LimitRoutes />} />
         <Route path="/books/*" element={<BookRoutes />} />
         <Route path="/users/*" element={<UsersRoutes />} />
+        <Route path="/fine/*" element={<FineRoutes />} />
 
         <Route path="*" element={<NotFound/>} />
       </Routes>
@@ -142,6 +147,18 @@ const UsersRoutes = () => {
       <Route path='/show/:userId' element={<UserShow />}/>
 
         <Route path="*" element={<NotFound/>} />
+    </Routes>
+  )
+}
+const FineRoutes = () => {
+  return(
+    <Routes>
+      <Route path='/' element={<FineList />}/>
+      <Route path='/add' element={<FineCreate />}/>
+      <Route path='/edit/:fineId' element={<FineEdit />}/>
+      <Route path='/show/:fineId' element={<FineShow />}/>
+
+      <Route path="*" element={<NotFound/>} />
     </Routes>
   )
 }

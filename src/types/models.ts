@@ -79,6 +79,11 @@ export interface SingleQueueModel {
     userId: string,
 }
 
+export interface FineModel {
+    _id?: string,
+    fine: number,
+}
+
 export interface BorrowModel {
     _id: string,
     bookId: string,
