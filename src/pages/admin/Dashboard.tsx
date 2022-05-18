@@ -1,23 +1,28 @@
 import moment from "moment"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { FiBook, FiFile, FiUsers } from "react-icons/fi"
 import { universalAPI } from "../../api/api"
 import DashboardCard from "../../components/admin/DashboardCard"
 import TableLayout from "../../layouts/crud/TableLayout"
 import { DashBoardInfo, RequestModel, QueueModel, SingleQueueModel } from "../../types/models"
 import '../../styles/admin/dashboard.css'
+import { InputField } from "../../components/form/Fields"
 
 const Dashboard = () => {
 
   const [requests, setRequests] = useState<RequestModel[]>([])
+  const [fileteredRequests, setFilteredRequests] = useState<RequestModel[]>([])
   const [queues, setQueues] = useState<QueueModel[]>([])
+  const [filteredQueues, setFilteredQueues] = useState<QueueModel[]>([])
   const [dashInfo, setDashInfo] = useState<DashBoardInfo>()
+  const [name, setName] = useState<string>('')
   const [isSelectedTabRequest, setIsSelectedTabRequest] = useState(true)
 
   const fetchRequests = async () => {
     const { data, status, message } = await universalAPI('GET', '/request')
     if(status==='success'){
       setRequests(data)
+      setFilteredRequests(data)
     }else{
       console.error(message);
     }
@@ -34,6 +39,7 @@ const Dashboard = () => {
     const { data, status, message } = await universalAPI('GET', '/queue')
     if(status==='success'){
       setQueues(data)
+      setFilteredQueues(data)
     }else{
       console.error(message);
     }
@@ -146,6 +152,14 @@ const Dashboard = () => {
     }
   }
 
+  const handleFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value)
+    const pattern = new RegExp(e.target.value, 'i')
+
+    setFilteredQueues(queues.filter(q => pattern.test(q.book.title)))
+    setFilteredRequests(requests.filter(r => pattern.test(r.book.name)))
+  }
+
   return (
     <main>
         <h2>Dashboard</h2>
@@ -166,16 +180,19 @@ const Dashboard = () => {
             icon={<FiUsers className="icons" />}
           />
         </div>
-        <div className="tab-selector flex flex-start">
-          <h2 className={`${isSelectedTabRequest&&'selected-tab'}`} onClick={()=>setIsSelectedTabRequest(prev => !prev)}>Requests</h2>
-          <h2 className={`${!isSelectedTabRequest&&'selected-tab'}`} onClick={()=>setIsSelectedTabRequest(prev => !prev)}> Queues</h2>
+        <div className="flex justify-space-between">
+          <div className="tab-selector flex flex-start">
+            <h2 className={`${isSelectedTabRequest&&'selected-tab'}`} onClick={()=>setIsSelectedTabRequest(prev => !prev)}>Requests</h2>
+            <h2 className={`${!isSelectedTabRequest&&'selected-tab'}`} onClick={()=>setIsSelectedTabRequest(prev => !prev)}> Queues</h2>
+          </div>
+          <InputField name="name" value={name} onChange={handleFilter} text="Book Name" />
         </div>
         {
           isSelectedTabRequest?(
             <TableLayout theads={['SN', 'Name', 'Book', 'Requested Date']}>
               <tbody>
                 {
-                  requests.map((request, i) => (
+                  fileteredRequests.map((request, i) => (
                     <tr key={request._id}>
                       <th>{i+1}</th>
                       <td>{request.user.name}</td>
@@ -200,7 +217,7 @@ const Dashboard = () => {
             <TableLayout theads={['SN', 'Book', 'Queues']}>
               <tbody>
                 {
-                  queues.map((queue, i) => (
+                  filteredQueues.map((queue, i) => (
                     <tr key={i}>
                       <td>{i+1}</td>
                       <td>{queue.book.title}</td>
