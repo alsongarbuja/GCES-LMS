@@ -1,17 +1,21 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { universalAPI } from "../../../api/api"
+import { InputField } from "../../../components/form/Fields"
 import { deleteObj } from "../../../helper/delete"
 import TableLayout from "../../../layouts/crud/TableLayout"
 import { UserModel } from "../../../types/models"
 
 const UserList = () => {
     const [users, setUsers] = useState<UserModel[]>([])
+    const [filteredUsers, setFilteredUsers] = useState<UserModel[]>([])
+    const [name, setName] = useState('')
 
     const fetchUsers = async () => {
         const { data, status, message } = await universalAPI('GET', '/users?role=USER')
         if(status==='success'){
             setUsers(data.results)
+            setFilteredUsers(data.results)
         }else{
             console.error(message);
         }
@@ -21,16 +25,31 @@ const UserList = () => {
         fetchUsers()
     }, [])
 
+    const handleFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setName(e.target.value)
+        const pattern = new RegExp(e.target.value, 'i')
+
+        setFilteredUsers(users.filter(u => pattern.test(u.name)))
+    }
+
   return (
     <main>
         <div className="flex justify-space-between">
             <h2>Users</h2>
-            <Link to={'add'}><button className="btn btn-success">Create</button></Link>
+            <div className="flex">
+                <Link to={'add'}><button className="btn btn-success mt-2">Create</button></Link>
+                <InputField 
+                    name="name"
+                    text="Student Name"
+                    onChange={handleFilter}
+                    value={name}
+                />
+            </div>
         </div>
         <TableLayout theads={['SN', 'Name', 'Semester', 'Batch', 'Borrows', 'Fine']} >
             <tbody>
                 {
-                    users.map((user, i) => (
+                    filteredUsers.map((user, i) => (
                         <tr key={user.id}>
                             <th>{i+1}</th>
                             <td>{user.name}</td>
