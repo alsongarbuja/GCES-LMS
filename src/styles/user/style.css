@@ -11,6 +11,11 @@
     background-color: var(--clr-accent);
     color: var(--clr-light);
     font-size: 1.5rem;
-    padding: .5em .85em;
+    padding: .5em .75em;
     cursor: pointer;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
