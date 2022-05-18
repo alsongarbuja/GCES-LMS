@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import '../../styles/user/style.css'
 import '../../styles/user/profile.css'
@@ -8,6 +8,7 @@ import { FiLogOut } from 'react-icons/fi'
 import { universalAPI } from '../../api/api'
 import moment from 'moment'
 import { deleteObj } from '../../helper/delete'
+import { InputField } from '../../components/form/Fields'
 
 const Profile = () => {
     const navigate = useNavigate()
@@ -17,6 +18,7 @@ const Profile = () => {
         requested: [],
         queues: []
     })
+    const [password, setPassword] = useState('')
 
     const getUserBooks = async () => {
         const { data, status, message } = await universalAPI('GET', `/users/mybooks/${getUserId()}`)
@@ -37,6 +39,17 @@ const Profile = () => {
         getUserBooks()
     }, [])
 
+    const changePassword = async () => {
+        if(window.confirm('Change the password?')){
+            const { data, status, message } = await universalAPI('PATCH', `/users/${getUserId()}`, { password })
+            if(status==='success'){
+                window.location.reload()
+            }else{
+                console.error(message, data);
+            }
+        }
+    }
+
   return (
     <main>
         <section className="box-section profile-box-section general-section">
@@ -50,6 +63,10 @@ const Profile = () => {
                 <p><i>{user.email}</i></p>
                 <p><i>{user.phone}</i></p>
                 <p><i>{user.semester} Semester ({user.batch})</i></p>
+            </div>
+            <div className="mt-2">
+                <InputField opt="m-0" placeholder="New password" name="password" type="password" value={password} onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setPassword(e.target.value)} text="" />
+                <button className="btn btn-accent-two btn-full" onClick={changePassword}>Change Password</button>
             </div>
         </section>
         <section className="box-section profile-box-section yourbook-section">
