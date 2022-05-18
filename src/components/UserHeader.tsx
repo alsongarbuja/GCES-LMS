@@ -12,9 +12,6 @@ const UserHeader = () => {
               <span className="company-name">GLMS</span>
           </div>
         </Link>
-        <span className="mode">
-          <FiMoon className="icons" />
-        </span>
     </header>
   )
 }
