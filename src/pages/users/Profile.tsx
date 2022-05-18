@@ -45,7 +45,7 @@ const Profile = () => {
                 <FiLogOut className="icons" onClick={logout} />
             </div>
             <div className='book-detail'>
-                <img src={`https://avatars.dicebear.com/api/big-ears-neutral/${user.name}.svg`} alt={`${user.name}`} />
+                <img src={`https://avatars.dicebear.com/api/initials/${user.name}.svg`} alt={`${user.name}`} />
                 <h4>{user.name}</h4>
                 <p><i>{user.email}</i></p>
                 <p><i>{user.phone}</i></p>

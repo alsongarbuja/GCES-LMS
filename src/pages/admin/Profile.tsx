@@ -11,7 +11,7 @@ const Profile = () => {
         <h2>Profile</h2>
         <div className='row'>
             <div className="wrapper profile-wrapper">
-                <img src={`https://avatars.dicebear.com/api/big-ears-neutral/${user.name}.svg`} alt={`${user.name}`} className='profile-image' />
+                <img src={`https://avatars.dicebear.com/api/initials/${user.name}.svg`} alt={`${user.name}`} className='profile-image' />
                 <h4>{user.name}</h4>
                 <p><i>{user.email}</i></p>
                 <p><i>{user.phone}</i></p>
