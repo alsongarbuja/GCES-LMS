@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { FiBell } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
+import { getUserName } from '../helper/cookies'
 import '../styles/layout/header.css'
 
 const AdminHeader = () => {
@@ -18,14 +19,13 @@ const AdminHeader = () => {
         </Link>
         <div className="utils flex">
             <FiBell className='icons' />
-            {/* <div className="profile"></div> */}
             <div
               className="profile"
               style={{ cursor: 'pointer' }}
               onClick={() => setDrop(true)}
             >
               <img 
-                src='https://monstar-lab.com/global/wp-content/uploads/sites/11/2019/04/male-placeholder-image.jpeg' 
+                src={`https://avatars.dicebear.com/api/initials/${getUserName()}.svg`} 
                 alt='profile' 
                 style={{
                     width: '30px',
