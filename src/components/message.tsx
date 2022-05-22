@@ -16,6 +16,7 @@ const Message = ({ message, type, duration=4000 }: {
         }, duration)
 
         return () => clearTimeout(closePop)
+    // eslint-disable-next-line
     }, [])
 
   return (
