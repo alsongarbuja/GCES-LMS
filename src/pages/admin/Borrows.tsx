@@ -20,7 +20,6 @@ const Borrows = () => {
         const { data, status, message } = await universalAPI('GET', '/category')
         if(status === 'success'){
             const levels = data.map((c: { _id: string, name: string }) => ({ value: c.name, option: c.name }))
-            console.log(levels);
             
             setCategories([
                 {
@@ -52,6 +51,18 @@ const Borrows = () => {
     const checkInBook = async (uniqueId: string, userId: string, borrowId: string) => {
         if(window.confirm('Sure book has unique id '+uniqueId)){
             const { status, message } = await universalAPI('DELETE', `/borrow/${borrowId}/${userId}`)
+
+            if(status==='success'){
+                window.location.reload()
+            }else{
+                console.error(message);
+            }
+        }
+    }
+    
+    const extendBook = async (userId: string, borrowId: string) => {
+        if(window.confirm('Sure extend the borrow?')){
+            const { status, message } = await universalAPI('POST', `/borrow/${borrowId}/${userId}`)
 
             if(status==='success'){
                 window.location.reload()
@@ -124,7 +135,7 @@ const Borrows = () => {
                             </td>
                             <td className="action-col">
                                 <button className="btn btn-success" onClick={()=>checkInBook(borrow.uniqueId, borrow.userId, borrow._id)}>Check In</button>
-                                <button className="btn btn-accent">Extend</button>
+                                <button className="btn btn-accent" onClick={()=>extendBook(borrow.userId, borrow._id)}>Extend</button>
                             </td>
                         </tr>
                     ))
