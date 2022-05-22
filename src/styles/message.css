@@ -1,0 +1,9 @@
+.message-pop {
+    padding: 1em 2em;
+    border-radius: 10px;
+    min-width: 200px;
+    color: var(--clr-light);
+    position: fixed;
+    top: 100px;
+    transition: all 0.5s ease-in-out;
+}
