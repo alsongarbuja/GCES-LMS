@@ -165,17 +165,17 @@ const Dashboard = () => {
         <h2>Dashboard</h2>
         <div className="dashboard-card--holder flex flex-start">
           <DashboardCard
-            total={dashInfo?.totalBooks||""}
+            total={dashInfo?.totalBooks||0}
             title="Total Books"
             icon={<FiBook className="icons" />}
           />
           <DashboardCard
-            total={dashInfo?.totalBorrows||""}
-            title="Total Borrows"
+            total={dashInfo?.totalBorrows||0}
+            title="Current Borrows"
             icon={<FiFile className="icons" />}
           />
           <DashboardCard
-            total={dashInfo?.totalStudents||""}
+            total={dashInfo?.totalStudents||0}
             title="Total Students"
             icon={<FiUsers className="icons" />}
           />

@@ -1,7 +1,7 @@
 import '../../styles/admin/card.css'
 
 const DashboardCard = ({ total, title, icon }: {
-    total: string,
+    total: string | number,
     title: string,
     icon: JSX.Element
 }) => {
