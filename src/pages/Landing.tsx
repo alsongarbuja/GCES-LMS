@@ -1,8 +1,25 @@
-import { Link } from "react-router-dom"
+import { useEffect } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import { getUserData } from "../helper/cookies"
 import UserLayout from "../layouts/UserLayout"
 import '../styles/landing.css'
 
 const Landing = () => {
+
+    const navigate = useNavigate()
+    useEffect(() => {
+        const user = getUserData()
+    
+        if(user){
+            if(user?.role === "SYSTEM_ADMIN") {
+                navigate('/admin/dashboard')
+            }else{
+                navigate('/user/explore')
+            }
+        }
+      // eslint-disable-next-line
+      }, [])
+
   return (
     <UserLayout>
         <main className="main-landing">

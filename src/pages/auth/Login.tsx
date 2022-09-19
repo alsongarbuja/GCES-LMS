@@ -1,8 +1,8 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { universalAPI } from "../../api/api"
 import {InputField, SubmitButton} from "../../components/form/Fields"
-import { setUserData } from "../../helper/cookies"
+import { getUserData, setUserData } from "../../helper/cookies"
 import UserLayout from "../../layouts/UserLayout"
 import '../../styles/form/authform.css'
 
@@ -82,6 +82,21 @@ const Login = () => {
         }))
       }
   }
+
+  useEffect(() => {
+    const user = getUserData()
+
+    if(user){
+      if(!from){
+        if(user?.role === "SYSTEM_ADMIN") {
+          navigate('/admin/dashboard')
+        }else{
+          navigate('/user/explore')
+        }
+      }
+    }
+  // eslint-disable-next-line
+  }, [])
 
   return (
     <UserLayout>
