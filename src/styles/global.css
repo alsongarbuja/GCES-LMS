@@ -125,6 +125,9 @@ a {
 .justify-space-between{
   justify-content: space-between;
 }
+.justify-start {
+  justify-content: start;
+}
 .flex-start { justify-content: start; align-items: start; }
 .row {
 	display: grid;
@@ -197,3 +200,4 @@ a {
 .p-0 { padding: 0; }
 .m-0{ margin: 0; }
 .text-center { text-align: center; }
+.cursor-pointer { cursor: pointer; }
