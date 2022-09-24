@@ -96,8 +96,8 @@ const UserCreate = () => {
             </div>
             <div className="col-6">
                 <InputField name="email" value={user.email} text="Email" type="email" onChange={handleChange} />
-                <InputField name="phonenumber" value={user.phone} text="Phone number" onChange={handleChange} required={false} />
-                <InputField name="reg" value={user.regNo} text="Registration Number" onChange={handleChange} required={false} />
+                <InputField name="phone" value={user.phone} text="Phone number" onChange={handleChange} required={false} />
+                <InputField name="regNo" value={user.regNo} text="Registration Number" onChange={handleChange} required={false} />
             </div>
         </div>
     </FormLayout>
