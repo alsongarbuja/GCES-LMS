@@ -18,3 +18,10 @@
 .queue-list button {
     margin-inline: .5em;
 }
+.seed-btn {
+    padding: .5em;
+    border: none;
+    background-color: var(--clr-danger);
+    color: var(--clr-light);
+    margin-inline-end: 1em;
+}

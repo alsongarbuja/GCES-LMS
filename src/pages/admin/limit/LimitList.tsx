@@ -27,7 +27,7 @@ const LimitList = () => {
     <main>
         <div className="flex justify-space-between">
             <h2>Limits</h2>
-            <Link to={'add'}><button className="btn btn-success">Create</button></Link>
+            {/* <Link to={'add'}><button className="btn btn-success">Create</button></Link> */}
         </div>
         <TableLayout theads={['SN', 'Limit', 'Level']} >
             <tbody>

@@ -42,6 +42,7 @@ export interface LimitModel {
 export interface CategoryModel {
     _id?: string,
     name: string,
+    level: string,
 }
 export interface OptionCategoryModel {
     value: string,
@@ -130,4 +131,7 @@ export interface DashBoardInfo {
     totalBorrows: string,
     totalBooks: string,
     totalStudents: string,
+    hasFine: boolean,
+    hasSemesters: boolean,
+    hasLimits: boolean,
 }

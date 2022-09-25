@@ -58,7 +58,7 @@ const Settings = () => {
             </div>
         </div>
         {
-            openMessage&&<Message message={message} openMessage={openMessage} type="success" />
+            openMessage&&<Message message={message} openMessage={openMessage} type="success" callBack={()=>setOpenMessage(false)} />
         }
     </main>
   )

@@ -22,6 +22,7 @@ const Login = () => {
     hasError: false,
     message: '',
   })
+  const [btnLoading, setButtonLoading] = useState(false)
 
   /**
    * 
@@ -39,7 +40,13 @@ const Login = () => {
   const submitHandle = async (e: React.FormEvent) => {
     e.preventDefault()
 
+    setButtonLoading(true)
+
+
       const { data, status, message } = await universalAPI('POST', '/auth/login', user)
+
+    setButtonLoading(false)
+
 
       if(status === 'success'){
         const {user, tokens} = data;
@@ -110,7 +117,7 @@ const Login = () => {
             <InputField name="password" text="Password" type="password" onChange={handleChange}
               error={error}
             />
-            <SubmitButton text="Log in" />
+            <SubmitButton text="Log in" isLoading={btnLoading} />
           </form>
           <p><Link to={'/auth/register'}>Don't have account? Register</Link></p>
           <p><Link to={'/auth/forgot-password'}>Forgot Password?</Link></p>

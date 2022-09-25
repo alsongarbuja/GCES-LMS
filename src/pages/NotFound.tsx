@@ -6,7 +6,7 @@ const NotFound = () => {
     const navigate = useNavigate()
 
   return (
-    <main className='flex justify-space-between'>
+    <main className='notfound-main flex justify-space-evenly'>
         <img src="/book.png" alt="page not found illustration" />
         <div>
             <h1>404</h1>

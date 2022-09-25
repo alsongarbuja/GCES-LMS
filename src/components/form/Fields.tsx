@@ -10,7 +10,10 @@ export const InputField = ({
     value = undefined, 
     required=true,
     opt='',
-    error={ hasError: false, message: '' }
+    error={ hasError: false, message: '' },
+    success={ hasSuccess: false, message: '' },
+    checked=false,
+    isInline=false,
 }: {
     name: string,
     type?: string,
@@ -23,20 +26,37 @@ export const InputField = ({
     error?: {
         hasError: boolean,
         message: string
-    }
+    },
+    success?: {
+        hasSuccess: boolean,
+        message: string
+    },
+    checked?: boolean,
+    isInline?: boolean,
 }) => {
     return(
         <div className={`form-group ${opt}`}>
-            <label>{text}</label>
-            <input className={`${error.hasError&&'input-error'}`} type={type} name={name} placeholder={placeholder} onChange={onChange} value={value} required={required}/>
+            <label style={{ display: isInline?'inline':'block' }}>{text}</label>
+            <input 
+                checked={checked} 
+                className={`${error.hasError&&'input-error'}`} 
+                type={type} 
+                name={name} 
+                placeholder={placeholder} 
+                onChange={onChange} 
+                value={value} 
+                required={required}
+                style={{ width: isInline?'':'100%' }}
+            />
             {error.hasError&&<p className="text-danger">{error.message}</p>}
+            {success.hasSuccess&&<p className="text-success">{success.message}</p>}
         </div>
     )
 }
 
-export const SubmitButton = ({text}: {text: string}) => {
+export const SubmitButton = ({text, isLoading}: {text: string, isLoading: boolean}) => {
     return(
-        <button type="submit" className="btn submit-btn btn-accent">{text}</button>
+        <button disabled={isLoading} type="submit" className="btn submit-btn btn-accent">{text}</button>
     )
 }
 

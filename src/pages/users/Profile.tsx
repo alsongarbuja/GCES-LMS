@@ -19,6 +19,8 @@ const Profile = () => {
         queues: []
     })
     const [password, setPassword] = useState('')
+    const [fine, setFine] = useState('XX')
+    const [showFine, setShowFine] = useState(false)
 
     const getUserBooks = async () => {
         const { data, status, message } = await universalAPI('GET', `/users/mybooks/${getUserId()}`)
@@ -50,6 +52,21 @@ const Profile = () => {
         }
     }
 
+    const handleFineCheck = async () => {
+        if(!showFine) {
+            const { data, status, message } = await universalAPI('GET', `/users/${getUserId()}/fine`)
+            if(status==='success'){
+                setFine(data.fine)
+                setShowFine(true)
+            }else{
+                console.error(message);
+            }
+        }else{
+            setFine('XX')
+            setShowFine(false)
+        }
+    }
+
   return (
     <main>
         <section className="box-section profile-box-section general-section">
@@ -62,7 +79,15 @@ const Profile = () => {
                 <h4>{user.name}</h4>
                 <p><i>{user.email}</i></p>
                 <p><i>{user.phone}</i></p>
-                <p><i>{user.semester} Semester ({user.batch})</i></p>
+                <p><i>{user.semester} ({user.batch})</i></p>
+                <p>
+                    <button onClick={handleFineCheck} style={{ marginRight: '1em' }}>
+                        {
+                            showFine ? 'Hide' : 'Fine'
+                        }
+                    </button>
+                    <i>Rs. {fine}</i>
+                </p>
             </div>
             <div className="mt-2">
                 <InputField opt="m-0" placeholder="New password" name="password" type="password" value={password} onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setPassword(e.target.value)} text="" />

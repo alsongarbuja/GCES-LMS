@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { universalAPI } from "../../../api/api"
-import { InputField } from "../../../components/form/Fields"
+import { InputField, Select } from "../../../components/form/Fields"
 import FormLayout from "../../../layouts/crud/FormLayout"
 
 const CategoryEdit = () => {
@@ -11,6 +11,7 @@ const CategoryEdit = () => {
 
   const [category, setCategory] = useState({
     name: "",
+    level:"",
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setCategory(prev => ({...prev, [e.target.name]: e.target.value}))
@@ -35,6 +36,7 @@ const CategoryEdit = () => {
       setCategory(prev => ({
         ...prev,
         name: data.name,
+        level: data.level, 
       }))
     }else{
       console.error(message);
@@ -47,8 +49,11 @@ const CategoryEdit = () => {
 
   return (
     <FormLayout title="Edit Category" submitHandler={handleSubmit} isEdit>
-        <div className="form-row">
-            <InputField name="name" text="Category Name" onChange={handleChange} value={category.name}/>
+        <div className="form-row row">
+          <InputField opt="col-6" name="name" text="Category Name" onChange={handleChange} value={category.name}/>
+          <Select opt="col-6" name="level" text="Level" value={category.level} onChange={handleChange} 
+            options={[{ value: 'Bachelor', option: 'Bachelor' }, { value: 'Master', option: 'Master' }]}
+          />
         </div>
     </FormLayout>
   )

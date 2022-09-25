@@ -160,6 +160,33 @@ const Dashboard = () => {
     setFilteredRequests(requests.filter(r => pattern.test(r.book.name)))
   }
 
+  const seedSemester = async () => {
+    const { status, message } = await universalAPI('GET', '/seeds/semesters')
+    if(status==='success'){
+      window.location.reload();
+    }else{
+      console.error(message);
+    }
+  }
+
+  const seedFine = async () => {
+    const { status, message } = await universalAPI('GET', '/seeds/fine')
+    if(status==='success'){
+      window.location.reload();
+    }else{
+      console.error(message);
+    }
+  }
+
+  const seedLimit = async () => {
+    const { status, message } = await universalAPI('GET', '/seeds/limits')
+    if(status==='success'){
+      window.location.reload();
+    }else{
+      console.error(message);
+    }
+  }
+
   return (
     <main>
         <h2>Dashboard</h2>
@@ -179,6 +206,17 @@ const Dashboard = () => {
             title="Total Students"
             icon={<FiUsers className="icons" />}
           />
+        </div>
+        <div className="dashboard-card--holder">
+          {
+            !dashInfo?.hasSemesters && <button className="seed-btn" onClick={seedSemester}>Seed Semester</button>
+          }
+          {
+            !dashInfo?.hasLimits && <button className="seed-btn" onClick={seedLimit}>Seed Limit</button>
+          }
+          {
+            !dashInfo?.hasFine && <button className="seed-btn" onClick={seedFine}>Seed Fine</button>
+          }
         </div>
         <div className="flex justify-space-between">
           <div className="tab-selector flex flex-start">

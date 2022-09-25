@@ -15,21 +15,43 @@ const ResetPassword = () => {
     password: '',
     confirmPassword: '',
   })
+  const [error, setError] = useState({
+    hasError: false,
+    message: '',
+  })
+  const [btnLoading, setButtonLoading] = useState(false)
   
   const handleResetPassword = async (e: React.FormEvent) => {
     e.preventDefault()
 
+    setButtonLoading(true)
+
     if(pass.password === pass.confirmPassword){
-      const { status } = await universalAPI('POST', `/auth/reset-password?token=${query.get('token')}`, {password: pass.password});
+      const { message, status } = await universalAPI('POST', `/auth/reset-password?token=${query.get('token')}`, {password: pass.password});
 
       if(status === 'success'){
         navigate('/auth/login');
       }else{
-        alert('Reset link expired');
+        if(message){
+          setError({
+            hasError: true,
+            message: message,
+          })
+        }else{
+          setError({
+            hasError: true,
+            message: 'Reset link has expired',
+          })
+        }
       }
     }else{
-      alert('Password not matched');
+      setError({
+        hasError: true,
+        message: 'Passwords do not match',
+      })
     }
+
+    setButtonLoading(false)
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setPass(prev => ({...prev, [e.target.name]: e.target.value}))
@@ -40,9 +62,13 @@ const ResetPassword = () => {
         <div className="auth-form">
           <h2>Type New Password</h2>
           <form onSubmit={handleResetPassword}>
-            <InputField name="password" text="Password" type="password" onChange={handleChange}/>
-            <InputField name="confirmPassword" text="Confirm Password" type="password" onChange={handleChange}/>
-            <SubmitButton text="Set new password" />
+            <InputField name="password" text="Password" type="password" onChange={handleChange}
+              error={error}
+            />
+            <InputField name="confirmPassword" text="Confirm Password" type="password" onChange={handleChange}
+              error={error}
+            />
+            <SubmitButton text="Set new password" isLoading={btnLoading} />
           </form>
           <p><Link to={'/auth/login'}>Cancel</Link></p>
         </div>

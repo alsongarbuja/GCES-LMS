@@ -25,9 +25,9 @@ const CategoryList = () => {
     <main>
         <div className="flex justify-space-between">
             <h2>Categories</h2>
-            <Link to={'add'}><button className="btn btn-success">Create</button></Link>
+            {/* <Link to={'add'}><button className="btn btn-success">Create</button></Link> */}
         </div>
-        <TableLayout theads={['SN', 'Name']} >
+        <TableLayout theads={['SN', 'Name', 'Level']} >
             <tbody>
                 {   
                     categories.map((category, i) => (
@@ -35,6 +35,7 @@ const CategoryList = () => {
                         <tr key={i}>
                             <th>{i+1}</th>
                             <td>{category.name}</td>
+                            <td>{category.level}</td>
                             <td className="action-col">
                                 <button className="btn btn-danger" onClick={() => deleteObj('category', `/category/${category._id}`)} >Delete</button>
                                 <Link to={`edit/${category._id}`}><button className="btn btn-accent">Edit</button></Link>

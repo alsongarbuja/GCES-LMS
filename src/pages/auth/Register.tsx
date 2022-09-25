@@ -29,7 +29,9 @@ const Register = () => {
     message: '',
   })
 
+  const [level, setLevel] = useState('Bachelor')
   const [semesters, setSemesters] = useState([])
+  const [btnLoading, setButtonLoading] = useState(false)
 
   /** 
    * 
@@ -46,6 +48,8 @@ const Register = () => {
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault()
 
+    setButtonLoading(true)
+
     // check if the passwords match
     if(user.password===user.confirmPassword){
       // check if the email is provided by GCES or not
@@ -58,7 +62,8 @@ const Register = () => {
           regNo: user.regNo,
           phone: user.phone,
           password: user.password,
-          faculty: user.faculty
+          faculty: user.faculty,
+          level: level,
         }
 
         // call API for registering user
@@ -89,6 +94,8 @@ const Register = () => {
       }))
       setUser(prev => ({ ...prev, password: '', confirmPassword: '' }))
     }    
+
+    setButtonLoading(false)
   }
 
   // select options for fauclty
@@ -100,7 +107,7 @@ const Register = () => {
   const fetchSemesters = async () => {
     const { data, status, message } = await universalAPI('GET', '/category')
     if(status==='success'){
-      setSemesters(data.map((s: { _id: string, name: string }) => ({ value: s.name, option: s.name })))
+      setSemesters(data.map((s: { _id: string, name: string, level: string }) => ({ value: s.name, option: s.name, level: s.level })))
     }else{
       console.error(message);
     }
@@ -128,22 +135,25 @@ const Register = () => {
               <InputField opt="col-6" name="batch" text="Batch" onChange={handleChange} value={user.batch} 
                 error={{ hasError: error.errorType==='batch', message: error.message }}
               />
-              <Select opt="col-6" name="semester" text="Semester" onChange={handleChange} value={user.semester} options={semesters} />
+              <InputField opt="col-6" name="regNo" text="Registration Number" onChange={handleChange} value={user.regNo} 
+                error={{ hasError: error.errorType==='regNo', message: error.message }}
+              />
             </div>
             <div className="row">
               <InputField opt="col-6" name="phone" text="Phone number" onChange={handleChange} value={user.phone} 
                 error={{ hasError: error.errorType==='phone', message: error.message }}
               />
-              <InputField opt="col-6" name="regNo" text="Registration Number" onChange={handleChange} value={user.regNo} 
-                error={{ hasError: error.errorType==='regNo', message: error.message }}
-              />
+              <Select opt="col-6" name="faculty" text="Faculty" options={facultyOptions} value={user.faculty} onChange={handleChange} />
             </div>
-            <Select name="faculty" text="Faculty" options={facultyOptions} value={user.faculty} onChange={handleChange} />
+            <div className="row">
+              <Select opt="col-6" name="level" text="Bachelor" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLevel(e.target.value)} options={[{ value: 'Bachelor', option: 'Bachelor' }, { value: 'Master', option: 'Master' },]} value={level} />
+              <Select opt="col-6" name="semester" text="Semester" onChange={handleChange} value={user.semester} options={semesters.filter((sm: { level: string }) => sm.level === level)} />
+            </div>
             <div className="row">
               <InputField opt="col-6" name="password" text="Password" type="password" onChange={handleChange} value={user.password} error={{hasError: error.errorType==='password', message: error.message}} />
               <InputField opt="col-6" name="confirmPassword" text="Confirm Password" type="password" onChange={handleChange}value={user.confirmPassword} error={{hasError: error.errorType==='password', message: error.message}} />
             </div>
-            <SubmitButton text="Register" />
+            <SubmitButton text="Register" isLoading={btnLoading} />
           </form>
           <p><Link to={'/auth/login'}>Already have account? Login</Link></p>
           <p><Link to={'/auth/forgot-password'}>Forgot Password?</Link></p>
