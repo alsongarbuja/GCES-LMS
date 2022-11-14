@@ -1,0 +1,11 @@
+.notification-modal {
+    padding: .5em 2em;
+    background-color: var(--clr-success);
+    color: white;
+    border-radius: 10px;
+    position: fixed;
+    top: 90px;
+    z-index: 10;
+    transition: all .5s ease-in-out;
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.43);
+}
