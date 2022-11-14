@@ -29,7 +29,7 @@ const Register = () => {
     message: '',
   })
 
-  const [level, setLevel] = useState('Bachelor')
+  const [level, setLevel] = useState('Bachelors')
   const [semesters, setSemesters] = useState([])
   const [btnLoading, setButtonLoading] = useState(false)
 
@@ -107,6 +107,8 @@ const Register = () => {
   const fetchSemesters = async () => {
     const { data, status, message } = await universalAPI('GET', '/category')
     if(status==='success'){
+      console.log(data);
+      
       setSemesters(data.map((s: { _id: string, name: string, level: string }) => ({ value: s.name, option: s.name, level: s.level })))
     }else{
       console.error(message);
@@ -146,7 +148,7 @@ const Register = () => {
               <Select opt="col-6" name="faculty" text="Faculty" options={facultyOptions} value={user.faculty} onChange={handleChange} />
             </div>
             <div className="row">
-              <Select opt="col-6" name="level" text="Bachelor" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLevel(e.target.value)} options={[{ value: 'Bachelor', option: 'Bachelor' }, { value: 'Master', option: 'Master' },]} value={level} />
+              <Select opt="col-6" name="level" text="Bachelors" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLevel(e.target.value)} options={[{ value: 'Bachelors', option: 'Bachelors' }, { value: 'Masters', option: 'Masters' },]} value={level} />
               <Select opt="col-6" name="semester" text="Semester" onChange={handleChange} value={user.semester} options={semesters.filter((sm: { level: string }) => sm.level === level)} />
             </div>
             <div className="row">
