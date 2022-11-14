@@ -209,13 +209,13 @@ const Dashboard = () => {
         </div>
         <div className="dashboard-card--holder">
           {
+            !dashInfo?.hasFine && <button className="seed-btn" onClick={seedFine}>Seed Fine</button>
+          }
+          {
             !dashInfo?.hasSemesters && <button className="seed-btn" onClick={seedSemester}>Seed Semester</button>
           }
           {
             !dashInfo?.hasLimits && <button className="seed-btn" onClick={seedLimit}>Seed Limit</button>
-          }
-          {
-            !dashInfo?.hasFine && <button className="seed-btn" onClick={seedFine}>Seed Fine</button>
           }
         </div>
         <div className="flex justify-space-between">

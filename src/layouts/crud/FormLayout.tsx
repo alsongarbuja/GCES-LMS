@@ -19,7 +19,7 @@ const FormLayout = ({children, title, submitHandler, isEdit = false}: {
                 {children}
             </form>
             <div className="form-footer">
-                <button className="btn btn-dark" onClick={()=>navigate(-1)}>Cancel</button>
+                <button className="btn btn-dark" onClick={()=>navigate(-1)}>Go Back</button>
                 <button className="btn btn-success" type="submit" form='form'>{isEdit?'Edit':'Create'}</button>
             </div>
         </div>

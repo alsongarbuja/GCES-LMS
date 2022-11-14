@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { universalAPI } from '../../../api/api';
 import { InputField, Select } from '../../../components/form/Fields'
 import FormLayout from '../../../layouts/crud/FormLayout'
+import { useNotificationContext } from '../../../providers/NotificationProvider';
 
 const bookType = [
     {
@@ -50,6 +51,7 @@ const BookCreate = () => {
         book_copies: [],
     })
     const [categories, setCategories] = useState([])
+    const [, setMessages] = useNotificationContext()
 
     const fetchCategories = async () => {
         const { data, status, message } = await universalAPI('GET', '/category')
@@ -129,7 +131,7 @@ const BookCreate = () => {
 
         if(status==='success'){
             console.log(data);
-            
+            setMessages(prev => [...prev, 'Book created successfully'])
             setBook({
                 title: '',
                 secondary_title: '',
