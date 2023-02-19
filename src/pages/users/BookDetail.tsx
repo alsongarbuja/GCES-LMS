@@ -92,7 +92,7 @@ const BookDetail = () => {
               <h3>{book?.title}</h3>
               <p><b>Author - </b>{book?.author}</p>
               <p><b>Available copies - {(book?.quantity||0)-(book?.borrowed_quantity||0)}</b></p>
-              <p><b>Semester - </b> <i>{book?.category}</i> </p>
+              <p><b>Semester - </b> <i>{ typeof book?.semester === 'object' ? book?.semester?.name : '-' }</i> </p>
               <p><b>Edition - </b><i>{book?.edition}</i></p>
               <p><b>Publisher - </b>{book?.publisher}</p>
               <p><b>Queue -</b> <span className="text-large accent-light">{book?.in_queue.length}</span></p>

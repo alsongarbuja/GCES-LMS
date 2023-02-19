@@ -30,8 +30,8 @@ interface BookObject {
     Barcode_number?: string,
     year: string,
     type: 'text-book' | 'reference' | 'others',
-    category?: string,
-    book_copies: any[],
+    semester?: string,
+    book_copies: string[],
 }
 
 const BookCreate = () => {
@@ -47,16 +47,16 @@ const BookCreate = () => {
         Barcode_number: '',
         year: '',
         type: 'text-book',
-        category: '',
+        semester: '',
         book_copies: [],
     })
-    const [categories, setCategories] = useState([])
+    const [semesters, setSemesters] = useState([])
     const [, setMessages] = useNotificationContext()
 
     const fetchCategories = async () => {
-        const { data, status, message } = await universalAPI('GET', '/category')
+        const { data, status, message } = await universalAPI('GET', '/semesters')
         if(status === 'success'){
-            setCategories(data.map((c: { _id: string, name: string}) => ({value: c.name, option: c.name})))
+            setSemesters(data.map((c: { _id: string, name: string}) => ({value: c._id, option: c.name})))
         }else{
             console.error(message);
         }
@@ -87,7 +87,7 @@ const BookCreate = () => {
             quantity: book.quantity,
             year: book.year,
             type: book.type,
-            book_copies: book.book_copies.map(bc => ({ bookId: bc })),
+            book_copies: book.book_copies,
         }
 
         if(book.secondary_title!==''){
@@ -120,10 +120,10 @@ const BookCreate = () => {
                 edition: book.edition,
             }
         }
-        if(book.category!==''){
+        if(book.semester!==''){
             toSendBook ={
                 ...toSendBook,
-                category: book.category,
+                semester: book.semester,
             }
         }
 
@@ -143,7 +143,7 @@ const BookCreate = () => {
                 Barcode_number: '',
                 year: '',
                 type: 'text-book',
-                category: '',
+                semester: '',
                 book_copies: [],
             })
         }else{
@@ -171,7 +171,7 @@ const BookCreate = () => {
                 <InputField value={book.Barcode_number} name="Barcode_number" text="Barcode Number" required={false} onChange={handleChange} />
                 <InputField value={book.year} name="year" text="Year" type="number" onChange={handleChange} />
                 <Select value={book.type} name="type" text="Type" options={bookType} onChange={handleChange} />
-                <Select value={book.category||''} name="category" text="Semester" options={categories} onChange={handleChange} required={!(book.type==='others')} />
+                <Select value={book.semester||''} name="semester" text="Semester" options={semesters} onChange={handleChange} required={!(book.type==='others')} />
                 <div className="row m-0">
                     {
                         Array(parseInt(book.quantity)||0).fill(0).map((_, i) => (

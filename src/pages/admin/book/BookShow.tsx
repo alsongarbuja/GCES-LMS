@@ -15,6 +15,8 @@ const BookShow = () => {
 
         if(status === 'success'){
             setBook(data)
+            console.log(data);
+            
         }else{
             console.error(message);
         }
@@ -57,7 +59,7 @@ const BookShow = () => {
                 <p>
                     <b>Total Copies : </b> {book?.quantity} [
                         {
-                            book?.book_copies.map(copy => `${copy.bookId} , `)
+                            book?.book_copies.map(copy => `${copy}`).join("--")
                         }
                     ]
                 </p>
@@ -65,7 +67,10 @@ const BookShow = () => {
                     <b>Type : </b> {book?.type}
                 </p>
                 <p>
-                    <b>Semeseter : </b> {book?.category || '-'}
+                    <b>Semeseter : </b> 
+                    {
+                        typeof book?.semester === 'object' ? book?.semester?.name : '-'
+                    }
                 </p>
                 <p>
                     <b>Queue : </b> <span className="text-success text-large">{book?.in_queue?.length || 'none'}</span>

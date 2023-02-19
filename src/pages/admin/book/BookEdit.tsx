@@ -27,7 +27,11 @@ interface BookObject {
     Barcode_number?: string,
     year: string,
     type: 'text-book' | 'reference' | 'others',
-    category?: string,
+    semester?: string | {
+        _id: string,
+        name: string,
+        level: string,
+    },
     book_copies: any[],
 }
 
@@ -45,15 +49,15 @@ const BookEdit = () => {
         Barcode_number: '',
         year: '',
         type: 'text-book',
-        category: '',
+        semester: '',
         book_copies: [],
     })
-    const [categories, setCategories] = useState([])
+    const [semesters, setSemesters] = useState([])
 
     const fetchCategories = async () => {
-        const { data, status, message } = await universalAPI('GET', '/category')
+        const { data, status, message } = await universalAPI('GET', '/semesters')
         if(status === 'success'){
-            setCategories(data.map((c: { _id: string, name: string}) => ({value: c.name, option: c.name})))
+            setSemesters(data.map((c: { _id: string, name: string}) => ({value: c._id, option: c.name})))
         }else{
             console.error(message);
         }
@@ -70,13 +74,13 @@ const BookEdit = () => {
                 quantity: data.quantity,
                 year: data.year,
                 type: data.type,
-                category: data.category,
+                semester: data.semester,
                 secondary_title: data?.secondary_title,
                 publisher: data?.publisher,
                 edition: data?.edition,
                 ISBN_number: data?.ISBN_number,
                 Barcode_number: data?.Barcode_number,
-                book_copies: data.book_copies.map((bc: { bookId: string, in_queue: [] }) => bc.bookId)
+                book_copies: data.book_copies,
             }))
         }else{
             console.error(message);
@@ -108,7 +112,7 @@ const BookEdit = () => {
             quantity: book.quantity,
             year: book.year,
             type: book.type,
-            book_copies: book.book_copies.map(bc => ({ bookId: bc })),
+            book_copies: book.book_copies,
         }
 
         if(book.secondary_title!==''){
@@ -141,10 +145,10 @@ const BookEdit = () => {
                 edition: book.edition,
             }
         }
-        if(book.category!==''){
+        if(typeof book.semester === 'object'){
             toSendBook ={
                 ...toSendBook,
-                category: book.category,
+                semester: book.semester?._id,
             }
         }
 
@@ -179,7 +183,7 @@ const BookEdit = () => {
                 <InputField value={book.Barcode_number} name="Barcode_number" text="Barcode Number" required={false} onChange={handleChange} />
                 <InputField value={book.year} name="year" text="Year" type="number" onChange={handleChange} />
                 <Select value={book.type} name="type" text="Type" options={bookType} onChange={handleChange} />
-                <Select value={book.category||'1st semester'} name="category" text="Semester" options={categories} onChange={handleChange} required={!(book.type==='others')} />
+                <Select value={typeof book.semester==='object'?book.semester?._id:'1st semester'} name="semester" text="Semester" options={semesters} onChange={handleChange} required={!(book.type==='others')} />
                 <div className="row m-0">
                     {
                         Array(parseInt(book.quantity)||0).fill(0).map((_, i) => (
