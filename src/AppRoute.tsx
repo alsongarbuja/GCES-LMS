@@ -12,9 +12,9 @@ import BookDetail from './pages/users/BookDetail'
 import Explore from './pages/users/Explore'
 import Profile from './pages/users/Profile'
 import Borrows from './pages/admin/Borrows'
-import CategoryList from './pages/admin/category/CategoryList'
-import CategoryCreate from './pages/admin/category/CategoryCreate'
-import CategoryEdit from './pages/admin/category/CategoryEdit'
+import SemesterList from './pages/admin/semeter/SemesterList'
+import SemesterCreate from './pages/admin/semeter/SemesterCreate'
+import SemesterEdit from './pages/admin/semeter/SemesterEdit'
 import LimitCreate from './pages/admin/limit/LimitCreate'
 import LimitList from './pages/admin/limit/LimitList'
 import LimitEdit from './pages/admin/limit/LimitEdit'
@@ -37,6 +37,8 @@ import FineList from './pages/admin/fine/FineList'
 import FineEdit from './pages/admin/fine/FineEdit'
 import FineShow from './pages/admin/fine/FineShow'
 import FineCreate from './pages/admin/fine/FineCreate'
+import LevelList from './pages/admin/level/LevelList'
+import LevelEdit from './pages/admin/level/LevelEdit'
 
 const AppRoute = () => {
   return (
@@ -92,24 +94,36 @@ const AdminRoutes = () => {
         <Route path="/settings" element={<Settings />} />
         <Route path="/profile" element={<AdminProfile />} />
         <Route path="/borrows" element={<Borrows />} />
-        <Route path="/categories/*" element={<CategoryRoutes />} />
+        <Route path="/semesters/*" element={<SemesterRoutes />} />
         <Route path="/limit/*" element={<LimitRoutes />} />
         <Route path="/books/*" element={<BookRoutes />} />
         <Route path="/users/*" element={<UsersRoutes />} />
         <Route path="/fine/*" element={<FineRoutes />} />
+        <Route path="/levels/*" element={<LevelRoutes />} />
 
         <Route path="*" element={<NotFound/>} />
       </Routes>
     </AdminLayout>
   )
 }
-const CategoryRoutes = () => {
+const SemesterRoutes = () => {
   return(
     <Routes>
-      <Route path='/' element={<CategoryList />}/>
-      <Route path='/add' element={<CategoryCreate />}/>
-      <Route path='/edit/:categoryId' element={<CategoryEdit />}/>
+      <Route path='/' element={<SemesterList />}/>
+      <Route path='/add' element={<SemesterCreate />}/>
+      <Route path='/edit/:semesterId' element={<SemesterEdit />}/>
 
+      <Route path="*" element={<NotFound/>} />
+    </Routes>
+  )
+}
+const LevelRoutes = () => {
+  return(
+    <Routes>
+      <Route path='/' element={<LevelList />}/>
+      {/* <Route path='/add' element={<FineCreate />}/> */}
+      <Route path='/edit/:levelId' element={<LevelEdit />}/>
+      {/* <Route path='/show/:fineId' element={<FineShow />}/> */}
       <Route path="*" element={<NotFound/>} />
     </Routes>
   )

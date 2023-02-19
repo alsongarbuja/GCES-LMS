@@ -1,4 +1,5 @@
 import { FiAlertCircle, FiBook, FiBookmark, FiDollarSign, FiLayers, FiLayout, FiSliders, FiUsers } from 'react-icons/fi'
+import { GiLevelEndFlag } from 'react-icons/gi';
 
 export const sidemenus = [
     {
@@ -18,8 +19,13 @@ export const sidemenus = [
     },
     {
         id: '4',
-        route: '/admin/categories',
+        route: '/admin/semesters',
         icon: <FiLayers className="icons" />
+    },
+    {
+        id: '55',
+        route: '/admin/levels',
+        icon: <GiLevelEndFlag className="icons" />
     },
     {
         id: '5',
