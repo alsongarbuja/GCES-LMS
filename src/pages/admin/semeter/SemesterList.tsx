@@ -3,42 +3,41 @@ import { Link } from "react-router-dom"
 import { universalAPI } from "../../../api/api"
 import { deleteObj } from "../../../helper/delete"
 import TableLayout from "../../../layouts/crud/TableLayout"
-import { CategoryModel } from "../../../types/models"
+import { SemesterModel } from "../../../types/models"
 
-const CategoryList = () => {
+const SemesterList = () => {
 
-    const [categories, setCategories] = useState<CategoryModel[]>([])
-    const fetchCategories = async () => {
-        const { data, status, message } = await universalAPI('GET', '/category')
+    const [semesters, setSemesters] = useState<SemesterModel[]>([])
+    const fetchSemesters = async () => {
+        const { data, status, message } = await universalAPI('GET', '/semesters')
         if(status === 'success'){
-            setCategories(data)
+            setSemesters(data)
         }else{
             console.error(message);
         }
     }
 
     useEffect(() => {
-        fetchCategories()
+        fetchSemesters()
     }, [])
 
   return (
     <main>
         <div className="flex justify-space-between">
-            <h2>Categories</h2>
+            <h2>Semesters</h2>
             {/* <Link to={'add'}><button className="btn btn-success">Create</button></Link> */}
         </div>
         <TableLayout theads={['SN', 'Name', 'Level']} >
             <tbody>
                 {   
-                    categories.map((category, i) => (
-
+                    semesters.map((semester, i) => (
                         <tr key={i}>
                             <th>{i+1}</th>
-                            <td>{category.name}</td>
-                            <td>{category.level}</td>
+                            <td>{semester.name}</td>
+                            <td>{typeof semester.level === 'string' ? semester.level : semester.level?.level}</td>
                             <td className="action-col">
-                                <button className="btn btn-danger" onClick={() => deleteObj('category', `/category/${category._id}`)} >Delete</button>
-                                <Link to={`edit/${category._id}`}><button className="btn btn-accent">Edit</button></Link>
+                                <button className="btn btn-danger" onClick={() => deleteObj('semester', `/semesters/${semester._id}`)} >Delete</button>
+                                <Link to={`edit/${semester._id}`}><button className="btn btn-accent">Edit</button></Link>
                             </td>
                         </tr>
                     ))
@@ -49,4 +48,4 @@ const CategoryList = () => {
   )
 }
 
-export default CategoryList
+export default SemesterList
