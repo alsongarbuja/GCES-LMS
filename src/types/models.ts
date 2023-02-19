@@ -6,15 +6,12 @@ export interface BookModel {
     Barcode_number?: string,
     quantity: number,
     borrowed_quantity: number,
-    book_copies: {
-        bookId: string,
-        in_queue: {
-            name: string,
-            level: string,
-            queue_ticket_number: number,
-        }[],
-    }[],
-    category: string,
+    book_copies: string[],
+    semester: string | {
+        _id: string,
+        name: string,
+        level: string,
+    },
     type: 'reference' | 'text-book' | 'others',
     author: string,
     publisher: string,
@@ -33,16 +30,24 @@ export interface LimitModel {
     _id?: string,
     quantity: number,
     level: string,
+    type?: 'reference' | 'text-book' | 'others' | 'total',
     sub_quantity: {
         quantity:number,
         type: 'reference' | 'text-book' | 'others',
     }[]
 }
 
-export interface CategoryModel {
+export interface SemesterModel {
     _id?: string,
     name: string,
-    level: string,
+    level: string | {
+        _id: string,
+        level: string,
+        limit: [],
+        fine: number,
+        isFineActive: boolean,
+        turnedOffDate: Date,
+    },
 }
 export interface OptionCategoryModel {
     value: string,
@@ -80,6 +85,18 @@ export interface SingleQueueModel {
     userId: string,
 }
 
+interface limit {
+    quantity: number,
+    type: 'reference' | 'text-book' | 'others' | 'total',
+}
+export interface LevelModel {
+    _id?: string,
+    level: string,
+    limit: limit[],
+    fine: number,
+    isFineActive?: boolean,
+    turnedOffDate?: Date,
+}
 export interface FineModel {
     _id?: string,
     fine: number,

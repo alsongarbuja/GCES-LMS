@@ -26,9 +26,9 @@ const Explore = () => {
         }
     }
     const fetchCategories = async () => {
-        const { data, status, message } = await universalAPI('GET', '/category')
+        const { data, status, message } = await universalAPI('GET', '/semesters')
         if(status==='success'){
-            setCategories(data.map((c: { name: string }) => ({ value: c.name, option: c.name })))
+            setCategories(data.map((c: { name: string, _id: string }) => ({ value: c._id, option: c.name })))
         }else{
             console.error(message);
         }
@@ -124,7 +124,7 @@ const Explore = () => {
                         <div className='book-list'>
                             <ul>
                                 {
-                                    books.filter(book => (book.type==='text-book'&&book?.category===category))
+                                    books.filter(book => (book.type==='text-book'&&book?.semester===category))
                                         .map(b => (
                                             <Link to={`/user/detail/${b._id}`} key={b._id}>
                                                 <li className='single-book'>
@@ -147,7 +147,7 @@ const Explore = () => {
                         <div className='book-list'>
                             <ul>
                                 {
-                                    books.filter(book => (book.type==='reference'&&book?.category===category))
+                                    books.filter(book => (book.type==='reference'&&book?.semester===category))
                                         .map(b => (
                                             <Link to={`/user/detail/${b._id}`} key={b._id}>
                                                 <li className='single-book'>
