@@ -36,7 +36,7 @@ const Landing = () => {
                 </i>
             </p>
             <div className="auth-btn--holder">
-                <Link to="/auth/login"><button className="btn btn-accent btn-auth">LOGIN</button></Link>
+                <Link to="/auth/login"><button className="btn btn-accent btn-auth mb-1">LOGIN</button></Link>
                 <Link to="/auth/register"><button className="btn btn-border btn-auth">REGISTER</button></Link>
             </div>
         </main>
