@@ -15,9 +15,6 @@ import Borrows from './pages/admin/Borrows'
 import SemesterList from './pages/admin/semeter/SemesterList'
 import SemesterCreate from './pages/admin/semeter/SemesterCreate'
 import SemesterEdit from './pages/admin/semeter/SemesterEdit'
-import LimitCreate from './pages/admin/limit/LimitCreate'
-import LimitList from './pages/admin/limit/LimitList'
-import LimitEdit from './pages/admin/limit/LimitEdit'
 import BookList from './pages/admin/book/BookList'
 import BookCreate from './pages/admin/book/BookCreate'
 import BookEdit from './pages/admin/book/BookEdit'
@@ -28,15 +25,10 @@ import UserEdit from './pages/admin/user/UserEdit'
 import UserShow from './pages/admin/user/UserShow'
 import Landing from './pages/Landing'
 import Credit from './pages/Credit'
-import LimitShow from './pages/admin/limit/LimitShow'
 import NotFound from './pages/NotFound'
 import RouteAuth from './providers/RouteAuth'
 import Unauthorized from './pages/Unauthorized'
 import Auth from './providers/Auth'
-import FineList from './pages/admin/fine/FineList'
-import FineEdit from './pages/admin/fine/FineEdit'
-import FineShow from './pages/admin/fine/FineShow'
-import FineCreate from './pages/admin/fine/FineCreate'
 import LevelList from './pages/admin/level/LevelList'
 import LevelEdit from './pages/admin/level/LevelEdit'
 
@@ -95,10 +87,8 @@ const AdminRoutes = () => {
         <Route path="/profile" element={<AdminProfile />} />
         <Route path="/borrows" element={<Borrows />} />
         <Route path="/semesters/*" element={<SemesterRoutes />} />
-        <Route path="/limit/*" element={<LimitRoutes />} />
         <Route path="/books/*" element={<BookRoutes />} />
         <Route path="/users/*" element={<UsersRoutes />} />
-        <Route path="/fine/*" element={<FineRoutes />} />
         <Route path="/levels/*" element={<LevelRoutes />} />
 
         <Route path="*" element={<NotFound/>} />
@@ -128,18 +118,6 @@ const LevelRoutes = () => {
     </Routes>
   )
 }
-const LimitRoutes = () => {
-  return(
-    <Routes>
-      <Route path='/' element={<LimitList />}/>
-      <Route path='/add' element={<LimitCreate />}/>
-      <Route path='/edit/:limitId' element={<LimitEdit />}/>
-      <Route path='/show/:limitId' element={<LimitShow />}/>
-
-      <Route path="*" element={<NotFound/>} />
-    </Routes>
-  )
-}
 const BookRoutes = () => {
   return (
     <Routes>
@@ -161,18 +139,6 @@ const UsersRoutes = () => {
       <Route path='/show/:userId' element={<UserShow />}/>
 
         <Route path="*" element={<NotFound/>} />
-    </Routes>
-  )
-}
-const FineRoutes = () => {
-  return(
-    <Routes>
-      <Route path='/' element={<FineList />}/>
-      <Route path='/add' element={<FineCreate />}/>
-      <Route path='/edit/:fineId' element={<FineEdit />}/>
-      <Route path='/show/:fineId' element={<FineShow />}/>
-
-      <Route path="*" element={<NotFound/>} />
     </Routes>
   )
 }
