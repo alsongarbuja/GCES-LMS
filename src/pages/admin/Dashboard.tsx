@@ -19,7 +19,7 @@ const Dashboard = () => {
   const [isSelectedTabRequest, setIsSelectedTabRequest] = useState(true)
 
   const fetchRequests = async () => {
-    const { data, status, message } = await universalAPI('GET', '/request')
+    const { data, status, message } = await universalAPI('GET', '/requests')
     if(status==='success'){
       setRequests(data)
       setFilteredRequests(data)
@@ -169,24 +169,6 @@ const Dashboard = () => {
     }
   }
 
-  const seedFine = async () => {
-    const { status, message } = await universalAPI('GET', '/seeds/fine')
-    if(status==='success'){
-      window.location.reload();
-    }else{
-      console.error(message);
-    }
-  }
-
-  const seedLimit = async () => {
-    const { status, message } = await universalAPI('GET', '/seeds/limits')
-    if(status==='success'){
-      window.location.reload();
-    }else{
-      console.error(message);
-    }
-  }
-
   return (
     <main>
         <h2>Dashboard</h2>
@@ -209,13 +191,7 @@ const Dashboard = () => {
         </div>
         <div className="dashboard-card--holder">
           {
-            !dashInfo?.hasFine && <button className="seed-btn" onClick={seedFine}>Seed Fine</button>
-          }
-          {
             !dashInfo?.hasSemesters && <button className="seed-btn" onClick={seedSemester}>Seed Semester</button>
-          }
-          {
-            !dashInfo?.hasLimits && <button className="seed-btn" onClick={seedLimit}>Seed Limit</button>
           }
         </div>
         <div className="flex justify-space-between">

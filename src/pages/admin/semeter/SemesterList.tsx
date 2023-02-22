@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { universalAPI } from "../../../api/api"
-import { deleteObj } from "../../../helper/delete"
 import TableLayout from "../../../layouts/crud/TableLayout"
 import { SemesterModel } from "../../../types/models"
 
@@ -36,7 +35,6 @@ const SemesterList = () => {
                             <td>{semester.name}</td>
                             <td>{typeof semester.level === 'string' ? semester.level : semester.level?.level}</td>
                             <td className="action-col">
-                                <button className="btn btn-danger" onClick={() => deleteObj('semester', `/semesters/${semester._id}`)} >Delete</button>
                                 <Link to={`edit/${semester._id}`}><button className="btn btn-accent">Edit</button></Link>
                             </td>
                         </tr>
