@@ -24,7 +24,6 @@ import UserCreate from './pages/admin/user/UserCreate'
 import UserEdit from './pages/admin/user/UserEdit'
 import UserShow from './pages/admin/user/UserShow'
 import Landing from './pages/Landing'
-import Credit from './pages/Credit'
 import NotFound from './pages/NotFound'
 import RouteAuth from './providers/RouteAuth'
 import Unauthorized from './pages/Unauthorized'
@@ -37,7 +36,6 @@ const AppRoute = () => {
     <Routes>
       <Route path="/" element={<RouteAuth />}>
         <Route path="/" element={<Landing />}/>
-        <Route path="credit" element={<Credit />}/>
         <Route path="unauthorized" element={<Unauthorized />} />
         <Route path="auth/*" element={<AuthRoutes/>} />
 
