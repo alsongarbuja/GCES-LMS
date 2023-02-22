@@ -65,19 +65,21 @@ const Dashboard = () => {
   const checkOutRequest = async (request: RequestModel) => {
     const bookUniqueId = window.prompt('Unique Id of the book')
     if(bookUniqueId!==null){
-      const borrowData = {
-        bookId: request.book.bookId,
-        bookName: request.book.name,
-        bookType: request.book.bookType,
-        authorName: request.book.authorName,
-        uniqueId: bookUniqueId,
-      }
+      if(typeof request.bookId === "object") {
+        const borrowData = {
+          bookId: request.bookId,
+          bookName: request.bookId.title,
+          bookType: request.bookId.type,
+          authorName: request.bookId.author,
+          uniqueId: bookUniqueId,
+        }
 
-      const { status, message } = await universalAPI('POST', `/borrow/${request._id}`, borrowData)
-      if(status==='success'){
-        window.location.reload()
-      }else{
-        console.error(message);
+        const { status, message } = await universalAPI('POST', `/borrow/${request._id}`, borrowData)
+        if(status==='success'){
+          window.location.reload()
+        }else{
+          console.error(message);
+        }
       }
     }
   }
@@ -157,7 +159,7 @@ const Dashboard = () => {
     const pattern = new RegExp(e.target.value, 'i')
 
     setFilteredQueues(queues.filter(q => pattern.test(q.book.title)))
-    setFilteredRequests(requests.filter(r => pattern.test(r.book.name)))
+    setFilteredRequests(requests.filter(r => pattern.test(typeof r.bookId === 'object' ? r.bookId.title : '')))
   }
 
   const seedSemester = async () => {
@@ -209,8 +211,8 @@ const Dashboard = () => {
                   fileteredRequests.map((request, i) => (
                     <tr key={request._id}>
                       <th>{i+1}</th>
-                      <td>{request.user.name}</td>
-                      <td>{request.book.name}</td>
+                      <td>{typeof request.userId === 'object' ? request.userId.name : ''}</td>
+                      <td>{typeof request.bookId === 'object' ? request.bookId.title : ''}</td>
                       <td>{moment(request.createdAt).fromNow()}</td>
                       <td className="action-col">
                           {
@@ -220,7 +222,7 @@ const Dashboard = () => {
                               <button className="btn btn-success" onClick={()=>checkOutRequest(request)}>Check Out</button>
                             )
                           }
-                          <button className="btn btn-danger" onClick={()=>cancelRequest(request._id, request.book)}>{request.status==='open'?'Reject':'Cancel'}</button>
+                          <button className="btn btn-danger" onClick={()=>cancelRequest(request._id, request.bookId)}>{request.status==='open'?'Reject':'Cancel'}</button>
                       </td>
                     </tr>
                   ))

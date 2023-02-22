@@ -56,17 +56,8 @@ export interface OptionCategoryModel {
 
 export interface RequestModel {
     _id: string,
-    book: {
-        bookId: string,
-        name: string,
-        authorName: string,
-        bookType: string,
-    },
-    user: {
-        userId: string,
-        name: string,
-        level: string,
-    },
+    bookId: string | BookModel,
+    userId: string | UserModel,
     request_type: 'new request' | 'renew request',
     status?: 'open' | 'verified' | 'cancelled',
     cancelled_reason?: string,

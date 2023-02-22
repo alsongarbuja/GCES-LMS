@@ -19,7 +19,6 @@ const Profile = () => {
         queues: []
     })
     const [password, setPassword] = useState('')
-    const [fine, setFine] = useState('XX')
     const [showFine, setShowFine] = useState(false)
 
     const getUserBooks = async () => {
@@ -52,19 +51,8 @@ const Profile = () => {
         }
     }
 
-    const handleFineCheck = async () => {
-        if(!showFine) {
-            const { data, status, message } = await universalAPI('GET', `/users/${getUserId()}/fine`)
-            if(status==='success'){
-                setFine(data.fine)
-                setShowFine(true)
-            }else{
-                console.error(message);
-            }
-        }else{
-            setFine('XX')
-            setShowFine(false)
-        }
+    const handleFineCheck = () => {
+        setShowFine(prev => !prev)
     }
 
   return (
@@ -86,7 +74,7 @@ const Profile = () => {
                             showFine ? 'Hide' : 'Fine'
                         }
                     </button>
-                    <i>Rs. {fine}</i>
+                    <i>Rs. {showFine ? user.totalFine : 'XXX'}</i>
                 </p>
             </div>
             <div className="mt-2">
@@ -100,12 +88,12 @@ const Profile = () => {
                 <hr className='hr' />
             </div>
             <div className='book-list'>
-                <p><u>Text books ({bookList.borrowed.filter(b => b.bookType==='text-book').length})</u></p>
+                <p><u>Text books ({bookList.borrowed.filter(b => b.bookId.type==='text-book').length})</u></p>
                 <ul>
                 {
-                        bookList.borrowed.filter(b => b.bookType==='text-book').map(book => (
+                        bookList.borrowed.filter(b => b.bookId.type==='text-book').map(book => (
                             <li className='single-books' key={Math.random()}>
-                                <p><b>{book.bookName}</b> - {book.authorName}</p>
+                                <p><b>{book.bookId.title}</b> - {book.bookId.author}</p>
                                 <i className='accent-light'>
                                     (  
                                     <b>
@@ -116,12 +104,12 @@ const Profile = () => {
                         ))
                     }
                 </ul>
-                <p><u>Reference books ({bookList.borrowed.filter(b => b.bookType==='reference').length})</u></p>
+                <p><u>Reference books ({bookList.borrowed.filter(b => b.bookId.type==='reference').length})</u></p>
                 <ul>
                 {
-                        bookList.borrowed.filter(b => b.bookType==='reference').map(book => (
+                        bookList.borrowed.filter(b => b.bookId.type==='reference').map(book => (
                             <li className='single-books' key={Math.random()}>
-                                <p><b>{book.bookName}</b> - {book.authorName}</p>
+                                <p><b>{book.bookId.title}</b> - {book.bookId.author}</p>
                                 <i className='accent-light'>
                                     (  
                                     <b>
@@ -132,12 +120,12 @@ const Profile = () => {
                         ))
                     }
                 </ul>
-                <p><u>Others books ({bookList.borrowed.filter(b => b.bookType==='others').length})</u></p>
+                <p><u>Others books ({bookList.borrowed.filter(b => b.bookId.type==='others').length})</u></p>
                 <ul>
                 {
-                        bookList.borrowed.filter(b => b.bookType==='others').map(book => (
+                        bookList.borrowed.filter(b => b.bookId.type==='others').map(book => (
                             <li className='single-books' key={Math.random()}>
-                                <p><b>{book.bookName}</b> - {book.authorName}</p>
+                                <p><b>{book.bookId.title}</b> - {book.bookId.author}</p>
                                 <i className='accent-light'>
                                     (  
                                     <b>
@@ -157,17 +145,17 @@ const Profile = () => {
                 <hr className="hr" />
             </div>
             <div className='book-list'>
-                <p><u>Textbooks ({bookList.requested.filter(b => b.book.bookType==='text-book').length})</u></p>
+                <p><u>Textbooks ({bookList.requested.filter(b => b.bookId.type==='text-book').length})</u></p>
                 <ul>
                     {
-                        bookList.requested.filter(b => b.book.bookType==='text-book').map(book => (
+                        bookList.requested.filter(b => b.bookId.type==='text-book').map(book => (
                             <li className='single-books' key={Math.random()}>
-                                <p><b>{book.book.name}</b> - {book.book.authorName}</p>
+                                <p><b>{book.bookId.title}</b> - {book.bookId.author}</p>
                                 <i>  
                                     <b>{moment(book.createdAt).fromNow()}</b> - 
                                     <b className={`${book.status==='cancelled'?'text-danger':'text-success'}`}>(
                                         {
-                                            book.status==='open'?'to be accepted':
+                                            book.status==='open'?'Not Verified':
                                                 book.status==='verified'?'can visit':'cancelled'
                                         }
                                     )</b>
@@ -182,17 +170,17 @@ const Profile = () => {
                         ))
                     }
                 </ul>
-                <p><u>Reference books ({bookList.requested.filter(b => b.book.bookType==='reference').length})</u></p>
+                <p><u>Reference books ({bookList.requested.filter(b => b.bookId.type==='reference').length})</u></p>
                 <ul>
                     {
-                        bookList.requested.filter(b => b.book.bookType==='reference').map(book => (
+                        bookList.requested.filter(b => b.bookId.type==='reference').map(book => (
                             <li className='single-books' key={Math.random()}>
-                                <p><b>{book.book.name}</b> - {book.book.authorName}</p>
+                                <p><b>{book.bookId.title}</b> - {book.bookId.author}</p>
                                 <i>  
                                     <b>{moment(book.createdAt).fromNow()}</b> - 
                                     <b className={`${book.status==='cancelled'?'text-danger':'text-success'}`}>(
                                         {
-                                            book.status==='open'?'to be accepted':
+                                            book.status==='open'?'Not verified':
                                                 book.status==='verified'?'can visit':'cancelled'
                                         }
                                     )</b>
@@ -207,17 +195,17 @@ const Profile = () => {
                         ))
                     }
                 </ul>
-                <p><u>Other books ({bookList.requested.filter(b => b.book.bookType==='others').length})</u></p>
+                <p><u>Other books ({bookList.requested.filter(b => b.bookId.type==='others').length})</u></p>
                 <ul>
                     {
-                        bookList.requested.filter(b => b.book.bookType==='others').map(book => (
+                        bookList.requested.filter(b => b.bookId.type==='others').map(book => (
                             <li className='single-books' key={Math.random()}>
-                                <p><b>{book.book.name}</b> - {book.book.authorName}</p>
+                                <p><b>{book.bookId.title}</b> - {book.bookId.author}</p>
                                 <i>  
                                     <b>{moment(book.createdAt).fromNow()}</b> - 
                                     <b className={`${book.status==='cancelled'?'text-danger':'text-success'}`}>(
                                         {
-                                            book.status==='open'?'to be accepted':
+                                            book.status==='open'?'Not verified':
                                                 book.status==='verified'?'can visit':'cancelled'
                                         }
                                     )</b>

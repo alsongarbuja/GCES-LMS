@@ -61,6 +61,7 @@ const Login = () => {
           faculty: user.faculty,
           accessToken: tokens.access.token,
           role: user.role,
+          totalFine: user.totalFine,
         }
         // add userData to cookies
         setUserData(userData);

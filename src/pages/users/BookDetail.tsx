@@ -35,20 +35,11 @@ const BookDetail = () => {
 
     const sendRequest = async () => {
       const request = {
-        book: {
-          bookId: book?._id,
-          name: book?.title,
-          authorName: book?.author,
-          bookType: book?.type,
-        },
-        user: {
-          userId: getUserId(),
-          name: getUserName(),
-          level: getUserLevel(),
-        },
+        bookId: book?._id,
+        userId: getUserId(),
         request_type: 'new request'
       }
-      const { status, message } = await universalAPI('POST', '/request', request)
+      const { status, message } = await universalAPI('POST', '/requests', request)
 
       if(status==='success'){
         navigate('/user/profile')
@@ -75,7 +66,7 @@ const BookDetail = () => {
     }
 
     const checkQueue = (book: BookModel|undefined) => {
-      if(((book?.borrowed_quantity||0)===(book?.quantity||0))||(book?.in_queue.length||0)){
+      if(((book?.borrowed_quantity||0)===(book?.quantity||0))){
         return true
       }
       return false
@@ -95,7 +86,7 @@ const BookDetail = () => {
               <p><b>Semester - </b> <i>{ typeof book?.semester === 'object' ? book?.semester?.name : '-' }</i> </p>
               <p><b>Edition - </b><i>{book?.edition}</i></p>
               <p><b>Publisher - </b>{book?.publisher}</p>
-              <p><b>Queue -</b> <span className="text-large accent-light">{book?.in_queue.length}</span></p>
+              {/* <p><b>Queue -</b> <span className="text-large accent-light">{book?.in_queue.length}</span></p> */}
               {
                 check.check?(
                   <>
